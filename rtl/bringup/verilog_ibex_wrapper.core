@@ -1,0 +1,30 @@
+CAPI=2:
+
+name: "local:safety_riscv:verilog_ibex_wrapper:0.1"
+
+description: "Verilog wrapper integration test for Ibex"
+
+filesets:
+  rtl:
+    depend:
+      - lowrisc:ibex:ibex_top
+    files:
+      - verilog_ibex_wrapper.v
+    file_type: verilogSource
+
+targets:
+  default:
+    filesets:
+      - rtl
+    toplevel: verilog_ibex_wrapper
+
+  lint:
+    default_tool: verilator
+    filesets:
+      - rtl
+    toplevel: verilog_ibex_wrapper
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "-Wall"

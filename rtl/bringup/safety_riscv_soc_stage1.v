@@ -1,0 +1,221 @@
+module safety_riscv_soc_stage1 (
+    input clk_i,
+    input rst_ni
+);
+
+  // --------------------------------------------------------------------------
+  // Ibex instruction interface
+  // --------------------------------------------------------------------------
+
+  wire        instr_req;
+  wire        instr_gnt;
+  wire        instr_rvalid;
+  wire [31:0] instr_addr;
+  wire [31:0] instr_rdata;
+  wire        instr_err;
+
+  // --------------------------------------------------------------------------
+  // Ibex data interface
+  // --------------------------------------------------------------------------
+
+  wire        data_req;
+  wire        data_gnt;
+  wire        data_rvalid;
+  wire        data_we;
+  wire [3:0]  data_be;
+  wire [31:0] data_addr;
+  wire [31:0] data_wdata;
+  wire [31:0] data_rdata;
+  wire        data_err;
+
+  // --------------------------------------------------------------------------
+  // RAM address mapping
+  //
+  // Ibex boots at 0x0010_0000.
+  // Stage-1 RAM begins at offset 0x0000_0000.
+  // --------------------------------------------------------------------------
+
+  wire [31:0] ram_instr_addr;
+  wire [31:0] ram_data_addr;
+
+  assign ram_instr_addr = instr_addr - 32'h0010_0000;
+  assign ram_data_addr  = data_addr  - 32'h0010_0000;
+
+  // --------------------------------------------------------------------------
+  // Ibex CPU
+  // --------------------------------------------------------------------------
+
+  ibex_top #(
+      .DmBaseAddr      (32'h0010_0000),
+      .DmAddrMask      (32'h0000_0003),
+      .DmHaltAddr      (32'h0010_0000),
+      .DmExceptionAddr (32'h0010_0000)
+  ) u_ibex (
+      .clk_i                   (clk_i),
+      .rst_ni                  (rst_ni),
+
+      .test_en_i               (1'b0),
+
+      // I-Cache RAM configuration
+      .ram_cfg_icache_tag_i    (),
+      .ram_cfg_icache_tag_o    (),
+      .ram_cfg_icache_data_i   (),
+      .ram_cfg_icache_data_o   (),
+
+      // CHERIoT disabled
+      .cheriot_enable_i        (4'b1010),
+
+      // Fetch and performance counter access enabled
+      .fetch_enable_i          (4'b0101),
+      .mcounteren_writable_i   (4'b0101),
+
+      // Scan reset
+      .scan_rst_ni             (1'b1),
+
+      // Single hart
+      .hart_id_i               (32'b0),
+
+      // Boot address
+      .boot_addr_i             (32'h0010_0000),
+
+      .trvk_heap_base_addr_i   (32'b0),
+
+      // ----------------------------------------------------------------------
+      // Instruction interface
+      // ----------------------------------------------------------------------
+
+      .instr_req_o             (instr_req),
+      .instr_gnt_i             (instr_gnt),
+      .instr_rvalid_i          (instr_rvalid),
+      .instr_addr_o            (instr_addr),
+      .instr_rdata_i           (instr_rdata),
+      .instr_rdata_intg_i      (7'b0),
+      .instr_err_i             (instr_err),
+
+      // ----------------------------------------------------------------------
+      // Data interface
+      // ----------------------------------------------------------------------
+
+      .data_req_o              (data_req),
+      .data_gnt_i              (data_gnt),
+      .data_rvalid_i           (data_rvalid),
+      .data_we_o               (data_we),
+      .data_be_o               (data_be),
+      .data_addr_o             (data_addr),
+      .data_wdata_o            (data_wdata),
+      .data_wdata_intg_o       (),
+      .data_tag_o              (),
+      .data_rdata_i            (data_rdata),
+      .data_rdata_intg_i       (7'b0),
+      .data_tag_i              (1'b0),
+      .data_err_i              (data_err),
+
+      // ----------------------------------------------------------------------
+      // TRVK disabled
+      // ----------------------------------------------------------------------
+
+      .trvk_revbm_req_o        (),
+      .trvk_revbm_gnt_i        (1'b0),
+      .trvk_revbm_rvalid_i     (1'b0),
+      .trvk_revbm_addr_o       (),
+      .trvk_revbm_rdata_i      (32'b0),
+      .trvk_revbm_rdata_intg_i (7'b0),
+      .trvk_revbm_err_i        (1'b0),
+
+      // ----------------------------------------------------------------------
+      // Interrupts disabled
+      // ----------------------------------------------------------------------
+
+      .irq_software_i          (1'b0),
+      .irq_timer_i             (1'b0),
+      .irq_external_i          (1'b0),
+      .irq_fast_i              (15'b0),
+      .irq_nm_i                (1'b0),
+
+      // ----------------------------------------------------------------------
+      // Instruction scrambling disabled
+      // ----------------------------------------------------------------------
+
+      .scramble_key_valid_i    (1'b0),
+      .scramble_key_i          (),
+      .scramble_nonce_i        (),
+      .scramble_req_o          (),
+
+      // ----------------------------------------------------------------------
+      // Debug disabled
+      // ----------------------------------------------------------------------
+
+      .debug_req_i             (1'b0),
+
+      // ----------------------------------------------------------------------
+      // Diagnostic / safety outputs
+      // ----------------------------------------------------------------------
+
+      .crash_dump_o            (),
+      .double_fault_seen_o     (),
+      .alert_minor_o           (),
+      .alert_major_internal_o  (),
+      .alert_major_bus_o       (),
+      .core_sleep_o            (),
+
+      // Native Ibex lockstep interface not used in Stage 1
+      .lockstep_cmp_en_o       (),
+
+      // Shadow outputs not used in Stage 1
+      .data_req_shadow_o        (),
+      .data_we_shadow_o         (),
+      .data_be_shadow_o         (),
+      .data_addr_shadow_o       (),
+      .data_wdata_shadow_o      (),
+      .data_wdata_intg_shadow_o (),
+      .instr_req_shadow_o       (),
+      .instr_addr_shadow_o      ()
+  );
+
+  // --------------------------------------------------------------------------
+  // Dual-port RAM
+  //
+  // 262144 words x 4 bytes = 1 MiB
+  //
+  // Port A = data
+  // Port B = instruction
+  // --------------------------------------------------------------------------
+
+  ram_2p #(
+      .Depth       (262144),
+      .BExtraDelay (0),
+      .MemInitFile ("data/stage1_smoke.vmem")
+  ) u_ram (
+      .clk_i       (clk_i),
+      .rst_ni      (rst_ni),
+
+      // Port A: Data
+      .a_req_i     (data_req),
+      .a_we_i      (data_we),
+      .a_be_i      (data_be),
+      .a_addr_i    (ram_data_addr),
+      .a_wdata_i   (data_wdata),
+      .a_rvalid_o  (data_rvalid),
+      .a_rdata_o   (data_rdata),
+
+      // Port B: Instruction
+      .b_req_i     (instr_req),
+      .b_we_i      (1'b0),
+      .b_be_i      (4'b0000),
+      .b_addr_i    (ram_instr_addr),
+      .b_wdata_i   (32'b0),
+      .b_rvalid_o  (instr_rvalid),
+      .b_rdata_o   (instr_rdata)
+  );
+
+  // --------------------------------------------------------------------------
+  // Simple memory handshake
+  // --------------------------------------------------------------------------
+
+  assign instr_gnt = instr_req;
+  assign data_gnt  = data_req;
+
+  assign instr_err = 1'b0;
+  assign data_err  = 1'b0;
+
+endmodule

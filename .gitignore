@@ -1,0 +1,7 @@
+# FuseSoC / simulation build artifacts
+build/
+
+# Generated Verilator / Edalize files
+*.log
+*.vcd
+*.fst

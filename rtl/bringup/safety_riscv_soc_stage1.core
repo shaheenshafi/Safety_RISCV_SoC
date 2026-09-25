@@ -1,0 +1,64 @@
+CAPI=2:
+
+name: "local:safety_riscv:safety_riscv_soc_stage1:0.1"
+
+description: "Stage-1 safety RISC-V SoC: Ibex core with dual-port RAM"
+
+filesets:
+  rtl:
+    depend:
+      - lowrisc:ibex:ibex_top
+      - lowrisc:ibex:sim_shared
+    files:
+      - safety_riscv_soc_stage1.v
+    file_type: verilogSource
+
+  tb:
+    files:
+      - ../../tb/safety_riscv_soc_stage1_tb.sv
+    file_type: systemVerilogSource
+
+  firmware:
+    files:
+      - ../../data/stage1_smoke.vmem:
+          file_type: user
+          copyto: data/stage1_smoke.vmem
+
+  sim:
+    files:
+      - ../../sim/safety_riscv_soc_stage1_main.cpp
+    file_type: cppSource
+
+targets:
+  default:
+    filesets:
+      - rtl
+      - firmware
+      - tb
+    toplevel: safety_riscv_soc_stage1_tb
+
+  lint:
+    default_tool: verilator
+    filesets:
+      - rtl
+    toplevel: safety_riscv_soc_stage1
+    tools:
+      verilator:
+        mode: lint-only
+
+  sim:
+    default_tool: verilator
+    filesets:
+      - rtl
+      - firmware
+      - tb
+      - sim
+    toplevel: safety_riscv_soc_stage1_tb
+    tools:
+      verilator:
+        mode: cc
+        verilator_options:
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
