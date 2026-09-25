@@ -1,0 +1,49 @@
+CAPI=2:
+
+name: "local:safety_riscv:safety_riscv_soc_stage2:0.1"
+
+description: "Stage-2 redundant RISC-V SoC: two independent Stage-1 Ibex channels"
+
+filesets:
+  rtl:
+    depend:
+      - lowrisc:ibex:ibex_top
+      - lowrisc:ibex:sim_shared
+    files:
+      - safety_riscv_soc_stage1.v
+      - safety_riscv_soc_stage2.v
+    file_type: verilogSource
+
+  tb:
+    files:
+      - ../../tb/safety_riscv_soc_stage2_tb.sv
+    file_type: systemVerilogSource
+
+  firmware:
+    files:
+      - ../../data/stage1_smoke.vmem:
+          file_type: user
+          copyto: data/stage1_smoke.vmem
+
+  sim:
+    files:
+      - ../../sim/safety_riscv_soc_stage2_main.cpp
+    file_type: cppSource
+
+targets:
+  sim:
+    default_tool: verilator
+    filesets:
+      - rtl
+      - firmware
+      - tb
+      - sim
+    toplevel: safety_riscv_soc_stage2_tb
+    tools:
+      verilator:
+        mode: cc
+        verilator_options:
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
