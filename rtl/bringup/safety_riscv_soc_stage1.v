@@ -1,6 +1,21 @@
 module safety_riscv_soc_stage1 (
-    input clk_i,
-    input rst_ni
+    input  clk_i,
+    input  rst_ni,
+
+    // ------------------------------------------------------------------------
+    // Observable processor-output signals
+    //
+    // These signals are exposed for redundant-channel verification and the
+    // external DCLS safety mechanism. They do not alter the Stage-1 behavior.
+    // ------------------------------------------------------------------------
+    output wire        instr_req_o,
+    output wire [31:0] instr_addr_o,
+
+    output wire        data_req_o,
+    output wire        data_we_o,
+    output wire [3:0]  data_be_o,
+    output wire [31:0] data_addr_o,
+    output wire [31:0] data_wdata_o
 );
 
   // --------------------------------------------------------------------------
@@ -165,11 +180,11 @@ module safety_riscv_soc_stage1 (
       .data_req_shadow_o        (),
       .data_we_shadow_o         (),
       .data_be_shadow_o         (),
-      .data_addr_shadow_o       (),
-      .data_wdata_shadow_o      (),
-      .data_wdata_intg_shadow_o (),
-      .instr_req_shadow_o       (),
-      .instr_addr_shadow_o      ()
+      .data_addr_shadow_o        (),
+      .data_wdata_shadow_o       (),
+      .data_wdata_intg_shadow_o  (),
+      .instr_req_shadow_o        (),
+      .instr_addr_shadow_o       ()
   );
 
   // --------------------------------------------------------------------------
@@ -217,5 +232,21 @@ module safety_riscv_soc_stage1 (
 
   assign instr_err = 1'b0;
   assign data_err  = 1'b0;
+
+  // --------------------------------------------------------------------------
+  // External observation interface
+  //
+  // These are direct observations of the existing Ibex-generated signals.
+  // No functional behavior is changed.
+  // --------------------------------------------------------------------------
+
+  assign instr_req_o   = instr_req;
+  assign instr_addr_o  = instr_addr;
+
+  assign data_req_o    = data_req;
+  assign data_we_o     = data_we;
+  assign data_be_o     = data_be;
+  assign data_addr_o   = data_addr;
+  assign data_wdata_o  = data_wdata;
 
 endmodule

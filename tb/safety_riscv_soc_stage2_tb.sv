@@ -28,17 +28,17 @@ module safety_riscv_soc_stage2_tb;
   end
 
   safety_riscv_soc_stage2 dut (
-      .clk_i(clk),
-      .rst_ni(rst_ni)
+      .clk_i  (clk),
+      .rst_ni (rst_ni)
   );
 
   initial begin
-    core_a_pass        = 1'b0;
-    core_b_pass        = 1'b0;
-    cycles_checked     = 0;
+    core_a_pass          = 1'b0;
+    core_b_pass          = 1'b0;
+    cycles_checked       = 0;
     instruction_requests = 0;
-    data_writes        = 0;
-    mismatch_count     = 0;
+    data_writes          = 0;
+    mismatch_count       = 0;
   end
 
   always @(posedge clk) begin
@@ -46,12 +46,12 @@ module safety_riscv_soc_stage2_tb;
 
       cycles_checked = cycles_checked + 1;
 
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
       // Instruction-port equivalence
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
 
-      if (dut.core_a.u_ram.b_req_i !==
-          dut.core_b.u_ram.b_req_i) begin
+      if (dut.core_a_instr_req !==
+          dut.core_b_instr_req) begin
 
         mismatch_count = mismatch_count + 1;
 
@@ -59,22 +59,22 @@ module safety_riscv_soc_stage2_tb;
                  $time);
 
         $display("           Core A: req=%b addr=0x%08h",
-                 dut.core_a.u_ram.b_req_i,
-                 dut.core_a.u_ram.b_addr_i);
+                 dut.core_a_instr_req,
+                 dut.core_a_instr_addr);
 
         $display("           Core B: req=%b addr=0x%08h",
-                 dut.core_b.u_ram.b_req_i,
-                 dut.core_b.u_ram.b_addr_i);
+                 dut.core_b_instr_req,
+                 dut.core_b_instr_addr);
 
         $finish;
       end
 
-      if (dut.core_a.u_ram.b_req_i) begin
+      if (dut.core_a_instr_req) begin
 
         instruction_requests = instruction_requests + 1;
 
-        if (dut.core_a.u_ram.b_addr_i !==
-            dut.core_b.u_ram.b_addr_i) begin
+        if (dut.core_a_instr_addr !==
+            dut.core_b_instr_addr) begin
 
           mismatch_count = mismatch_count + 1;
 
@@ -82,21 +82,21 @@ module safety_riscv_soc_stage2_tb;
                    $time);
 
           $display("           Core A: addr=0x%08h",
-                   dut.core_a.u_ram.b_addr_i);
+                   dut.core_a_instr_addr);
 
           $display("           Core B: addr=0x%08h",
-                   dut.core_b.u_ram.b_addr_i);
+                   dut.core_b_instr_addr);
 
           $finish;
         end
       end
 
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
       // Data-port control equivalence
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
 
-      if (dut.core_a.u_ram.a_req_i !==
-          dut.core_b.u_ram.a_req_i) begin
+      if (dut.core_a_data_req !==
+          dut.core_b_data_req) begin
 
         mismatch_count = mismatch_count + 1;
 
@@ -104,18 +104,18 @@ module safety_riscv_soc_stage2_tb;
                  $time);
 
         $display("           Core A: req=%b",
-                 dut.core_a.u_ram.a_req_i);
+                 dut.core_a_data_req);
 
         $display("           Core B: req=%b",
-                 dut.core_b.u_ram.a_req_i);
+                 dut.core_b_data_req);
 
         $finish;
       end
 
-      if (dut.core_a.u_ram.a_req_i) begin
+      if (dut.core_a_data_req) begin
 
-        if (dut.core_a.u_ram.a_we_i !==
-            dut.core_b.u_ram.a_we_i) begin
+        if (dut.core_a_data_we !==
+            dut.core_b_data_we) begin
 
           mismatch_count = mismatch_count + 1;
 
@@ -125,8 +125,8 @@ module safety_riscv_soc_stage2_tb;
           $finish;
         end
 
-        if (dut.core_a.u_ram.a_be_i !==
-            dut.core_b.u_ram.a_be_i) begin
+        if (dut.core_a_data_be !==
+            dut.core_b_data_be) begin
 
           mismatch_count = mismatch_count + 1;
 
@@ -134,16 +134,16 @@ module safety_riscv_soc_stage2_tb;
                    $time);
 
           $display("           Core A: be=0x%01h",
-                   dut.core_a.u_ram.a_be_i);
+                   dut.core_a_data_be);
 
           $display("           Core B: be=0x%01h",
-                   dut.core_b.u_ram.a_be_i);
+                   dut.core_b_data_be);
 
           $finish;
         end
 
-        if (dut.core_a.u_ram.a_addr_i !==
-            dut.core_b.u_ram.a_addr_i) begin
+        if (dut.core_a_data_addr !==
+            dut.core_b_data_addr) begin
 
           mismatch_count = mismatch_count + 1;
 
@@ -151,17 +151,17 @@ module safety_riscv_soc_stage2_tb;
                    $time);
 
           $display("           Core A: addr=0x%08h",
-                   dut.core_a.u_ram.a_addr_i);
+                   dut.core_a_data_addr);
 
           $display("           Core B: addr=0x%08h",
-                   dut.core_b.u_ram.a_addr_i);
+                   dut.core_b_data_addr);
 
           $finish;
         end
 
-        if (dut.core_a.u_ram.a_we_i &&
-            (dut.core_a.u_ram.a_wdata_i !==
-             dut.core_b.u_ram.a_wdata_i)) begin
+        if (dut.core_a_data_we &&
+            (dut.core_a_data_wdata !==
+             dut.core_b_data_wdata)) begin
 
           mismatch_count = mismatch_count + 1;
 
@@ -169,26 +169,26 @@ module safety_riscv_soc_stage2_tb;
                    $time);
 
           $display("           Core A: data=0x%08h",
-                   dut.core_a.u_ram.a_wdata_i);
+                   dut.core_a_data_wdata);
 
           $display("           Core B: data=0x%08h",
-                   dut.core_b.u_ram.a_wdata_i);
+                   dut.core_b_data_wdata);
 
           $finish;
         end
 
-        if (dut.core_a.u_ram.a_we_i) begin
+        if (dut.core_a_data_we) begin
           data_writes = data_writes + 1;
         end
       end
 
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
       // Final expected-result checks
-      // ------------------------------------------------------------
+      // ----------------------------------------------------------------------
 
-      if (dut.core_a.u_ram.a_req_i &&
-          dut.core_a.u_ram.a_we_i &&
-          dut.core_a.u_ram.a_wdata_i == 32'd42 &&
+      if (dut.core_a_data_req &&
+          dut.core_a_data_we &&
+          dut.core_a_data_wdata == 32'd42 &&
           !core_a_pass) begin
 
         core_a_pass = 1'b1;
@@ -197,9 +197,9 @@ module safety_riscv_soc_stage2_tb;
                  $time);
       end
 
-      if (dut.core_b.u_ram.a_req_i &&
-          dut.core_b.u_ram.a_we_i &&
-          dut.core_b.u_ram.a_wdata_i == 32'd42 &&
+      if (dut.core_b_data_req &&
+          dut.core_b_data_we &&
+          dut.core_b_data_wdata == 32'd42 &&
           !core_b_pass) begin
 
         core_b_pass = 1'b1;
