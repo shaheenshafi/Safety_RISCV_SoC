@@ -5,3 +5,6 @@ build/
 *.log
 *.vcd
 *.fst
+
+# Direct Verilator standalone build artifacts
+obj_dir/
