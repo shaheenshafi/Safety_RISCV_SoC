@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "Vsafety_riscv_soc_stage3_tb.h"
 #include "verilated.h"
 
@@ -10,11 +9,9 @@ int main(int argc, char **argv) {
     Vsafety_riscv_soc_stage3_tb *top =
         new Vsafety_riscv_soc_stage3_tb{contextp};
 
-    const vluint64_t max_time = 200100;
+    const vluint64_t max_time = 500100;
 
-    while (!contextp->gotFinish() &&
-           contextp->time() < max_time) {
-
+    while (!contextp->gotFinish() && contextp->time() < max_time) {
         top->eval();
         contextp->timeInc(1);
     }

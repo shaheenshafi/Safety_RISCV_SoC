@@ -2,134 +2,195 @@
 
 module safety_riscv_soc_stage3_tb;
 
-  logic clk;
-  logic rst_ni;
-  logic dcls_enable_i;
+  localparam [1:0] TARGET_DATA_WDATA = 2'b00;
 
-  logic core_a_pass;
-  logic core_b_pass;
+  logic        clk;
+  logic        rst_ni;
+  logic        dcls_enable_i;
 
-  integer cycles_checked;
+  logic        fault_inject_enable_i;
+  logic [1:0]  fault_inject_target_i;
+  logic [31:0] fault_inject_mask_i;
+
+  wire         dcls_instr_mismatch_o;
+  wire         dcls_data_mismatch_o;
+  wire         dcls_mismatch_o;
+
+  integer phase;
+  integer normal_write_seen;
+  integer injected_write_seen;
+
+  // --------------------------------------------------------------------------
+  // Clock
+  // --------------------------------------------------------------------------
 
   initial begin
     clk = 1'b0;
     forever #5 clk = ~clk;
   end
 
-  initial begin
-    rst_ni      = 1'b0;
-    dcls_enable_i = 1'b0;
+  // --------------------------------------------------------------------------
+  // DUT
+  // --------------------------------------------------------------------------
 
+  safety_riscv_soc_stage3 dut (
+      .clk_i                   (clk),
+      .rst_ni                  (rst_ni),
+      .dcls_enable_i            (dcls_enable_i),
+
+      .fault_inject_enable_i   (fault_inject_enable_i),
+      .fault_inject_target_i   (fault_inject_target_i),
+      .fault_inject_mask_i     (fault_inject_mask_i),
+
+      .dcls_instr_mismatch_o   (dcls_instr_mismatch_o),
+      .dcls_data_mismatch_o    (dcls_data_mismatch_o),
+      .dcls_mismatch_o         (dcls_mismatch_o)
+  );
+
+  // --------------------------------------------------------------------------
+  // Test sequence
+  // --------------------------------------------------------------------------
+
+  initial begin
+    phase               = 1;
+    normal_write_seen   = 0;
+    injected_write_seen = 0;
+
+    rst_ni                 = 1'b0;
+    dcls_enable_i          = 1'b0;
+
+    fault_inject_enable_i  = 1'b0;
+    fault_inject_target_i  = TARGET_DATA_WDATA;
+    fault_inject_mask_i    = 32'h00000000;
+
+    // Initial reset.
     repeat (10) @(posedge clk);
 
     rst_ni        = 1'b1;
     dcls_enable_i = 1'b1;
 
-    $display("[%0t] Reset released", $time);
-    $display("[%0t] DCLS comparison enabled", $time);
+    $display("[%0t] Phase 1: normal redundant execution", $time);
+
+    // Wait for the first normal transaction to be verified.
+    wait (normal_write_seen == 1);
+
+    $display("[%0t] Phase 1 complete: resetting SoC for injected-fault run",
+             $time);
+
+    // ------------------------------------------------------------------------
+    // Phase 2 preparation
+    // ------------------------------------------------------------------------
+
+    phase = 2;
+
+    rst_ni                = 1'b0;
+    dcls_enable_i         = 1'b0;
+
+    fault_inject_enable_i = 1'b1;
+    fault_inject_target_i = TARGET_DATA_WDATA;
+    fault_inject_mask_i   = 32'h00000001;
+
+    // Reset before the second execution.
+    repeat (10) @(posedge clk);
+
+    rst_ni        = 1'b1;
+    dcls_enable_i = 1'b1;
+
+    $display("[%0t] Phase 2: DATA_WDATA fault injection enabled, mask = 0x%08x",
+             $time, fault_inject_mask_i);
+
+    // Wait for the injected transaction to be verified.
+    wait (injected_write_seen == 1);
+
+    $display("==============================================");
+    $display("STAGE3C END-TO-END FAULT INJECTION PASS");
+    $display("Normal transaction        : PASS");
+    $display("Injected transaction      : PASS");
+    $display("DCLS data mismatch        : DETECTED");
+    $display("DCLS overall mismatch     : DETECTED");
+    $display("==============================================");
+
+    $finish;
   end
 
-  safety_riscv_soc_stage3 dut (
-      .clk_i                   (clk),
-      .rst_ni                  (rst_ni),
-      .dcls_enable_i           (dcls_enable_i),
-
-      .dcls_instr_mismatch_o   (),
-      .dcls_data_mismatch_o    (),
-      .dcls_mismatch_o         ()
-  );
-
-  initial begin
-    core_a_pass    = 1'b0;
-    core_b_pass    = 1'b0;
-    cycles_checked = 0;
-  end
+  // --------------------------------------------------------------------------
+  // Self-checking monitor
+  // --------------------------------------------------------------------------
 
   always @(posedge clk) begin
-    if (rst_ni && dcls_enable_i) begin
 
-      cycles_checked = cycles_checked + 1;
+    if (rst_ni &&
+        dut.core_a_data_req &&
+        dut.core_a_data_we &&
+        dut.core_b_data_req &&
+        dut.core_b_data_we) begin
 
-      // ----------------------------------------------------------------------
-      // DCLS must remain clean during normal redundant execution.
-      // ----------------------------------------------------------------------
+      if (phase == 1) begin
 
-      if (dut.dcls_mismatch_o !== 1'b0) begin
-        $display("");
-        $display("STAGE3 FAIL: Unexpected DCLS mismatch");
-        $display("  instr_mismatch = %b",
-                 dut.dcls_instr_mismatch_o);
-        $display("  data_mismatch  = %b",
-                 dut.dcls_data_mismatch_o);
-        $display("  overall        = %b",
-                 dut.dcls_mismatch_o);
-        $finish;
+        $display("[%0t] NORMAL WRITE: A=0x%08x B=0x%08x B_cmp=0x%08x DCLS=%b",
+                 $time,
+                 dut.core_a_data_wdata,
+                 dut.core_b_data_wdata,
+                 dut.core_b_data_wdata_cmp,
+                 dcls_mismatch_o);
+
+        if ((dut.core_a_data_wdata == 32'd42) &&
+            (dut.core_b_data_wdata == 32'd42) &&
+            (dut.core_b_data_wdata_cmp == 32'd42) &&
+            !dcls_mismatch_o) begin
+
+          normal_write_seen = 1;
+
+          $display("[%0t] PHASE 1 PASS: normal redundant write verified",
+                   $time);
+
+        end
+        else begin
+
+          $display("[%0t] PHASE 1 FAIL", $time);
+          $finish;
+        end
       end
 
-      // ----------------------------------------------------------------------
-      // Verify that Core A still produces the expected result.
-      // ----------------------------------------------------------------------
+      else if (phase == 2) begin
 
-      if (dut.core_a.data_req_o &&
-          dut.core_a.data_we_o &&
-          dut.core_a.data_wdata_o == 32'd42 &&
-          !core_a_pass) begin
+        $display("[%0t] INJECTED WRITE: A=0x%08x B_actual=0x%08x B_cmp=0x%08x DCLS_DATA=%b DCLS=%b",
+                 $time,
+                 dut.core_a_data_wdata,
+                 dut.core_b_data_wdata,
+                 dut.core_b_data_wdata_cmp,
+                 dcls_data_mismatch_o,
+                 dcls_mismatch_o);
 
-        core_a_pass = 1'b1;
+        if ((dut.core_a_data_wdata == 32'd42) &&
+            (dut.core_b_data_wdata == 32'd42) &&
+            (dut.core_b_data_wdata_cmp == 32'd43) &&
+            dcls_data_mismatch_o &&
+            dcls_mismatch_o) begin
 
-        $display("[%0t] CORE A PASS: expected write value 42 observed",
-                 $time);
-      end
+          injected_write_seen = 1;
 
-      // ----------------------------------------------------------------------
-      // Verify that Core B still produces the expected result.
-      // ----------------------------------------------------------------------
+          $display("[%0t] PHASE 2 PASS: injected observation-path fault detected",
+                   $time);
 
-      if (dut.core_b.data_req_o &&
-          dut.core_b.data_we_o &&
-          dut.core_b.data_wdata_o == 32'd42 &&
-          !core_b_pass) begin
+        end
+        else begin
 
-        core_b_pass = 1'b1;
-
-        $display("[%0t] CORE B PASS: expected write value 42 observed",
-                 $time);
-      end
-
-      // ----------------------------------------------------------------------
-      // Overall Stage-3 normal-operation pass.
-      // ----------------------------------------------------------------------
-
-      if (core_a_pass && core_b_pass) begin
-
-        $display("");
-        $display("====================================================");
-        $display("STAGE3 DCLS INTEGRATION PASS");
-        $display("====================================================");
-        $display("Cycles checked : %0d", cycles_checked);
-        $display("DCLS mismatch  : %b", dut.dcls_mismatch_o);
-        $display("Core A result  : 42");
-        $display("Core B result  : 42");
-        $display("====================================================");
-
-        $finish;
+          $display("[%0t] PHASE 2 FAIL", $time);
+          $finish;
+        end
       end
     end
   end
 
+  // --------------------------------------------------------------------------
+  // Global timeout
+  // --------------------------------------------------------------------------
+
   initial begin
-    #200000;
+    #500000;
 
-    $display("");
-    $display("====================================================");
-    $display("STAGE3 FAIL: Verification timeout");
-    $display("====================================================");
-    $display("Cycles checked : %0d", cycles_checked);
-    $display("Core A pass    : %b", core_a_pass);
-    $display("Core B pass    : %b", core_b_pass);
-    $display("DCLS mismatch  : %b", dut.dcls_mismatch_o);
-    $display("====================================================");
-
+    $display("[%0t] STAGE3C FAIL: simulation timeout", $time);
     $finish;
   end
 
