@@ -1,6 +1,8 @@
+`timescale 1ns/1ps
+
 module safety_riscv_soc_stage2 (
-    input clk_i,
-    input rst_ni
+    input wire clk_i,
+    input wire rst_ni
 );
 
   // --------------------------------------------------------------------------
@@ -9,6 +11,7 @@ module safety_riscv_soc_stage2 (
 
   wire        core_a_instr_req;
   wire [31:0] core_a_instr_addr;
+
   wire        core_a_data_req;
   wire        core_a_data_we;
   wire [3:0]  core_a_data_be;
@@ -21,6 +24,7 @@ module safety_riscv_soc_stage2 (
 
   wire        core_b_instr_req;
   wire [31:0] core_b_instr_addr;
+
   wire        core_b_data_req;
   wire        core_b_data_we;
   wire [3:0]  core_b_data_be;
@@ -28,39 +32,65 @@ module safety_riscv_soc_stage2 (
   wire [31:0] core_b_data_wdata;
 
   // --------------------------------------------------------------------------
-  // Redundant Ibex channel A
+  // Core A
+  //
+  // Response-path fault injection is explicitly disabled in Stage-2.
+  // Stage-2 is only responsible for proving two independent redundant
+  // Ibex channels execute identically.
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1 core_a (
-      .clk_i          (clk_i),
-      .rst_ni         (rst_ni),
+      .clk_i (clk_i),
+      .rst_ni(rst_ni),
 
-      .instr_req_o    (core_a_instr_req),
-      .instr_addr_o   (core_a_instr_addr),
+      .core_response_fault_inject_enable_i (1'b0),
+      .core_response_fault_inject_target_i (3'b111),
+      .core_response_fault_inject_mask_i   (32'b0),
 
-      .data_req_o     (core_a_data_req),
-      .data_we_o      (core_a_data_we),
-      .data_be_o      (core_a_data_be),
-      .data_addr_o    (core_a_data_addr),
-      .data_wdata_o   (core_a_data_wdata)
+      .instr_req_o  (core_a_instr_req),
+      .instr_addr_o (core_a_instr_addr),
+
+      .data_req_o   (core_a_data_req),
+      .data_we_o    (core_a_data_we),
+      .data_be_o    (core_a_data_be),
+      .data_addr_o  (core_a_data_addr),
+      .data_wdata_o (core_a_data_wdata),
+
+      // Response observation outputs are not required in Stage-2.
+      .instr_rvalid_o (),
+      .instr_rdata_o  (),
+      .data_rvalid_o  (),
+      .data_rdata_o   ()
   );
 
   // --------------------------------------------------------------------------
-  // Redundant Ibex channel B
+  // Core B
+  //
+  // Response-path fault injection is explicitly disabled in Stage-2.
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1 core_b (
-      .clk_i          (clk_i),
-      .rst_ni         (rst_ni),
+      .clk_i (clk_i),
+      .rst_ni(rst_ni),
 
-      .instr_req_o    (core_b_instr_req),
-      .instr_addr_o   (core_b_instr_addr),
+      .core_response_fault_inject_enable_i (1'b0),
+      .core_response_fault_inject_target_i (3'b111),
+      .core_response_fault_inject_mask_i   (32'b0),
 
-      .data_req_o     (core_b_data_req),
-      .data_we_o      (core_b_data_we),
-      .data_be_o      (core_b_data_be),
-      .data_addr_o    (core_b_data_addr),
-      .data_wdata_o   (core_b_data_wdata)
+      .instr_req_o  (core_b_instr_req),
+      .instr_addr_o (core_b_instr_addr),
+
+      .data_req_o   (core_b_data_req),
+      .data_we_o    (core_b_data_we),
+      .data_be_o    (core_b_data_be),
+      .data_addr_o  (core_b_data_addr),
+      .data_wdata_o (core_b_data_wdata),
+
+      // Response observation outputs are not required in Stage-2.
+      .instr_rvalid_o (),
+      .instr_rdata_o  (),
+      .data_rvalid_o  (),
+      .data_rdata_o   ()
   );
 
 endmodule

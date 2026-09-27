@@ -1,12 +1,23 @@
 module safety_riscv_soc_stage1 (
-    input  clk_i,
-    input  rst_ni,
+    input  wire       clk_i,
+    input  wire       rst_ni,
+
+    // ------------------------------------------------------------------------
+    // Controlled processor-response fault injection
+    //
+    // This path is disabled for normal Stage-1/Stage-2 operation.
+    // Stage-3 may enable it for Core B to inject faults before the response
+    // reaches the Ibex core.
+    // ------------------------------------------------------------------------
+    input  wire       core_response_fault_inject_enable_i,
+    input  wire [2:0] core_response_fault_inject_target_i,
+    input  wire [31:0] core_response_fault_inject_mask_i,
 
     // ------------------------------------------------------------------------
     // Observable processor-output signals
     //
     // These signals are exposed for redundant-channel verification and the
-    // external DCLS safety mechanism. They do not alter the Stage-1 behavior.
+    // external DCLS safety mechanism.
     // ------------------------------------------------------------------------
     output wire        instr_req_o,
     output wire [31:0] instr_addr_o,
@@ -48,6 +59,13 @@ module safety_riscv_soc_stage1 (
   wire        data_err;
 
   // --------------------------------------------------------------------------
+  // Fault-injected response signals
+  // --------------------------------------------------------------------------
+
+  wire [31:0] instr_rdata_to_ibex;
+  wire [31:0] data_rdata_to_ibex;
+
+  // --------------------------------------------------------------------------
   // RAM address mapping
   //
   // Ibex boots at 0x0010_0000.
@@ -59,6 +77,26 @@ module safety_riscv_soc_stage1 (
 
   assign ram_instr_addr = instr_addr - 32'h0010_0000;
   assign ram_data_addr  = data_addr  - 32'h0010_0000;
+
+  // --------------------------------------------------------------------------
+  // Core response fault injector
+  //
+  // RAM produces the raw response.
+  // The injector optionally corrupts that response.
+  // The resulting response is what Ibex actually receives.
+  // --------------------------------------------------------------------------
+
+  core_response_fault_injector u_core_response_fault_injector (
+      .fault_inject_enable_i (core_response_fault_inject_enable_i),
+      .fault_inject_target_i (core_response_fault_inject_target_i),
+      .fault_inject_mask_i   (core_response_fault_inject_mask_i),
+
+      .instr_rdata_i         (instr_rdata),
+      .data_rdata_i          (data_rdata),
+
+      .instr_rdata_o         (instr_rdata_to_ibex),
+      .data_rdata_o          (data_rdata_to_ibex)
+  );
 
   // --------------------------------------------------------------------------
   // Ibex CPU
@@ -107,7 +145,7 @@ module safety_riscv_soc_stage1 (
       .instr_gnt_i             (instr_gnt),
       .instr_rvalid_i          (instr_rvalid),
       .instr_addr_o            (instr_addr),
-      .instr_rdata_i           (instr_rdata),
+      .instr_rdata_i           (instr_rdata_to_ibex),
       .instr_rdata_intg_i      (7'b0),
       .instr_err_i             (instr_err),
 
@@ -124,7 +162,7 @@ module safety_riscv_soc_stage1 (
       .data_wdata_o            (data_wdata),
       .data_wdata_intg_o       (),
       .data_tag_o              (),
-      .data_rdata_i            (data_rdata),
+      .data_rdata_i            (data_rdata_to_ibex),
       .data_rdata_intg_i       (7'b0),
       .data_tag_i              (1'b0),
       .data_err_i              (data_err),
@@ -177,10 +215,10 @@ module safety_riscv_soc_stage1 (
       .alert_major_bus_o       (),
       .core_sleep_o            (),
 
-      // Native Ibex lockstep interface not used in Stage 1
+      // Native Ibex lockstep interface not used
       .lockstep_cmp_en_o       (),
 
-      // Shadow outputs not used in Stage 1
+      // Shadow outputs not used
       .data_req_shadow_o        (),
       .data_we_shadow_o         (),
       .data_be_shadow_o         (),
@@ -240,14 +278,14 @@ module safety_riscv_soc_stage1 (
   // --------------------------------------------------------------------------
   // External observation interface
   //
-  // These are direct observations of the existing Ibex/RAM interface.
-  // No functional behavior is changed.
+  // For response data, expose exactly what Ibex receives. Therefore the
+  // DCLS monitor observes the same response path that drives the processor.
   // --------------------------------------------------------------------------
 
   assign instr_req_o    = instr_req;
   assign instr_addr_o   = instr_addr;
   assign instr_rvalid_o = instr_rvalid;
-  assign instr_rdata_o  = instr_rdata;
+  assign instr_rdata_o  = instr_rdata_to_ibex;
 
   assign data_req_o     = data_req;
   assign data_we_o      = data_we;
@@ -255,6 +293,6 @@ module safety_riscv_soc_stage1 (
   assign data_addr_o    = data_addr;
   assign data_wdata_o   = data_wdata;
   assign data_rvalid_o  = data_rvalid;
-  assign data_rdata_o   = data_rdata;
+  assign data_rdata_o   = data_rdata_to_ibex;
 
 endmodule

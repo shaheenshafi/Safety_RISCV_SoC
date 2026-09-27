@@ -11,6 +11,7 @@ filesets:
       - lowrisc:ibex:sim_shared
     files:
       - safety_riscv_soc_stage1.v
+      - ../safety/core_response_fault_injector.v
     file_type: verilogSource
 
   tb:

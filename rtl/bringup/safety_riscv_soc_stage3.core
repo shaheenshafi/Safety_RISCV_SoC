@@ -9,6 +9,7 @@ filesets:
       - safety_riscv_soc_stage3.v
       - ../safety/dcls_comparator.v
       - ../safety/dcls_fault_injector.v
+      - ../safety/core_response_fault_injector.v
     file_type : verilogSource
     depend : [
       lowrisc:ibex:ibex_top,

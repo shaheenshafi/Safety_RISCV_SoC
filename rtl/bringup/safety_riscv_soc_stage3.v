@@ -3,10 +3,13 @@ module safety_riscv_soc_stage3 (
     input  wire       rst_ni,
     input  wire       dcls_enable_i,
 
-    // Controlled fault-injection interface.
     input  wire       fault_inject_enable_i,
     input  wire [1:0] fault_inject_target_i,
     input  wire [31:0] fault_inject_mask_i,
+
+    input wire        core_b_response_fault_inject_enable_i,
+    input wire [2:0]  core_b_response_fault_inject_target_i,
+    input wire [31:0] core_b_response_fault_inject_mask_i,
 
     output wire       dcls_instr_mismatch_o,
     output wire       dcls_data_mismatch_o,
@@ -66,6 +69,10 @@ module safety_riscv_soc_stage3 (
       .clk_i          (clk_i),
       .rst_ni         (rst_ni),
 
+      .core_response_fault_inject_enable_i (1'b0),
+      .core_response_fault_inject_target_i (3'b111),
+      .core_response_fault_inject_mask_i   (32'b0),
+
       .instr_req_o    (core_a_instr_req),
       .instr_addr_o   (core_a_instr_addr),
       .instr_rvalid_o (core_a_instr_rvalid),
@@ -87,6 +94,10 @@ module safety_riscv_soc_stage3 (
   safety_riscv_soc_stage1 core_b (
       .clk_i          (clk_i),
       .rst_ni          (rst_ni),
+
+      .core_response_fault_inject_enable_i (core_b_response_fault_inject_enable_i),
+      .core_response_fault_inject_target_i (core_b_response_fault_inject_target_i),
+      .core_response_fault_inject_mask_i   (core_b_response_fault_inject_mask_i),
 
       .instr_req_o    (core_b_instr_req),
       .instr_addr_o   (core_b_instr_addr),

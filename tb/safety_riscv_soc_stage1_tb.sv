@@ -19,7 +19,24 @@ module safety_riscv_soc_stage1_tb;
 
   safety_riscv_soc_stage1 dut (
     .clk_i  (clk),
-    .rst_ni (rst_ni)
+    .rst_ni (rst_ni),
+
+    .core_response_fault_inject_enable_i (1'b0),
+    .core_response_fault_inject_target_i (3'b111),
+    .core_response_fault_inject_mask_i   (32'b0),
+
+    .instr_req_o    (),
+    .instr_addr_o   (),
+    .instr_rvalid_o (),
+    .instr_rdata_o  (),
+
+    .data_req_o     (),
+    .data_we_o      (),
+    .data_be_o      (),
+    .data_addr_o    (),
+    .data_wdata_o   (),
+    .data_rvalid_o  (),
+    .data_rdata_o   ()
   );
 
   /*
