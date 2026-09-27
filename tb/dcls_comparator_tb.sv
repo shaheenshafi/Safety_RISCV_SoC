@@ -6,21 +6,29 @@ module dcls_comparator_tb;
 
   logic        core_a_instr_req_i;
   logic [31:0] core_a_instr_addr_i;
+  logic        core_a_instr_rvalid_i;
+  logic [31:0] core_a_instr_rdata_i;
 
   logic        core_b_instr_req_i;
   logic [31:0] core_b_instr_addr_i;
+  logic        core_b_instr_rvalid_i;
+  logic [31:0] core_b_instr_rdata_i;
 
   logic        core_a_data_req_i;
   logic        core_a_data_we_i;
   logic [3:0]  core_a_data_be_i;
   logic [31:0] core_a_data_addr_i;
   logic [31:0] core_a_data_wdata_i;
+  logic        core_a_data_rvalid_i;
+  logic [31:0] core_a_data_rdata_i;
 
   logic        core_b_data_req_i;
   logic        core_b_data_we_i;
   logic [3:0]  core_b_data_be_i;
   logic [31:0] core_b_data_addr_i;
   logic [31:0] core_b_data_wdata_i;
+  logic        core_b_data_rvalid_i;
+  logic [31:0] core_b_data_rdata_i;
 
   wire dcls_instr_mismatch_o;
   wire dcls_data_mismatch_o;
@@ -31,20 +39,29 @@ module dcls_comparator_tb;
 
       .core_a_instr_req_i      (core_a_instr_req_i),
       .core_a_instr_addr_i     (core_a_instr_addr_i),
+      .core_a_instr_rvalid_i   (core_a_instr_rvalid_i),
+      .core_a_instr_rdata_i    (core_a_instr_rdata_i),
+
       .core_b_instr_req_i      (core_b_instr_req_i),
       .core_b_instr_addr_i     (core_b_instr_addr_i),
+      .core_b_instr_rvalid_i   (core_b_instr_rvalid_i),
+      .core_b_instr_rdata_i    (core_b_instr_rdata_i),
 
       .core_a_data_req_i       (core_a_data_req_i),
       .core_a_data_we_i        (core_a_data_we_i),
       .core_a_data_be_i        (core_a_data_be_i),
       .core_a_data_addr_i      (core_a_data_addr_i),
       .core_a_data_wdata_i     (core_a_data_wdata_i),
+      .core_a_data_rvalid_i    (core_a_data_rvalid_i),
+      .core_a_data_rdata_i     (core_a_data_rdata_i),
 
       .core_b_data_req_i       (core_b_data_req_i),
       .core_b_data_we_i        (core_b_data_we_i),
       .core_b_data_be_i        (core_b_data_be_i),
       .core_b_data_addr_i      (core_b_data_addr_i),
       .core_b_data_wdata_i     (core_b_data_wdata_i),
+      .core_b_data_rvalid_i    (core_b_data_rvalid_i),
+      .core_b_data_rdata_i     (core_b_data_rdata_i),
 
       .dcls_instr_mismatch_o   (dcls_instr_mismatch_o),
       .dcls_data_mismatch_o    (dcls_data_mismatch_o),
@@ -104,23 +121,31 @@ module dcls_comparator_tb;
 
     compare_en_i = 1'b1;
 
-    core_a_instr_req_i  = 1'b0;
-    core_a_instr_addr_i = 32'h0;
+    core_a_instr_req_i    = 1'b0;
+    core_a_instr_addr_i   = 32'h0;
+    core_a_instr_rvalid_i = 1'b0;
+    core_a_instr_rdata_i  = 32'h0;
 
-    core_b_instr_req_i  = 1'b0;
-    core_b_instr_addr_i = 32'h0;
+    core_b_instr_req_i    = 1'b0;
+    core_b_instr_addr_i   = 32'h0;
+    core_b_instr_rvalid_i = 1'b0;
+    core_b_instr_rdata_i  = 32'h0;
 
-    core_a_data_req_i   = 1'b0;
-    core_a_data_we_i    = 1'b0;
-    core_a_data_be_i    = 4'h0;
-    core_a_data_addr_i  = 32'h0;
-    core_a_data_wdata_i = 32'h0;
+    core_a_data_req_i     = 1'b0;
+    core_a_data_we_i      = 1'b0;
+    core_a_data_be_i      = 4'h0;
+    core_a_data_addr_i    = 32'h0;
+    core_a_data_wdata_i   = 32'h0;
+    core_a_data_rvalid_i  = 1'b0;
+    core_a_data_rdata_i   = 32'h0;
 
-    core_b_data_req_i   = 1'b0;
-    core_b_data_we_i    = 1'b0;
-    core_b_data_be_i    = 4'h0;
-    core_b_data_addr_i  = 32'h0;
-    core_b_data_wdata_i = 32'h0;
+    core_b_data_req_i     = 1'b0;
+    core_b_data_we_i      = 1'b0;
+    core_b_data_be_i      = 4'h0;
+    core_b_data_addr_i    = 32'h0;
+    core_b_data_wdata_i   = 32'h0;
+    core_b_data_rvalid_i  = 1'b0;
+    core_b_data_rdata_i   = 32'h0;
 
     expect_no_mismatch("both channels inactive");
 
@@ -154,6 +179,65 @@ module dcls_comparator_tb;
     expect_mismatch("instruction request mismatch", 1'b1, 1'b0);
 
     core_b_instr_req_i = 1'b1;
+
+    // ------------------------------------------------------------------------
+    // Instruction response: identical valid response
+    // ------------------------------------------------------------------------
+
+    core_a_instr_rvalid_i = 1'b1;
+    core_b_instr_rvalid_i = 1'b1;
+
+    core_a_instr_rdata_i = 32'h02A00113;
+    core_b_instr_rdata_i = 32'h02A00113;
+
+    expect_no_mismatch("identical instruction response");
+
+    // ------------------------------------------------------------------------
+    // Instruction response: valid mismatch
+    // ------------------------------------------------------------------------
+
+    core_b_instr_rvalid_i = 1'b0;
+
+    expect_mismatch("instruction response-valid mismatch", 1'b1, 1'b0);
+
+    core_b_instr_rvalid_i = 1'b1;
+
+    // ------------------------------------------------------------------------
+    // Instruction response: data mismatch
+    // ------------------------------------------------------------------------
+
+    core_b_instr_rdata_i = 32'h02B00113;
+
+    expect_mismatch("instruction response-data mismatch", 1'b1, 1'b0);
+
+    core_b_instr_rdata_i = 32'h02A00113;
+
+    // ------------------------------------------------------------------------
+    // Instruction response: response data ignored without valid
+    // ------------------------------------------------------------------------
+
+    core_a_instr_rvalid_i = 1'b0;
+    core_b_instr_rvalid_i = 1'b0;
+
+    core_a_instr_rdata_i = 32'hAAAAAAAA;
+    core_b_instr_rdata_i = 32'h55555555;
+
+    expect_no_mismatch("instruction response data ignored when invalid");
+
+    // ------------------------------------------------------------------------
+    // End instruction-side tests and return instruction interface to inactive
+    // state before beginning data-side tests.
+    // ------------------------------------------------------------------------
+
+    core_a_instr_req_i    = 1'b0;
+    core_b_instr_req_i    = 1'b0;
+    core_a_instr_addr_i   = 32'h0;
+    core_b_instr_addr_i   = 32'h0;
+
+    core_a_instr_rvalid_i = 1'b0;
+    core_b_instr_rvalid_i = 1'b0;
+    core_a_instr_rdata_i  = 32'h0;
+    core_b_instr_rdata_i  = 32'h0;
 
     // ------------------------------------------------------------------------
     // Data: identical write
@@ -227,23 +311,72 @@ module dcls_comparator_tb;
     core_b_data_wdata_i = 32'd42;
 
     // ------------------------------------------------------------------------
-    // Data: read transaction does not compare write data
+    // Data: identical read response
     // ------------------------------------------------------------------------
 
-    core_a_data_we_i    = 1'b0;
-    core_b_data_we_i    = 1'b0;
+    core_a_data_we_i = 1'b0;
+    core_b_data_we_i = 1'b0;
+
+    core_a_data_rvalid_i = 1'b1;
+    core_b_data_rvalid_i = 1'b1;
+
+    core_a_data_rdata_i = 32'h12345678;
+    core_b_data_rdata_i = 32'h12345678;
+
+    expect_no_mismatch("identical data read response");
+
+    // ------------------------------------------------------------------------
+    // Data: response-valid mismatch
+    // ------------------------------------------------------------------------
+
+    core_b_data_rvalid_i = 1'b0;
+
+    expect_mismatch("data response-valid mismatch", 1'b0, 1'b1);
+
+    core_b_data_rvalid_i = 1'b1;
+
+    // ------------------------------------------------------------------------
+    // Data: response-data mismatch
+    // ------------------------------------------------------------------------
+
+    core_b_data_rdata_i = 32'h87654321;
+
+    expect_mismatch("data response-data mismatch", 1'b0, 1'b1);
+
+    core_b_data_rdata_i = 32'h12345678;
+
+    // ------------------------------------------------------------------------
+    // Data: read write-data is irrelevant when response is valid
+    // ------------------------------------------------------------------------
 
     core_a_data_wdata_i = 32'hAAAAAAAA;
     core_b_data_wdata_i = 32'h55555555;
 
-    expect_no_mismatch("identical read with irrelevant write data");
+    expect_no_mismatch("identical read response with irrelevant write data");
+
+    // ------------------------------------------------------------------------
+    // Data: response data ignored when invalid
+    // ------------------------------------------------------------------------
+
+    core_a_data_rvalid_i = 1'b0;
+    core_b_data_rvalid_i = 1'b0;
+
+    core_a_data_rdata_i = 32'hAAAAAAAA;
+    core_b_data_rdata_i = 32'h55555555;
+
+    expect_no_mismatch("data response data ignored when invalid");
 
     // ------------------------------------------------------------------------
     // Disabled comparison
     // ------------------------------------------------------------------------
 
-    core_b_instr_addr_i = 32'hDEADBEEF;
-    core_b_data_addr_i  = 32'hCAFEBABE;
+    core_b_instr_addr_i   = 32'hDEADBEEF;
+    core_b_instr_rvalid_i = 1'b0;
+    core_b_instr_rdata_i  = 32'hDEADBEEF;
+
+    core_b_data_addr_i    = 32'hCAFEBABE;
+    core_b_data_rvalid_i  = 1'b0;
+    core_b_data_rdata_i   = 32'hCAFEBABE;
 
     compare_en_i = 1'b0;
 
@@ -255,7 +388,7 @@ module dcls_comparator_tb;
 
     $display("");
     $display("==============================================");
-    $display("DCLS COMPARATOR PASS");
+    $display("DCLS COMPARATOR STAGE-3D PASS");
     $display("==============================================");
 
     $finish;

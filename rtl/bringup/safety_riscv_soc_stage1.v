@@ -10,12 +10,16 @@ module safety_riscv_soc_stage1 (
     // ------------------------------------------------------------------------
     output wire        instr_req_o,
     output wire [31:0] instr_addr_o,
+    output wire        instr_rvalid_o,
+    output wire [31:0] instr_rdata_o,
 
     output wire        data_req_o,
     output wire        data_we_o,
     output wire [3:0]  data_be_o,
     output wire [31:0] data_addr_o,
-    output wire [31:0] data_wdata_o
+    output wire [31:0] data_wdata_o,
+    output wire        data_rvalid_o,
+    output wire [31:0] data_rdata_o
 );
 
   // --------------------------------------------------------------------------
@@ -236,17 +240,21 @@ module safety_riscv_soc_stage1 (
   // --------------------------------------------------------------------------
   // External observation interface
   //
-  // These are direct observations of the existing Ibex-generated signals.
+  // These are direct observations of the existing Ibex/RAM interface.
   // No functional behavior is changed.
   // --------------------------------------------------------------------------
 
-  assign instr_req_o   = instr_req;
-  assign instr_addr_o  = instr_addr;
+  assign instr_req_o    = instr_req;
+  assign instr_addr_o   = instr_addr;
+  assign instr_rvalid_o = instr_rvalid;
+  assign instr_rdata_o  = instr_rdata;
 
-  assign data_req_o    = data_req;
-  assign data_we_o     = data_we;
-  assign data_be_o     = data_be;
-  assign data_addr_o   = data_addr;
-  assign data_wdata_o  = data_wdata;
+  assign data_req_o     = data_req;
+  assign data_we_o      = data_we;
+  assign data_be_o      = data_be;
+  assign data_addr_o    = data_addr;
+  assign data_wdata_o   = data_wdata;
+  assign data_rvalid_o  = data_rvalid;
+  assign data_rdata_o   = data_rdata;
 
 endmodule
