@@ -1,0 +1,31 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_fault_manager:0.1
+description : Stage-4A standalone Safety Fault Manager unit test
+
+filesets:
+
+  rtl:
+    files:
+      - rtl/safety/safety_fault_manager.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - tb/safety_fault_manager_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : safety_fault_manager_tb
+
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"
+          - "-Wno-BLKSEQ"
