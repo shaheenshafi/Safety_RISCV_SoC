@@ -1,0 +1,26 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_profile_controller:0.1
+
+filesets:
+  rtl:
+    files:
+      - safety_profile_controller.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - ../../tb/safety_profile_controller_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : safety_profile_controller_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options:
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"
