@@ -1,0 +1,30 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_mmio_config:0.1
+
+filesets:
+
+  rtl:
+    files:
+      - safety_mmio_config.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - ../../tb/safety_mmio_config_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : safety_mmio_config_tb
+
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'

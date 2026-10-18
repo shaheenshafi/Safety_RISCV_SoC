@@ -1,0 +1,52 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_riscv_soc_stage4e:0.1
+
+filesets:
+
+  rtl:
+    files:
+      - safety_riscv_soc_stage1_mmio.v
+      - safety_riscv_soc_stage4e.v
+      - ../safety/dcls_comparator.v
+      - ../safety/dcls_fault_injector.v
+      - ../safety/core_response_fault_injector.v
+      - ../safety/safety_fault_manager.v
+      - ../safety/safety_mmio_config.v
+    file_type : verilogSource
+    depend : [
+      lowrisc:ibex:ibex_top,
+      lowrisc:ibex:sim_shared
+    ]
+
+  data:
+    files:
+      - ../../data/stage4e_mmio.vmem:
+          file_type : user
+          copyto : data/stage4e_mmio.vmem
+
+  tb:
+    files:
+      - ../../tb/safety_riscv_soc_stage4e_tb.sv
+    file_type : systemVerilogSource
+
+  sim:
+    files:
+      - ../../sim/safety_riscv_soc_stage4e_main.cpp
+    file_type : cppSource
+
+targets:
+
+  sim:
+    default_tool : verilator
+    filesets : [rtl, data, tb, sim]
+    toplevel : safety_riscv_soc_stage4e_tb
+
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
