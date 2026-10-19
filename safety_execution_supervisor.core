@@ -1,0 +1,30 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_execution_supervisor:0.1
+
+filesets:
+
+  rtl:
+    files:
+      - rtl/safety/safety_execution_supervisor.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - tb/safety_execution_supervisor_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : safety_execution_supervisor_tb
+
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
