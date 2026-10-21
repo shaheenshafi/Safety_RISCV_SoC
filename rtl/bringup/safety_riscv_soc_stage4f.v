@@ -66,6 +66,8 @@ module safety_riscv_soc_stage4f (
   wire [31:0] core_a_data_wdata;
   wire        core_a_data_rvalid;
   wire [31:0] core_a_data_rdata;
+  wire core_a_instr_addr_fault;
+  wire core_a_data_addr_fault;
 
   // --------------------------------------------------------------------------
   // Core B raw processor observations
@@ -83,6 +85,8 @@ module safety_riscv_soc_stage4f (
   wire [31:0] core_b_data_wdata;
   wire        core_b_data_rvalid;
   wire [31:0] core_b_data_rdata;
+  wire core_b_instr_addr_fault;
+  wire core_b_data_addr_fault;
 
   // --------------------------------------------------------------------------
   // DCLS comparison-path fault injection signals
@@ -198,12 +202,15 @@ module safety_riscv_soc_stage4f (
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1_mmio #(
-      .MemInitFile("data/stage4f_heartbeat.vmem")
+      .MemInitFile("data/stage4f_heartbeat.vmem"),
+      .RamDepth(4096),
+      .EnableAddressGuard(1'b1)
   ) core_a (
       .clk_i          (clk_i),
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
+      .memory_side_effect_inhibit_i (safe_state_req | dcls_mismatch_o),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
@@ -224,7 +231,9 @@ module safety_riscv_soc_stage4f (
       .data_addr_o    (core_a_data_addr),
       .data_wdata_o   (core_a_data_wdata),
       .data_rvalid_o  (core_a_data_rvalid),
-      .data_rdata_o   (core_a_data_rdata)
+      .data_rdata_o   (core_a_data_rdata),
+      .instr_addr_fault_o (core_a_instr_addr_fault),
+      .data_addr_fault_o  (core_a_data_addr_fault)
   );
 
   // --------------------------------------------------------------------------
@@ -232,12 +241,15 @@ module safety_riscv_soc_stage4f (
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1_mmio #(
-      .MemInitFile("data/stage4f_heartbeat.vmem")
+      .MemInitFile("data/stage4f_heartbeat.vmem"),
+      .RamDepth(4096),
+      .EnableAddressGuard(1'b1)
   ) core_b (
       .clk_i          (clk_i),
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
+      .memory_side_effect_inhibit_i (safe_state_req | dcls_mismatch_o),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
@@ -258,7 +270,9 @@ module safety_riscv_soc_stage4f (
       .data_addr_o    (core_b_data_addr),
       .data_wdata_o   (core_b_data_wdata),
       .data_rvalid_o  (core_b_data_rvalid),
-      .data_rdata_o   (core_b_data_rdata)
+      .data_rdata_o   (core_b_data_rdata),
+      .instr_addr_fault_o (core_b_instr_addr_fault),
+      .data_addr_fault_o  (core_b_data_addr_fault)
   );
 
   // --------------------------------------------------------------------------
@@ -351,8 +365,12 @@ module safety_riscv_soc_stage4f (
   safety_fault_manager_stage4f u_fault_manager (
       .clk_i                 (clk_i),
       .rst_ni                (rst_ni),
-      .dcls_instr_mismatch_i (dcls_instr_mismatch_o),
+      .dcls_instr_mismatch_i (dcls_instr_mismatch_o |
+                               core_a_instr_addr_fault |
+                               core_b_instr_addr_fault),
       .dcls_data_mismatch_i  (dcls_data_mismatch_o |
+                               core_a_data_addr_fault |
+                               core_b_data_addr_fault |
                                mmio_interlock_fault_internal),
       .supervisor_fault_i    (supervisor_fault_o),
       .fault_latched_o       (fault_latched_o),

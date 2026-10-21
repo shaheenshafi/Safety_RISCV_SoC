@@ -1,11 +1,18 @@
 module safety_riscv_soc_stage1_mmio #(
-    parameter MemInitFile = "data/stage1_smoke.vmem"
+    parameter MemInitFile = "data/stage1_smoke.vmem",
+    parameter integer RamDepth = 262144,
+    parameter EnableAddressGuard = 1'b0
 ) (
     input  wire       clk_i,
     input  wire       rst_ni,
     input  wire       safe_state_i,
     // Hold both cores when a shared-MMIO transaction is unmatched.
     input  wire       mmio_interlock_hold_i,
+
+    // Inhibit RAM transactions when the redundant-channel safety logic
+    // detects a fault. Invalid guarded accesses may still complete with
+    // a registered bus-error response, but are never forwarded to RAM.
+    input  wire       memory_side_effect_inhibit_i,
 
     // External MMIO response interface for the data bus
     input  wire        mmio_gnt_i,
@@ -40,8 +47,17 @@ module safety_riscv_soc_stage1_mmio #(
     output wire [31:0] data_addr_o,
     output wire [31:0] data_wdata_o,
     output wire        data_rvalid_o,
-    output wire [31:0] data_rdata_o
+    output wire [31:0] data_rdata_o,
+
+    // Address-guard faults are routed to the SoC-level sticky fault manager.
+    output wire        instr_addr_fault_o,
+    output wire        data_addr_fault_o
 );
+
+  // RAM occupies [0x00100000, 0x00100000 + RamDepth*4).
+  // RamDepth must be a power of two for the underlying Ibex RAM model.
+  localparam [32:0] RAM_BASE_EXT  = 33'd1048576;
+  localparam [32:0] RAM_LIMIT_EXT = RAM_BASE_EXT + (RamDepth * 4);
 
   // Hold the processor in reset whenever safe state is active.
   wire core_rst_ni;
@@ -58,6 +74,12 @@ module safety_riscv_soc_stage1_mmio #(
   wire [31:0] instr_rdata;
   wire        instr_err;
 
+  wire        ram_instr_rvalid;
+  wire [31:0] ram_instr_rdata;
+  wire        instr_addr_in_ram;
+  wire        ram_instr_req;
+  reg         instr_addr_error_q;
+
   // --------------------------------------------------------------------------
   // Ibex data interface
   // --------------------------------------------------------------------------
@@ -71,6 +93,10 @@ module safety_riscv_soc_stage1_mmio #(
   wire [31:0] data_wdata;
   wire [31:0] data_rdata;
   wire        data_err;
+
+  wire        data_addr_in_ram;
+  wire        ram_data_req;
+  reg         data_addr_error_q;
 
   // RAM and MMIO response selection signals.
   wire        ram_data_rvalid;
@@ -95,16 +121,65 @@ module safety_riscv_soc_stage1_mmio #(
 
   wire [31:0] ram_instr_addr;
   wire [31:0] ram_data_addr;
-  wire ram_data_we;
-  assign ram_data_we = data_we & ~safe_state_i;
+  wire        ram_data_we;
+
+  // Validate complete CPU addresses before the RAM wrapper truncates them
+  // to its word-index bits. This prevents out-of-range aliasing.
+  assign instr_addr_in_ram =
+      ({1'b0, instr_addr} >= RAM_BASE_EXT) &&
+      ({1'b0, instr_addr} < RAM_LIMIT_EXT);
+
+  assign data_addr_in_ram =
+      ({1'b0, data_addr} >= RAM_BASE_EXT) &&
+      ({1'b0, data_addr} < RAM_LIMIT_EXT);
 
   assign ram_instr_addr = instr_addr - 32'h0010_0000;
   assign ram_data_addr  = data_addr  - 32'h0010_0000;
 
+  assign ram_instr_req =
+      instr_req &&
+      !memory_side_effect_inhibit_i &&
+      (!EnableAddressGuard || instr_addr_in_ram);
+
+  assign ram_data_req =
+      data_req &&
+      !data_is_mmio &&
+      !mmio_interlock_hold_i &&
+      !memory_side_effect_inhibit_i &&
+      (!EnableAddressGuard || data_addr_in_ram);
+
+  assign ram_data_we =
+      data_we && !safe_state_i && !memory_side_effect_inhibit_i;
+
   // Reserve the entire 0x0020_xxxx region for MMIO.
-  // The Stage 4E top-level interlock validates the four implemented
-  // registers and blocks invalid accesses from falling through to RAM.
+  // The top-level interlock blocks invalid MMIO transactions.
   assign data_is_mmio = (data_addr[31:16] == 16'h0020);
+
+  // Address faults are independent of the selected DCLS profile.
+  // Invalid MMIO-region requests are handled by the top-level interlock.
+  assign instr_addr_fault_o =
+      EnableAddressGuard && instr_req && !instr_addr_in_ram;
+
+  assign data_addr_fault_o =
+      EnableAddressGuard && data_req &&
+      !data_is_mmio && !data_addr_in_ram;
+
+  // Preserve the request/grant/response protocol for invalid non-MMIO
+  // addresses while keeping those requests away from the RAM.
+  always @(posedge clk_i or negedge rst_ni) begin
+    if (!rst_ni) begin
+      instr_addr_error_q <= 1'b0;
+      data_addr_error_q  <= 1'b0;
+    end else begin
+      instr_addr_error_q <=
+          instr_req && instr_gnt &&
+          EnableAddressGuard && !instr_addr_in_ram;
+
+      data_addr_error_q <=
+          data_req && data_gnt &&
+          EnableAddressGuard && !data_is_mmio && !data_addr_in_ram;
+    end
+  end
 
   // Select the response from the addressed target.
   // Select the target that is returning a response this cycle.
@@ -113,9 +188,14 @@ module safety_riscv_soc_stage1_mmio #(
   assign selected_data_rdata =
       mmio_rvalid_i ? mmio_rdata_i : ram_data_rdata;
 
-  // Route the selected target response to the Ibex data interface.
-  assign data_rvalid = selected_data_rvalid;
-  assign data_rdata  = selected_data_rdata;
+  // Return a registered error response for invalid guarded accesses.
+  // Error data is deterministic; the bus-error signal is asserted alongside
+  // the corresponding response-valid pulse.
+  assign instr_rvalid = ram_instr_rvalid | instr_addr_error_q;
+  assign instr_rdata  = instr_addr_error_q ? 32'b0 : ram_instr_rdata;
+
+  assign data_rvalid = selected_data_rvalid | data_addr_error_q;
+  assign data_rdata  = data_addr_error_q ? 32'b0 : selected_data_rdata;
 
   // --------------------------------------------------------------------------
   // Core response fault injector
@@ -271,14 +351,15 @@ module safety_riscv_soc_stage1_mmio #(
   // --------------------------------------------------------------------------
   // Dual-port RAM
   //
-  // 262144 words x 4 bytes = 1 MiB
+  // Capacity is RamDepth 32-bit words. Stage 4F uses 4096 words (16 KiB)
+  // per core; the shared-wrapper compatibility default is 262144 words.
   //
   // Port A = data
   // Port B = instruction
   // --------------------------------------------------------------------------
 
   ram_2p #(
-      .Depth       (262144),
+      .Depth       (RamDepth),
       .BExtraDelay (0),
       .MemInitFile (MemInitFile)
   ) u_ram (
@@ -286,8 +367,11 @@ module safety_riscv_soc_stage1_mmio #(
       .rst_ni      (rst_ni),
 
       // Port A: Data
-      .a_req_i     (data_req && !data_is_mmio && !mmio_interlock_hold_i),
-      .a_we_i      (ram_data_we && !data_is_mmio && !mmio_interlock_hold_i),
+      .a_req_i     (ram_data_req),
+      .a_we_i      (ram_data_we &&
+                    !data_is_mmio &&
+                    !mmio_interlock_hold_i &&
+                    (!EnableAddressGuard || data_addr_in_ram)),
       .a_be_i      (data_be),
       .a_addr_i    (ram_data_addr),
       .a_wdata_i   (data_wdata),
@@ -295,26 +379,36 @@ module safety_riscv_soc_stage1_mmio #(
       .a_rdata_o   (ram_data_rdata),
 
       // Port B: Instruction
-      .b_req_i     (instr_req),
+      .b_req_i     (ram_instr_req),
       .b_we_i      (1'b0),
       .b_be_i      (4'b0000),
       .b_addr_i    (ram_instr_addr),
       .b_wdata_i   (32'b0),
-      .b_rvalid_o  (instr_rvalid),
-      .b_rdata_o   (instr_rdata)
+      .b_rvalid_o  (ram_instr_rvalid),
+      .b_rdata_o   (ram_instr_rdata)
   );
 
   // --------------------------------------------------------------------------
   // Simple memory handshake
   // --------------------------------------------------------------------------
 
-  assign instr_gnt = instr_req;
-  assign data_gnt =
-      data_req && !mmio_interlock_hold_i &&
-      (data_is_mmio ? mmio_gnt_i : 1'b1);
+  // A guarded invalid address still receives a grant so its registered error
+  // response can complete. Other requests are stalled during fault inhibition.
+  assign instr_gnt =
+      instr_req &&
+      (!memory_side_effect_inhibit_i ||
+       (EnableAddressGuard && !instr_addr_in_ram));
 
-  assign instr_err = 1'b0;
-  assign data_err  = 1'b0;
+  assign data_gnt =
+      data_req &&
+      !mmio_interlock_hold_i &&
+      (data_is_mmio
+          ? mmio_gnt_i
+          : (!memory_side_effect_inhibit_i ||
+             (EnableAddressGuard && !data_addr_in_ram)));
+
+  assign instr_err = instr_addr_error_q;
+  assign data_err  = data_addr_error_q;
 
   // --------------------------------------------------------------------------
   // External observation interface

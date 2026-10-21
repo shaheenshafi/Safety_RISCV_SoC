@@ -10,13 +10,16 @@
 
 ## Current Status
 
-The project definition and initial development environment setup are completed.
+Stages 1–4F have established the Ibex-based SoC, redundant execution channels,
+transaction-level DCLS, selected fault injection, sticky fault management,
+safe-state reaction, runtime profiles/MMIO interlock and application-level
+execution supervision.
 
-The baseline Ibex RISC-V environment has been successfully built and tested. RISC-V firmware was compiled, converted to a VMEM image and successfully executed on the Ibex Simple System using Verilator.
-
-The actual dissertation SoC implementation is the next major phase.
-
----
+Stage 4G pre-FPGA hardening has passed the focused Verilator simulation tests. It adds configurable
+RAM depth, full-address range checking, registered bus-error responses for
+guarded invalid accesses, and RAM request inhibition on DCLS mismatch or safe
+state. Simulation does not establish FPGA synthesis, timing closure, or hardware
+operation.
 
 ## 1. Project Definition
 
@@ -209,35 +212,36 @@ Completed:
 
 ---
 
-## 10. Next Major Step
+## 10. Current Stage and Next Steps
 
-The next phase is to start the actual dissertation implementation.
+### Stage 4G — Pre-FPGA hardening
 
-The first step will be to study the Ibex Simple System structure and identify the minimum components required to create our own SoC.
+Implemented and simulation-tested:
+- Configurable shared-wrapper RAM depth; Stage 4F uses 4096 words (16 KiB) per core.
+- Full-address checks for RAM accesses to prevent out-of-range address aliasing.
+- Registered bus-error responses and sticky fault routing for invalid guarded accesses.
+- Stage 4F RAM request inhibition on DCLS mismatch or safe state.
+- Stage 4E compatibility with the new wrapper interface.
 
-After that, the implementation will proceed incrementally:
+Verified simulation tests:
+- Stage 4F normal heartbeat integration: six heartbeat updates, both core success markers, no unexpected faults.
+- Stage 4F `+supervisor_timeout_test`: supervisor fault `0x03`, sticky fault and safe state.
+- Stage 4E MMIO firmware regression: nine accepted MMIO transactions, both success markers, no DCLS/interlock faults.
+- Stage 4F `+address_guard_test`: valid upper boundary, below-base and above-limit checks, blocked invalid write, registered data error and fault `0x02`.
+- Stage 4F `+instruction_guard_test`: invalid fetch blocked from RAM, registered instruction error and fault `0x01`.
+- Stage 4F `+dcls_store_inhibit_test`: both RAM paths inhibited before the clock edge on divergent write data.
 
-1. Custom SoC top level
-2. Ibex integration
-3. Memory and basic interfaces
-4. Second Ibex core
-5. DCLS comparator
-6. Safety Manager
-7. Watchdog
-8. Execution/progress timeout
-9. Fault logger
-10. Safe-State Controller
-11. Safety configuration
-12. Battery monitoring workload
-13. Fault injection
-14. Verification
-15. FPGA implementation
-16. Quantitative evaluation
+The focused Stage 4G tests use testbench-forced internal signals. They validate
+address decoding, error response timing, fault routing and request inhibition;
+they do not establish a full firmware-level exception flow for deliberately
+invalid accesses.
 
----
+### Remaining work
+1. Review and commit this milestone after final source/diff checks.
+2. Synthesize in Vivado and measure actual memory inference, FPGA resource use and timing.
+3. Implement the representative battery monitoring workload.
+4. Expand fault injection, assertions, coverage and quantitative evaluation.
+5. Validate the design on the target FPGA before claiming a hardware prototype.
 
-## Current Position
-
-**The baseline processor environment is working.**
-
-**The actual safety-oriented SoC implementation has not started yet.**
+No FPGA synthesis, bitstream, physical-board demo, or ISO 26262 certification
+has been established by the current simulation results.

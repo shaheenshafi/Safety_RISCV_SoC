@@ -193,6 +193,7 @@ module safety_riscv_soc_stage4e (
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
+      .memory_side_effect_inhibit_i (1'b0),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
@@ -213,7 +214,9 @@ module safety_riscv_soc_stage4e (
       .data_addr_o    (core_a_data_addr),
       .data_wdata_o   (core_a_data_wdata),
       .data_rvalid_o  (core_a_data_rvalid),
-      .data_rdata_o   (core_a_data_rdata)
+      .data_rdata_o   (core_a_data_rdata),
+      .instr_addr_fault_o (),
+      .data_addr_fault_o  ()
   );
 
   // --------------------------------------------------------------------------
@@ -227,6 +230,7 @@ module safety_riscv_soc_stage4e (
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
+      .memory_side_effect_inhibit_i (1'b0),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
@@ -247,7 +251,9 @@ module safety_riscv_soc_stage4e (
       .data_addr_o    (core_b_data_addr),
       .data_wdata_o   (core_b_data_wdata),
       .data_rvalid_o  (core_b_data_rvalid),
-      .data_rdata_o   (core_b_data_rdata)
+      .data_rdata_o   (core_b_data_rdata),
+      .instr_addr_fault_o (),
+      .data_addr_fault_o  ()
   );
 
   // --------------------------------------------------------------------------

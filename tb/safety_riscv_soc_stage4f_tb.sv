@@ -134,7 +134,234 @@ module safety_riscv_soc_stage4f_tb;
 
     rst_ni = 1'b1;
 
-    if ($test$plusargs("supervisor_timeout_test")) begin
+    if ($test$plusargs("address_guard_test")) begin
+      $display("Starting Stage 4G RAM address-guard test");
+      wait (dcls_enable_o === 1'b1 &&
+            core_a_success_seen && core_b_success_seen);
+
+      // Last valid word: check decode without allowing a clocked write.
+      @(negedge clk_i);
+      #1;
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = 1'b1;
+      force dut.core_a.data_be    = 4'hF;
+      force dut.core_a.data_addr  = 32'h0010_3FFC;
+      force dut.core_a.data_wdata = 32'h1357_9BDF;
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = 1'b1;
+      force dut.core_b.data_be    = 4'hF;
+      force dut.core_b.data_addr  = 32'h0010_3FFC;
+      force dut.core_b.data_wdata = 32'h1357_9BDF;
+      #1;
+
+      if (dut.core_a.data_addr_fault_o !== 1'b0 ||
+          dut.core_b.data_addr_fault_o !== 1'b0 ||
+          dut.core_a.u_ram.a_req_i !== 1'b1 ||
+          dut.core_b.u_ram.a_req_i !== 1'b1)
+        $fatal(1, "Last valid RAM word was incorrectly blocked");
+
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+
+      // Probe below the RAM base. Release before the next rising edge so
+      // this checks the decode without latching a fault.
+      @(negedge clk_i);
+      #1;
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = 1'b1;
+      force dut.core_a.data_be    = 4'hF;
+      force dut.core_a.data_addr  = 32'h000F_FFFC;
+      force dut.core_a.data_wdata = 32'h2468_ACE0;
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = 1'b1;
+      force dut.core_b.data_be    = 4'hF;
+      force dut.core_b.data_addr  = 32'h000F_FFFC;
+      force dut.core_b.data_wdata = 32'h2468_ACE0;
+      #1;
+
+      if (dut.core_a.data_addr_fault_o !== 1'b1 ||
+          dut.core_b.data_addr_fault_o !== 1'b1 ||
+          dut.core_a.data_gnt !== 1'b1 ||
+          dut.core_b.data_gnt !== 1'b1 ||
+          dut.core_a.u_ram.a_req_i !== 1'b0 ||
+          dut.core_b.u_ram.a_req_i !== 1'b0 ||
+          dut.core_a.u_ram.a_we_i !== 1'b0 ||
+          dut.core_b.u_ram.a_we_i !== 1'b0)
+        $fatal(1, "Below-base RAM access was not rejected safely");
+
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+
+      // First word beyond RAM would alias word zero without the guard.
+      @(negedge clk_i);
+      #1;
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = 1'b1;
+      force dut.core_a.data_be    = 4'hF;
+      force dut.core_a.data_addr  = 32'h0010_4000;
+      force dut.core_a.data_wdata = 32'hDEAD_BEEF;
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = 1'b1;
+      force dut.core_b.data_be    = 4'hF;
+      force dut.core_b.data_addr  = 32'h0010_4000;
+      force dut.core_b.data_wdata = 32'hDEAD_BEEF;
+      #1;
+
+      if (dut.core_a.data_addr_fault_o !== 1'b1 ||
+          dut.core_b.data_addr_fault_o !== 1'b1 ||
+          dut.core_a.data_gnt !== 1'b1 ||
+          dut.core_b.data_gnt !== 1'b1 ||
+          dut.core_a.u_ram.a_req_i !== 1'b0 ||
+          dut.core_b.u_ram.a_req_i !== 1'b0 ||
+          dut.core_a.u_ram.a_we_i !== 1'b0 ||
+          dut.core_b.u_ram.a_we_i !== 1'b0)
+        $fatal(1, "Out-of-range RAM write was not rejected safely");
+
+      @(posedge clk_i);
+      #1;
+      if (fault_latched_o !== 1'b1 ||
+          data_fault_seen_o !== 1'b1 ||
+          fault_code_o !== 8'h02 ||
+          safe_state_req_o !== 1'b1)
+        $fatal(1, "Out-of-range access did not latch data fault 0x02");
+
+      if (dut.core_a.data_rvalid !== 1'b1 ||
+          dut.core_a.data_err !== 1'b1 ||
+          dut.core_b.data_rvalid !== 1'b1 ||
+          dut.core_b.data_err !== 1'b1)
+        $fatal(1, "Out-of-range access lacked registered bus-error response");
+
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+
+      $display("STAGE 4G RAM ADDRESS-GUARD PASS");
+      $display("Boundary decode, blocked write, bus error and safe state confirmed");
+      $finish;
+
+    end else if ($test$plusargs("dcls_store_inhibit_test")) begin
+      $display("Starting Stage 4G DCLS store-inhibit test");
+      wait (dcls_enable_o === 1'b1 &&
+            core_a_success_seen && core_b_success_seen);
+      @(negedge clk_i);
+      #1;
+
+      // Same valid store address, but different write payloads.
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = 1'b1;
+      force dut.core_a.data_be    = 4'hF;
+      force dut.core_a.data_addr  = 32'h0010_1000;
+      force dut.core_a.data_wdata = 32'hDEAD_BEEF;
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = 1'b1;
+      force dut.core_b.data_be    = 4'hF;
+      force dut.core_b.data_addr  = 32'h0010_1000;
+      force dut.core_b.data_wdata = 32'hBAD0_C0DE;
+      #1;
+
+      if (dcls_data_mismatch_o !== 1'b1 ||
+          dcls_mismatch_o !== 1'b1 ||
+          dut.core_a.u_ram.a_req_i !== 1'b0 ||
+          dut.core_b.u_ram.a_req_i !== 1'b0 ||
+          dut.core_a.u_ram.a_we_i !== 1'b0 ||
+          dut.core_b.u_ram.a_we_i !== 1'b0)
+        $fatal(1, "DCLS mismatch failed to inhibit both RAM write paths");
+
+      @(posedge clk_i);
+      #1;
+      if (fault_latched_o !== 1'b1 ||
+          data_fault_seen_o !== 1'b1 ||
+          fault_code_o !== 8'h02 ||
+          safe_state_req_o !== 1'b1)
+        $fatal(1, "DCLS store mismatch did not latch data fault 0x02");
+
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+
+      $display("STAGE 4G DCLS STORE-INHIBIT PASS");
+      $display("Both RAM requests were inhibited before the clock edge");
+      $display("Sticky data fault and safe state confirmed");
+      $finish;
+
+    end else if ($test$plusargs("instruction_guard_test")) begin
+      $display("Starting Stage 4G instruction address-guard test");
+      wait (dcls_enable_o === 1'b1 &&
+            core_a_success_seen && core_b_success_seen &&
+            heartbeat_update_count >= 2);
+      wait (!dut.core_a.data_req && !dut.core_b.data_req);
+
+      @(negedge clk_i);
+      #1;
+      force dut.core_a.instr_req  = 1'b1;
+      force dut.core_a.instr_addr = 32'h0010_4000;
+      force dut.core_b.instr_req  = 1'b1;
+      force dut.core_b.instr_addr = 32'h0010_4000;
+      #1;
+
+      if (dut.core_a.instr_addr_fault_o !== 1'b1 ||
+          dut.core_b.instr_addr_fault_o !== 1'b1 ||
+          dut.core_a.instr_gnt !== 1'b1 ||
+          dut.core_b.instr_gnt !== 1'b1 ||
+          dut.core_a.u_ram.b_req_i !== 1'b0 ||
+          dut.core_b.u_ram.b_req_i !== 1'b0)
+        $fatal(1, "Out-of-range instruction fetch was not blocked");
+
+      @(posedge clk_i);
+      #1;
+      if (fault_latched_o !== 1'b1 ||
+          instr_fault_seen_o !== 1'b1 ||
+          data_fault_seen_o !== 1'b0 ||
+          fault_code_o !== 8'h01 ||
+          safe_state_req_o !== 1'b1)
+        $fatal(1, "Invalid instruction fetch did not latch fault 0x01");
+
+      if (dut.core_a.instr_rvalid !== 1'b1 ||
+          dut.core_a.instr_err !== 1'b1 ||
+          dut.core_b.instr_rvalid !== 1'b1 ||
+          dut.core_b.instr_err !== 1'b1)
+        $fatal(1, "Invalid instruction fetch lacked registered bus-error response");
+
+      release dut.core_a.instr_req;
+      release dut.core_a.instr_addr;
+      release dut.core_b.instr_req;
+      release dut.core_b.instr_addr;
+
+      $display("STAGE 4G INSTRUCTION ADDRESS-GUARD PASS");
+      $display("Blocked fetch, bus-error response and safe state confirmed");
+      $finish;
+
+    end else if ($test$plusargs("supervisor_timeout_test")) begin
       $display("Starting controlled Stage 4F heartbeat-loss test");
 
       fork
