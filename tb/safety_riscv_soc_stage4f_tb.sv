@@ -127,12 +127,33 @@ module safety_riscv_soc_stage4f_tb;
         dcls_enable_o !== 1'b0 ||
         fault_injection_enable_o !== 1'b0 ||
         fault_latched_o !== 1'b0 ||
-        safe_state_req_o !== 1'b0)
+        safe_state_req_o !== 1'b0 ||
+        dut.core_a.core_rst_ni !== 1'b0 ||
+        dut.core_b.core_rst_ni !== 1'b0)
       $fatal(1, "Stage 4F reset defaults or initial safe state incorrect");
 
     $display("PASS: Stage 4F reset profile and fault-manager defaults");
 
     rst_ni = 1'b1;
+    #1;
+
+    if (dut.core_a.core_rst_ni !== 1'b0 ||
+        dut.core_b.core_rst_ni !== 1'b0)
+      $fatal(1, "Core reset released asynchronously");
+
+    @(posedge clk_i);
+    #1;
+    if (dut.core_a.core_rst_ni !== 1'b0 ||
+        dut.core_b.core_rst_ni !== 1'b0)
+      $fatal(1, "Core reset released before the second rising edge");
+
+    @(posedge clk_i);
+    #1;
+    if (dut.core_a.core_rst_ni !== 1'b1 ||
+        dut.core_b.core_rst_ni !== 1'b1)
+      $fatal(1, "Core reset did not release after two rising edges");
+
+    $display("PASS: Core reset asserts asynchronously and releases after two rising edges");
 
     if ($test$plusargs("address_guard_test")) begin
       $display("Starting Stage 4G RAM address-guard test");
@@ -309,6 +330,44 @@ module safety_riscv_soc_stage4f_tb;
       release dut.core_b.data_addr;
       release dut.core_b.data_wdata;
 
+      #1;
+      if (dut.core_a.core_rst_ni !== 1'b0 ||
+          dut.core_b.core_rst_ni !== 1'b0)
+        $fatal(1, "Safety fault did not assert both core resets");
+
+      // External reset clears the sticky fault while keeping both cores reset.
+      @(negedge clk_i);
+      rst_ni = 1'b0;
+      #1;
+
+      if (fault_latched_o !== 1'b0 ||
+          safe_state_req_o !== 1'b0 ||
+          dut.core_a.core_rst_ni !== 1'b0 ||
+          dut.core_b.core_rst_ni !== 1'b0)
+        $fatal(1, "External reset failed to clear fault while holding cores reset");
+
+      repeat (2) @(posedge clk_i);
+      #1;
+
+      rst_ni = 1'b1;
+      #1;
+      if (dut.core_a.core_rst_ni !== 1'b0 ||
+          dut.core_b.core_rst_ni !== 1'b0)
+        $fatal(1, "Core reset released immediately after fault reset");
+
+      @(posedge clk_i);
+      #1;
+      if (dut.core_a.core_rst_ni !== 1'b0 ||
+          dut.core_b.core_rst_ni !== 1'b0)
+        $fatal(1, "Core reset released before the second recovery edge");
+
+      @(posedge clk_i);
+      #1;
+      if (dut.core_a.core_rst_ni !== 1'b1 ||
+          dut.core_b.core_rst_ni !== 1'b1)
+        $fatal(1, "Both cores did not recover after external reset");
+
+      $display("PASS: Latched fault reset and synchronized core recovery");
       $display("STAGE 4G DCLS STORE-INHIBIT PASS");
       $display("Both RAM requests were inhibited before the clock edge");
       $display("Sticky data fault and safe state confirmed");

@@ -1,0 +1,54 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_riscv_soc_stage4f_synth:0.1
+description : Stage 4F synthesis-only configuration for AMD Vivado
+
+filesets:
+  rtl:
+    files:
+      - safety_riscv_soc_stage1_mmio.v
+      - safety_riscv_soc_stage4f.v
+      - ../safety/dcls_comparator.v
+      - ../safety/dcls_fault_injector.v
+      - ../safety/core_response_fault_injector.v
+      - ../safety/safety_fault_manager_stage4f.v
+      - ../safety/safety_mmio_config_stage4f.v
+      - ../safety/safety_execution_supervisor.v
+    file_type : systemVerilogSource
+    depend : [
+      lowrisc:ibex:ibex_top,
+      lowrisc:ibex:fpga_xilinx_shared
+    ]
+
+  data:
+    files:
+      - ../../data/stage4f_heartbeat.vmem:
+          file_type : user
+          copyto : data/stage4f_heartbeat.vmem
+
+
+  constraints:
+    files:
+      - stage4f_timing_only.xdc:
+          file_type : xdc
+
+targets:
+  synth_35t:
+    default_tool : vivado
+    filesets : [rtl, data, constraints]
+    toplevel : safety_riscv_soc_stage4f
+    tools:
+      vivado:
+        part : xc7a35ticsg324-1L
+        synth : vivado
+        pnr : none
+
+  synth_100t:
+    default_tool : vivado
+    filesets : [rtl, data, constraints]
+    toplevel : safety_riscv_soc_stage4f
+    tools:
+      vivado:
+        part : xc7a100tcsg324-1
+        synth : vivado
+        pnr : none

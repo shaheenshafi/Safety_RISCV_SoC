@@ -51,6 +51,7 @@ module dcls_comparator (
 
   wire instr_req_mismatch;
   wire instr_addr_mismatch;
+  wire [3:0] instr_addr_diff;
   wire instr_rvalid_mismatch;
   wire instr_rdata_mismatch;
 
@@ -69,10 +70,24 @@ module dcls_comparator (
   assign instr_req_mismatch =
       core_a_instr_req_i != core_b_instr_req_i;
 
+  // Compare the instruction address in four parallel 8-bit slices.
+  // The OR of the XOR reductions is equivalent to a 32-bit inequality.
+  assign instr_addr_diff[0] =
+      |(core_a_instr_addr_i[7:0] ^ core_b_instr_addr_i[7:0]);
+
+  assign instr_addr_diff[1] =
+      |(core_a_instr_addr_i[15:8] ^ core_b_instr_addr_i[15:8]);
+
+  assign instr_addr_diff[2] =
+      |(core_a_instr_addr_i[23:16] ^ core_b_instr_addr_i[23:16]);
+
+  assign instr_addr_diff[3] =
+      |(core_a_instr_addr_i[31:24] ^ core_b_instr_addr_i[31:24]);
+
   assign instr_addr_mismatch =
       core_a_instr_req_i &&
       core_b_instr_req_i &&
-      (core_a_instr_addr_i != core_b_instr_addr_i);
+      (|instr_addr_diff);
 
   assign instr_rvalid_mismatch =
       core_a_instr_rvalid_i != core_b_instr_rvalid_i;

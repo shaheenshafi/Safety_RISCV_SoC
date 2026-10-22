@@ -59,9 +59,23 @@ module safety_riscv_soc_stage1_mmio #(
   localparam [32:0] RAM_BASE_EXT  = 33'd1048576;
   localparam [32:0] RAM_LIMIT_EXT = RAM_BASE_EXT + (RamDepth * 4);
 
-  // Hold the processor in reset whenever safe state is active.
+  // Asynchronously assert core reset for external reset or safety fault.
+  // Synchronize reset release to the ungated SoC clock.
+  wire core_reset_async_ni;
   wire core_rst_ni;
-  assign core_rst_ni = rst_ni & ~safe_state_i;
+
+  assign core_reset_async_ni = rst_ni & ~safe_state_i;
+
+  (* ASYNC_REG = "TRUE" *) reg [1:0] core_reset_sync;
+
+  always @(posedge clk_i or negedge core_reset_async_ni) begin
+    if (!core_reset_async_ni)
+      core_reset_sync <= 2'b00;
+    else
+      core_reset_sync <= {core_reset_sync[0], 1'b1};
+  end
+
+  assign core_rst_ni = core_reset_sync[1];
 
   // --------------------------------------------------------------------------
   // Ibex instruction interface
@@ -222,6 +236,7 @@ module safety_riscv_soc_stage1_mmio #(
   // --------------------------------------------------------------------------
 
   ibex_top #(
+      .BranchTargetALU (1'b1),
       .DmBaseAddr      (32'h0010_0000),
       .DmAddrMask      (32'h0000_0003),
       .DmHaltAddr      (32'h0010_0000),
