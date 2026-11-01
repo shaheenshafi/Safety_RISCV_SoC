@@ -98,7 +98,8 @@ module safety_mmio_config_stage4f (
         if (we_i) begin
           // Byte-enable bit 0 controls the low-byte configuration fields.
           if (!safe_state_i && be_i[0]) begin
-            if (addr_i == REG_PROFILE_CTRL)
+            if ((addr_i == REG_PROFILE_CTRL) &&
+                (wdata_i[1:0] != PROFILE_RESERVED))
               profile_o <= wdata_i[1:0];
 
             if (addr_i == REG_INJECTION_AUTH)

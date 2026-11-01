@@ -345,7 +345,7 @@ module safety_riscv_soc_stage4f (
   ) u_execution_supervisor (
       .clk_i                    (clk_i),
       .rst_ni                   (rst_ni),
-      .enable_i                 (dcls_enable_o && !safe_state_req),
+      .enable_i                 (profile_valid_o && !safe_state_req),
       .watchdog_kick_i          (heartbeat_update_o),
       .progress_event_i         (heartbeat_update_o),
       .watchdog_early_fault_o   (watchdog_early_fault_o),

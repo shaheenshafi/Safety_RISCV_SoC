@@ -118,6 +118,54 @@ module safety_riscv_soc_stage4f_tb;
     end
   end
 
+
+  // Testbench helper: issue a matched MMIO write through both cores.
+  task automatic profile_policy_mmio_write;
+    input [31:0] addr;
+    input [31:0] wdata;
+    input [3:0] byte_enable;
+    begin
+      @(negedge clk_i);
+
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = 1'b1;
+      force dut.core_a.data_be    = byte_enable;
+      force dut.core_a.data_addr  = addr;
+      force dut.core_a.data_wdata = wdata;
+
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = 1'b1;
+      force dut.core_b.data_be    = byte_enable;
+      force dut.core_b.data_addr  = addr;
+      force dut.core_b.data_wdata = wdata;
+
+      #1;
+
+      if (dut.mmio_req !== 1'b1 ||
+          dut.mmio_gnt !== 1'b1 ||
+          mmio_interlock_hold_o !== 1'b0)
+        $fatal(1, "Matched MMIO write rejected: addr=%08h", addr);
+
+      @(posedge clk_i);
+      #1;
+
+      if (dut.mmio_rvalid !== 1'b1)
+        $fatal(1, "MMIO response missing: addr=%08h", addr);
+
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+    end
+  endtask
+
   initial begin
     repeat (4) @(posedge clk_i);
     #1;
@@ -155,7 +203,130 @@ module safety_riscv_soc_stage4f_tb;
 
     $display("PASS: Core reset asserts asynchronously and releases after two rising edges");
 
-    if ($test$plusargs("address_guard_test")) begin
+    if ($test$plusargs("profile_policy_test")) begin
+      $display("Starting Stage 4F profile-policy integration test");
+
+      // Hold both processors in reset to isolate the MMIO peripheral.
+      force dut.core_a.core_rst_ni = 1'b0;
+      force dut.core_b.core_rst_ni = 1'b0;
+      #1;
+
+      if (dut.core_a.core_rst_ni !== 1'b0 ||
+          dut.core_b.core_rst_ni !== 1'b0)
+        $fatal(1, "Failed to hold both cores in reset");
+
+      // Basic profile is the reset default.
+      if (selected_profile_o !== 2'b00 ||
+          profile_valid_o !== 1'b1 ||
+          dcls_enable_o !== 1'b0 ||
+          fault_injection_enable_o !== 1'b0 ||
+          dut.u_execution_supervisor.enable_i !== 1'b1)
+        $fatal(1, "Basic profile policy incorrect");
+
+      $display("PASS: Basic profile and supervisor enable");
+
+      // Safety profile.
+      profile_policy_mmio_write(32'h0020_0000, 32'h1, 4'hF);
+
+      if (selected_profile_o !== 2'b01 ||
+          profile_valid_o !== 1'b1 ||
+          dcls_enable_o !== 1'b1 ||
+          fault_injection_enable_o !== 1'b0 ||
+          dut.u_execution_supervisor.enable_i !== 1'b1)
+        $fatal(1, "Safety profile policy incorrect");
+
+      $display("PASS: Safety profile");
+
+      // Reserved profile must not replace the selected Safety profile.
+      profile_policy_mmio_write(32'h0020_0000, 32'h3, 4'hF);
+
+      if (selected_profile_o !== 2'b01 ||
+          profile_valid_o !== 1'b1 ||
+          dcls_enable_o !== 1'b1)
+        $fatal(1, "Reserved profile write was not rejected");
+
+      $display("PASS: Reserved profile rejection");
+
+      // Diagnostic profile, initially without injection authorisation.
+      profile_policy_mmio_write(32'h0020_0000, 32'h2, 4'hF);
+
+      if (selected_profile_o !== 2'b10 ||
+          profile_valid_o !== 1'b1 ||
+          dcls_enable_o !== 1'b1 ||
+          fault_injection_enable_o !== 1'b0 ||
+          dut.u_execution_supervisor.enable_i !== 1'b1)
+        $fatal(1, "Diagnostic profile policy incorrect");
+
+      profile_policy_mmio_write(32'h0020_0004, 32'h1, 4'h1);
+
+      if (fault_injection_enable_o !== 1'b1)
+        $fatal(1, "Diagnostic injection authorisation failed");
+
+      profile_policy_mmio_write(32'h0020_0004, 32'h0, 4'h1);
+
+      if (fault_injection_enable_o !== 1'b0)
+        $fatal(1, "Diagnostic injection revocation failed");
+
+      $display("PASS: Diagnostic profile and injection authorisation");
+
+      // Return to Basic. Supervision must remain active.
+      profile_policy_mmio_write(32'h0020_0000, 32'h0, 4'hF);
+
+      if (selected_profile_o !== 2'b00 ||
+          profile_valid_o !== 1'b1 ||
+          dcls_enable_o !== 1'b0 ||
+          fault_injection_enable_o !== 1'b0 ||
+          dut.u_execution_supervisor.enable_i !== 1'b1)
+        $fatal(1, "Basic profile transition or supervisor enable failed");
+
+      $display("PASS: Supervisor remains enabled in Basic profile");
+
+      // Two changed heartbeat values, separated by a valid interval.
+      profile_policy_mmio_write(32'h0020_0010, 32'h1, 4'hF);
+
+      if (heartbeat_value_o !== 32'h1)
+        $fatal(1, "First heartbeat was not registered");
+
+      repeat (8) @(posedge clk_i);
+
+      profile_policy_mmio_write(32'h0020_0010, 32'h2, 4'hF);
+
+      if (heartbeat_value_o !== 32'h2 ||
+          supervisor_fault_o !== 1'b0 ||
+          watchdog_early_fault_o !== 1'b0 ||
+          watchdog_timeout_fault_o !== 1'b0 ||
+          progress_timeout_fault_o !== 1'b0)
+        $fatal(1, "Basic heartbeat servicing failed");
+
+      $display("PASS: Basic heartbeat servicing");
+
+      // No further progress: expect supervisor timeout and safe state.
+      repeat (270) @(posedge clk_i);
+      #1;
+
+      if (fault_latched_o !== 1'b1 ||
+          fault_code_o !== 8'h03 ||
+          supervisor_fault_seen_o !== 1'b1 ||
+          supervisor_fault_o !== 1'b1 ||
+          safe_state_req_o !== 1'b1 ||
+          watchdog_early_fault_o !== 1'b0 ||
+          (watchdog_timeout_fault_o !== 1'b1 &&
+           progress_timeout_fault_o !== 1'b1))
+        $fatal(1, "Basic-profile timeout handling failed");
+
+      $display("");
+      $display("==============================================");
+      $display("STAGE 4F PROFILE POLICY INTEGRATION PASS");
+      $display("Profile policies              : CONFIRMED");
+      $display("Reserved profile rejection    : CONFIRMED");
+      $display("Injection authorisation       : CONFIRMED");
+      $display("Basic heartbeat servicing     : CONFIRMED");
+      $display("Basic timeout and safe state   : CONFIRMED");
+      $display("Supervisor fault code          : 0x03");
+      $display("==============================================");
+      $finish;
+
+    end else if ($test$plusargs("address_guard_test")) begin
       $display("Starting Stage 4G RAM address-guard test");
       wait (dcls_enable_o === 1'b1 &&
             core_a_success_seen && core_b_success_seen);
