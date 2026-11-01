@@ -8,3 +8,6 @@ build/
 
 # Direct Verilator standalone build artifacts
 obj_dir/
+
+# Stage5 firmware build artifacts
+sw/stage5/build/

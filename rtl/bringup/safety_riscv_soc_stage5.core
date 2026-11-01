@@ -1,0 +1,109 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_riscv_soc_stage5:0.1
+
+filesets:
+  rtl:
+    files:
+      - safety_riscv_soc_stage1_mmio.v
+      - safety_riscv_soc_stage4f.v
+      - ../safety/dcls_comparator.v
+      - ../safety/dcls_fault_injector.v
+      - ../safety/core_response_fault_injector.v
+      - ../safety/safety_fault_manager_stage4f.v
+      - ../safety/safety_mmio_config_stage4f.v
+      - ../safety/safety_execution_supervisor.v
+    file_type : verilogSource
+    depend : [
+      lowrisc:ibex:ibex_top,
+      lowrisc:ibex:sim_shared
+    ]
+
+  data:
+    files:
+      - ../../data/stage5_smoke_bss_boot80.vmem:
+          file_type : user
+          copyto : data/stage5_smoke_bss_boot80.vmem
+
+  tb:
+    files:
+      - ../../tb/safety_riscv_soc_stage5_tb.sv
+    file_type : systemVerilogSource
+
+  sim:
+    files:
+      - ../../sim/safety_riscv_soc_stage5_main.cpp
+    file_type : cppSource
+
+
+  data_hal:
+    files:
+      - ../../data/stage5_hal_test.vmem:
+          file_type : user
+          copyto : data/stage5_hal_test.vmem
+
+  tb_hal:
+    files:
+      - ../../tb/safety_riscv_soc_stage5_hal_tb.sv
+    file_type : systemVerilogSource
+
+  sim_hal:
+    files:
+      - ../../sim/safety_riscv_soc_stage5_hal_main.cpp
+    file_type : cppSource
+
+  data_battery:
+    files:
+      - ../../data/stage5_battery_monitor.vmem:
+          file_type : user
+          copyto : data/stage5_battery_monitor.vmem
+
+  tb_battery:
+    files:
+      - ../../tb/safety_riscv_soc_stage5_battery_tb.sv
+    file_type : systemVerilogSource
+
+  sim_battery:
+    files:
+      - ../../sim/safety_riscv_soc_stage5_battery_main.cpp
+    file_type : cppSource
+
+targets:
+  sim:
+    default_tool : verilator
+    filesets : [rtl, data, tb, sim]
+    toplevel : safety_riscv_soc_stage5_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
+
+  hal_sim:
+    default_tool : verilator
+    filesets : [rtl, data_hal, tb_hal, sim_hal]
+    toplevel : safety_riscv_soc_stage5_hal_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'
+
+  battery_sim:
+    default_tool : verilator
+    filesets : [rtl, data_battery, tb_battery, sim_battery]
+    toplevel : safety_riscv_soc_stage5_battery_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options :
+          - "--timing"
+          - "--trace"
+          - "-Wno-TIMESCALEMOD"
+          - '-CFLAGS "-std=c++17"'

@@ -1,4 +1,6 @@
-module safety_riscv_soc_stage4f (
+module safety_riscv_soc_stage4f #(
+    parameter MemInitFile = "data/stage4f_heartbeat.vmem"
+) (
     input  wire        clk_i,
     input  wire        rst_ni,
 
@@ -202,7 +204,7 @@ module safety_riscv_soc_stage4f (
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1_mmio #(
-      .MemInitFile("data/stage4f_heartbeat.vmem"),
+      .MemInitFile(MemInitFile),
       .RamDepth(4096),
       .EnableAddressGuard(1'b1)
   ) core_a (
@@ -241,7 +243,7 @@ module safety_riscv_soc_stage4f (
   // --------------------------------------------------------------------------
 
   safety_riscv_soc_stage1_mmio #(
-      .MemInitFile("data/stage4f_heartbeat.vmem"),
+      .MemInitFile(MemInitFile),
       .RamDepth(4096),
       .EnableAddressGuard(1'b1)
   ) core_b (
