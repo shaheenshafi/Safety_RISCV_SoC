@@ -1,0 +1,45 @@
+CAPI=2:
+
+name : local:safety_riscv:safety_riscv_soc_arty_a7:0.1
+description : Stage 5 Arty A7-100T FPGA implementation
+
+filesets:
+  rtl:
+    files:
+      - safety_riscv_soc_stage1_mmio.v
+      - safety_riscv_soc_stage4f.v
+      - safety_riscv_soc_arty_a7.v
+      - ../safety/dcls_comparator.v
+      - ../safety/dcls_fault_injector.v
+      - ../safety/core_response_fault_injector.v
+      - ../safety/safety_fault_manager_stage4f.v
+      - ../safety/safety_mmio_config_stage4f.v
+      - ../safety/safety_execution_supervisor.v
+    file_type : systemVerilogSource
+    depend : [
+      lowrisc:ibex:ibex_top,
+      lowrisc:ibex:fpga_xilinx_shared,
+      lowrisc:prim_xilinx:all
+    ]
+
+  data:
+    files:
+      - ../../data/stage5_battery_monitor.vmem:
+          file_type : user
+          copyto : data/stage5_battery_monitor.vmem
+
+  constraints:
+    files:
+      - arty_a7_100t.xdc:
+          file_type : xdc
+
+targets:
+  synth_100t:
+    default_tool : vivado
+    filesets : [rtl, data, constraints]
+    toplevel : safety_riscv_soc_arty_a7
+    tools:
+      vivado:
+        part : xc7a100tcsg324-1
+        synth : vivado
+        pnr : none
