@@ -40,6 +40,9 @@ module safety_riscv_soc_stage4f_tb;
   localparam [31:0] SUCCESS_MARKER  = 32'h0000600D;
 
   integer heartbeat_update_count = 0;
+
+  reg [31:0] supervisor_ram_a_before;
+  reg [31:0] supervisor_ram_b_before;
   reg core_a_success_seen = 1'b0;
   reg core_b_success_seen = 1'b0;
   reg interlock_fault_seen = 1'b0;
@@ -590,6 +593,235 @@ module safety_riscv_soc_stage4f_tb;
       $display("STAGE 4G INSTRUCTION ADDRESS-GUARD PASS");
       $display("Blocked fetch, bus-error response and safe state confirmed");
       $finish;
+
+    end else if ($test$plusargs("supervisor_ram_containment_test")) begin
+      $display("Starting supervisor-to-RAM containment test");
+
+      fork
+        begin
+          wait (dcls_enable_o === 1'b1);
+          #1;
+
+          if (selected_profile_o !== 2'b01 ||
+              profile_valid_o !== 1'b1 ||
+              fault_injection_enable_o !== 1'b0)
+            $fatal(1, "Firmware did not select valid Safety profile");
+
+          // Suppress application heartbeat observation to trigger timeout.
+          force dut.heartbeat_update_o = 1'b0;
+
+          wait (supervisor_fault_o === 1'b1);
+          #1;
+
+          if (fault_latched_o !== 1'b0 ||
+              safe_state_req_o !== 1'b0)
+            $fatal(1, "Expected supervisor-to-fault-manager capture interval");
+
+          // Present identical valid RAM writes from both processors.
+          // CPU address 0x00102000 is inside the 16 KiB RAM region.
+          @(negedge clk_i);
+
+          // Snapshot the actual generic RAM words before the test write.
+          // 0x00102000 - 0x00100000 = 0x2000 bytes = word index 2048.
+          supervisor_ram_a_before =
+              dut.core_a.u_ram.u_ram.mem[2048];
+          supervisor_ram_b_before =
+              dut.core_b.u_ram.u_ram.mem[2048];
+
+          force dut.core_a.data_req   = 1'b1;
+          force dut.core_a.data_we    = 1'b1;
+          force dut.core_a.data_be    = 4'hF;
+          force dut.core_a.data_addr  = 32'h0010_2000;
+          force dut.core_a.data_wdata = 32'hA55A_3CC3;
+
+          force dut.core_b.data_req   = 1'b1;
+          force dut.core_b.data_we    = 1'b1;
+          force dut.core_b.data_be    = 4'hF;
+          force dut.core_b.data_addr  = 32'h0010_2000;
+          force dut.core_b.data_wdata = 32'hA55A_3CC3;
+
+          #1;
+
+          // Check the decoded RAM index after the test addresses are driven.
+          if (dut.core_a.u_ram.a_addr_idx !== 12'd2048 ||
+              dut.core_b.u_ram.a_addr_idx !== 12'd2048)
+            $fatal(
+                1,
+                "Unexpected RAM word index: Core A=%0d Core B=%0d",
+                dut.core_a.u_ram.a_addr_idx,
+                dut.core_b.u_ram.a_addr_idx);
+
+          if (dcls_mismatch_o !== 1'b0 ||
+              mmio_interlock_hold_o !== 1'b0 ||
+              dut.core_a.data_addr_fault_o !== 1'b0 ||
+              dut.core_b.data_addr_fault_o !== 1'b0)
+            $fatal(1, "RAM test stimulus was not a valid matched transaction");
+
+          // Verify both RAM interfaces are inhibited before the sampling edge.
+          if (dut.core_a.data_gnt !== 1'b0 ||
+              dut.core_b.data_gnt !== 1'b0 ||
+              dut.core_a.u_ram.a_req_i !== 1'b0 ||
+              dut.core_a.u_ram.a_we_i !== 1'b0 ||
+              dut.core_b.u_ram.a_req_i !== 1'b0 ||
+              dut.core_b.u_ram.a_we_i !== 1'b0)
+            $fatal(
+                1,
+                "SUPERVISOR RAM CONTAINMENT FAILURE: A req/we=%b/%b B req/we=%b/%b",
+                dut.core_a.u_ram.a_req_i,
+                dut.core_a.u_ram.a_we_i,
+                dut.core_b.u_ram.a_req_i,
+                dut.core_b.u_ram.a_we_i);
+
+          $display("[%0t] Matched RAM writes blocked on both cores",
+                   $time);
+
+          @(posedge clk_i);
+          #1;
+
+          // Confirm neither underlying RAM array accepted the write.
+          if (dut.core_a.u_ram.u_ram.mem[2048] !==
+                  supervisor_ram_a_before ||
+              dut.core_b.u_ram.u_ram.mem[2048] !==
+                  supervisor_ram_b_before)
+            $fatal(1, "Supervisor fault containment changed RAM contents");
+
+          if (fault_latched_o !== 1'b1 ||
+              supervisor_fault_seen_o !== 1'b1 ||
+              fault_code_o !== 8'h03 ||
+              safe_state_req_o !== 1'b1)
+            $fatal(1, "Supervisor fault was not correctly latched");
+
+          release dut.core_a.data_req;
+          release dut.core_a.data_we;
+          release dut.core_a.data_be;
+          release dut.core_a.data_addr;
+          release dut.core_a.data_wdata;
+
+          release dut.core_b.data_req;
+          release dut.core_b.data_we;
+          release dut.core_b.data_be;
+          release dut.core_b.data_addr;
+          release dut.core_b.data_wdata;
+
+          $display("");
+          $display("SUPERVISOR-TO-RAM CONTAINMENT PASS");
+          $display("Core A RAM write           : BLOCKED");
+          $display("Core B RAM write           : BLOCKED");
+          $display("Supervisor fault code     : 0x03");
+          $display("Sticky fault and safe state: CONFIRMED");
+          $finish;
+        end
+
+        begin
+          repeat (1200) @(posedge clk_i);
+          $fatal(1, "Supervisor RAM containment test timed out");
+        end
+      join_any
+      disable fork;
+
+    end else if ($test$plusargs("supervisor_mmio_containment_test")) begin
+      $display("Starting supervisor-to-MMIO containment test");
+
+      fork
+        begin
+          wait (dcls_enable_o === 1'b1);
+          #1;
+
+          if (selected_profile_o !== 2'b01 ||
+              profile_valid_o !== 1'b1 ||
+              fault_injection_enable_o !== 1'b0)
+            $fatal(1, "Firmware did not select valid Safety profile");
+
+          if (dut.u_mmio_config.injection_authorize_o !== 1'b0)
+            $fatal(1, "Injection authorisation was not initially zero");
+
+          // Suppress only the supervisor's heartbeat observation.
+          // Firmware and MMIO traffic continue operating.
+          force dut.heartbeat_update_o = 1'b0;
+
+          // Wait for the registered supervisor fault to become visible.
+          wait (supervisor_fault_o === 1'b1);
+          #1;
+
+          if (fault_latched_o !== 1'b0 ||
+              safe_state_req_o !== 1'b0)
+            $fatal(1, "Expected supervisor-to-fault-manager capture interval");
+
+          // Present an exactly matched, valid write before the next
+          // rising edge, when the fault manager will capture the fault.
+          @(negedge clk_i);
+
+          force dut.core_a.data_req   = 1'b1;
+          force dut.core_a.data_we    = 1'b1;
+          force dut.core_a.data_be    = 4'hF;
+          force dut.core_a.data_addr  = 32'h0020_0004;
+          force dut.core_a.data_wdata = 32'h0000_0001;
+
+          force dut.core_b.data_req   = 1'b1;
+          force dut.core_b.data_we    = 1'b1;
+          force dut.core_b.data_be    = 4'hF;
+          force dut.core_b.data_addr  = 32'h0020_0004;
+          force dut.core_b.data_wdata = 32'h0000_0001;
+
+          #1;
+
+          if (supervisor_fault_o !== 1'b1 ||
+              mmio_interlock_hold_o !== 1'b0 ||
+              dcls_mismatch_o !== 1'b0 ||
+              dut.u_mmio_config.address_valid !== 1'b1)
+            $fatal(1, "Test transaction was not a valid matched MMIO write");
+
+          if (dut.mmio_req !== 1'b0 ||
+              dut.mmio_gnt !== 1'b0 ||
+              dut.u_mmio_config.safe_state_i !== 1'b1)
+            $fatal(1, "Supervisor fault failed to suppress MMIO request/grant");
+
+          $display("[%0t] Matched MMIO write presented during containment interval",
+                   $time);
+
+          @(posedge clk_i);
+          #1;
+
+          // The MMIO register must not change, even though the fault manager
+          // captures the supervisor fault on this same rising edge.
+          if (dut.u_mmio_config.injection_authorize_o !== 1'b0)
+            $fatal(
+                1,
+                "SUPERVISOR MMIO CONTAINMENT FAILURE: injection_authorize=%b",
+                dut.u_mmio_config.injection_authorize_o);
+
+          if (fault_latched_o !== 1'b1 ||
+              supervisor_fault_seen_o !== 1'b1 ||
+              fault_code_o !== 8'h03 ||
+              safe_state_req_o !== 1'b1)
+            $fatal(1, "Supervisor fault was not correctly latched");
+
+          release dut.core_a.data_req;
+          release dut.core_a.data_we;
+          release dut.core_a.data_be;
+          release dut.core_a.data_addr;
+          release dut.core_a.data_wdata;
+
+          release dut.core_b.data_req;
+          release dut.core_b.data_we;
+          release dut.core_b.data_be;
+          release dut.core_b.data_addr;
+          release dut.core_b.data_wdata;
+
+          $display("");
+          $display("SUPERVISOR-TO-MMIO CONTAINMENT PASS");
+          $display("MMIO injection authorisation : BLOCKED");
+          $display("Supervisor fault code        : 0x03");
+          $display("Sticky fault and safe state  : CONFIRMED");
+          $finish;
+        end
+
+        begin
+          repeat (1200) @(posedge clk_i);
+          $fatal(1, "Supervisor MMIO containment test timed out");
+        end
+      join_any
+      disable fork;
 
     end else if ($test$plusargs("supervisor_timeout_test")) begin
       $display("Starting controlled Stage 4F heartbeat-loss test");

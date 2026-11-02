@@ -161,7 +161,11 @@ module safety_riscv_soc_stage4f #(
   assign mmio_interlock_fault_o = mmio_interlock_fault_internal;
 
   // Only an exactly matched, valid transaction reaches the peripheral.
-  assign mmio_req = mmio_requests_match && !safe_state_req && !dcls_mismatch_o;
+  assign mmio_req =
+      mmio_requests_match &&
+      !safe_state_req &&
+      !supervisor_fault_o &&
+      !dcls_mismatch_o;
 
   // --------------------------------------------------------------------------
   // Shared MMIO configuration and fault-status peripheral
@@ -180,7 +184,7 @@ module safety_riscv_soc_stage4f #(
       .rvalid_o                 (mmio_rvalid),
       .rdata_o                  (mmio_rdata),
 
-      .safe_state_i             (safe_state_req),
+      .safe_state_i             (safe_state_req | supervisor_fault_o),
 
       .fault_latched_i           (fault_latched_o),
       .instr_fault_seen_i        (instr_fault_seen_o),
@@ -212,7 +216,7 @@ module safety_riscv_soc_stage4f #(
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
-      .memory_side_effect_inhibit_i (safe_state_req | dcls_mismatch_o),
+      .memory_side_effect_inhibit_i (safe_state_req | supervisor_fault_o | dcls_mismatch_o),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
@@ -251,7 +255,7 @@ module safety_riscv_soc_stage4f #(
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
-      .memory_side_effect_inhibit_i (safe_state_req | dcls_mismatch_o),
+      .memory_side_effect_inhibit_i (safe_state_req | supervisor_fault_o | dcls_mismatch_o),
 
       .mmio_gnt_i     (mmio_gnt),
       .mmio_rvalid_i  (mmio_rvalid),
