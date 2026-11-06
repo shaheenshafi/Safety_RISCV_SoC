@@ -8,6 +8,8 @@ filesets:
       - safety_riscv_soc_stage1_mmio.v
       - safety_riscv_soc_stage4f.v
       - ../safety/dcls_comparator.v
+      - ../safety/dcls_paired_data_capture_stage.v
+      - ../safety/dcls_response_error_monitor.v
       - ../safety/dcls_fault_injector.v
       - ../safety/core_response_fault_injector.v
       - ../safety/safety_fault_manager_stage4f.v

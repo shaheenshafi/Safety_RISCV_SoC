@@ -66,7 +66,7 @@ module safety_riscv_soc_stage2_tb;
                  dut.core_b_instr_req,
                  dut.core_b_instr_addr);
 
-        $finish;
+        $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
       end
 
       if (dut.core_a_instr_req) begin
@@ -87,7 +87,7 @@ module safety_riscv_soc_stage2_tb;
           $display("           Core B: addr=0x%08h",
                    dut.core_b_instr_addr);
 
-          $finish;
+          $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
         end
       end
 
@@ -109,7 +109,7 @@ module safety_riscv_soc_stage2_tb;
         $display("           Core B: req=%b",
                  dut.core_b_data_req);
 
-        $finish;
+        $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
       end
 
       if (dut.core_a_data_req) begin
@@ -122,7 +122,7 @@ module safety_riscv_soc_stage2_tb;
           $display("[%0t] STAGE2 FAIL: Read/write control mismatch",
                    $time);
 
-          $finish;
+          $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
         end
 
         if (dut.core_a_data_be !==
@@ -139,7 +139,7 @@ module safety_riscv_soc_stage2_tb;
           $display("           Core B: be=0x%01h",
                    dut.core_b_data_be);
 
-          $finish;
+          $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
         end
 
         if (dut.core_a_data_addr !==
@@ -156,7 +156,7 @@ module safety_riscv_soc_stage2_tb;
           $display("           Core B: addr=0x%08h",
                    dut.core_b_data_addr);
 
-          $finish;
+          $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
         end
 
         if (dut.core_a_data_we &&
@@ -174,7 +174,7 @@ module safety_riscv_soc_stage2_tb;
           $display("           Core B: data=0x%08h",
                    dut.core_b_data_wdata);
 
-          $finish;
+          $fatal(1, "STAGE2 transaction mismatch; see diagnostic above");
         end
 
         if (dut.core_a_data_we) begin
@@ -242,7 +242,7 @@ module safety_riscv_soc_stage2_tb;
     $display("Core B pass          : %b", core_b_pass);
     $display("====================================================");
 
-    $finish;
+    $fatal(1, "STAGE2 FAIL: Verification timeout");
   end
 
 endmodule

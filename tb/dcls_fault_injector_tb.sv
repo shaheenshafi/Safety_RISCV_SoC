@@ -55,7 +55,7 @@ module dcls_fault_injector_tb;
                  instr_addr_o,
                  data_addr_o,
                  data_wdata_o);
-        $finish;
+        $fatal(1, "DCLS fault injector test failed: %s", test_name);
       end
 
       $display("PASS: %s", test_name);

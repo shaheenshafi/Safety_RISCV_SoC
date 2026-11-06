@@ -1,0 +1,27 @@
+CAPI=2:
+
+name : local:safety_riscv:core_response_fault_injector_tb:0.1
+description : Standalone Core B response fault injector unit test
+
+filesets:
+  rtl:
+    files:
+      - ../safety/core_response_fault_injector.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - ../../tb/core_response_fault_injector_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : core_response_fault_injector_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options:
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"

@@ -12,17 +12,22 @@ int main(int argc, char **argv) {
 
     const vluint64_t max_time = 200100;
 
-    while (!contextp->gotFinish() && contextp->time() < max_time) {
+    while (!contextp->gotFinish() &&
+           !contextp->gotError() &&
+           contextp->time() < max_time) {
         top->eval();
         contextp->timeInc(1);
     }
 
-    if (!contextp->gotFinish()) {
-        std::cout << "Simulation timeout" << std::endl;
+    const bool timed_out =
+        !contextp->gotFinish() && !contextp->gotError();
+    if (timed_out) {
+        std::cerr << "Stage 1 simulation timeout" << std::endl;
     }
 
+    const bool failed = contextp->gotError() || timed_out;
     delete top;
     delete contextp;
 
-    return 0;
+    return failed ? 1 : 0;
 }

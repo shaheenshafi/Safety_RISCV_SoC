@@ -26,6 +26,8 @@ module safety_riscv_soc_stage5_battery_tb;
   localparam [31:0] RESULTS_OFFSET = 32'h00000968;
   localparam [31:0] RESULTS_END    = 32'h000009D8;
   localparam [31:0] SUMMARY_OFFSET = 32'h00003FC0;
+  localparam [31:0] PROFILE_CTRL_ADDR = 32'h00200000;
+  localparam [31:0] GOLDEN_CHECKSUM = 32'hF7152312;
 
   localparam [31:0] RUNNING_MARKER = 32'h42545231;
   localparam [31:0] PASS_MARKER    = 32'h42545053;
@@ -42,6 +44,8 @@ module safety_riscv_soc_stage5_battery_tb;
   reg core_b_running_seen = 0;
   reg core_a_pass_seen = 0;
   reg core_b_pass_seen = 0;
+  reg core_a_marker_first_write_seen = 0;
+  reg core_b_marker_first_write_seen = 0;
 
   integer core_a_result_word_count = 0;
   integer core_b_result_word_count = 0;
@@ -83,7 +87,7 @@ module safety_riscv_soc_stage5_battery_tb;
   endfunction
 
   safety_riscv_soc_stage4f #(
-      .MemInitFile("data/stage5_battery_monitor.vmem")
+      .MemInitFile("data/stage5_battery_monitor_stale_pass.vmem")
   ) dut (
       .clk_i(clk_i),
       .rst_ni(rst_ni),
@@ -99,6 +103,7 @@ module safety_riscv_soc_stage5_battery_tb;
       .fault_injection_enable_o(fault_injection_enable_o),
       .mmio_interlock_hold_o(mmio_interlock_hold_o),
       .mmio_interlock_fault_o(mmio_interlock_fault_o),
+      .mmio_replica_integrity_fault_seen_o (),
       .dcls_instr_mismatch_o(dcls_instr_mismatch_o),
       .dcls_data_mismatch_o(dcls_data_mismatch_o),
       .dcls_mismatch_o(dcls_mismatch_o),
@@ -106,6 +111,8 @@ module safety_riscv_soc_stage5_battery_tb;
       .instr_fault_seen_o(instr_fault_seen_o),
       .data_fault_seen_o(data_fault_seen_o),
       .supervisor_fault_seen_o(supervisor_fault_seen_o),
+      .core_a_double_fault_seen_o (),
+      .core_b_double_fault_seen_o (),
       .fault_code_o(fault_code_o),
       .safe_state_req_o(safe_state_req_o),
       .watchdog_early_fault_o(watchdog_early_fault_o),
@@ -121,6 +128,20 @@ module safety_riscv_soc_stage5_battery_tb;
   always @(posedge clk_i) begin
     if (rst_ni) begin
       cycle_count = cycle_count + 1;
+
+      /*
+       * The old PASS marker must be invalidated before the application
+       * changes the runtime profile or uses heartbeat MMIO.
+       */
+      if (dut.core_a.data_req && dut.core_a.data_we &&
+          dut.core_a.data_addr == PROFILE_CTRL_ADDR &&
+          !core_a_running_seen)
+        $fatal(1, "Core A profile write preceded stale-PASS invalidation");
+
+      if (dut.core_b.data_req && dut.core_b.data_we &&
+          dut.core_b.data_addr == PROFILE_CTRL_ADDR &&
+          !core_b_running_seen)
+        $fatal(1, "Core B profile write preceded stale-PASS invalidation");
 
       /* Verify the redundant heartbeat MMIO transaction. */
       if (heartbeat_update_o) begin
@@ -156,6 +177,16 @@ module safety_riscv_soc_stage5_battery_tb;
       /* Monitor Core A application RAM writes. */
       if (dut.core_a.u_ram.a_req_i && dut.core_a.u_ram.a_we_i) begin
 
+        if (dut.core_a.u_ram.a_addr_i >= SUMMARY_OFFSET &&
+            dut.core_a.u_ram.a_addr_i < SUMMARY_OFFSET + 36 &&
+            !core_a_marker_first_write_seen) begin
+          if (dut.core_a.u_ram.a_addr_i != SUMMARY_OFFSET ||
+              dut.core_a.u_ram.a_wdata_i != RUNNING_MARKER)
+            $fatal(1, "Core A first summary write did not invalidate stale PASS");
+          core_a_marker_first_write_seen = 1;
+          core_a_running_seen = 1;
+        end
+
         if (dut.core_a.u_ram.a_addr_i == SUMMARY_OFFSET &&
             dut.core_a.u_ram.a_wdata_i == RUNNING_MARKER)
           core_a_running_seen = 1;
@@ -174,8 +205,13 @@ module safety_riscv_soc_stage5_battery_tb;
           core_a_summary_seen[a_summary_index] = 1'b1;
 
           if (a_summary_index == 0 &&
-              dut.core_a.u_ram.a_wdata_i == PASS_MARKER)
+              dut.core_a.u_ram.a_wdata_i == PASS_MARKER) begin
+            if (core_a_sequence_seen != 14'h3FFF ||
+                core_a_flags_seen != 14'h3FFF ||
+                core_a_summary_seen != 9'h1FF)
+              $fatal(1, "Core A published PASS before replacing all retained results");
             core_a_pass_seen = 1;
+          end
         end
 
         if (core_a_running_seen &&
@@ -214,6 +250,16 @@ module safety_riscv_soc_stage5_battery_tb;
       /* Monitor Core B application RAM writes. */
       if (dut.core_b.u_ram.a_req_i && dut.core_b.u_ram.a_we_i) begin
 
+        if (dut.core_b.u_ram.a_addr_i >= SUMMARY_OFFSET &&
+            dut.core_b.u_ram.a_addr_i < SUMMARY_OFFSET + 36 &&
+            !core_b_marker_first_write_seen) begin
+          if (dut.core_b.u_ram.a_addr_i != SUMMARY_OFFSET ||
+              dut.core_b.u_ram.a_wdata_i != RUNNING_MARKER)
+            $fatal(1, "Core B first summary write did not invalidate stale PASS");
+          core_b_marker_first_write_seen = 1;
+          core_b_running_seen = 1;
+        end
+
         if (dut.core_b.u_ram.a_addr_i == SUMMARY_OFFSET &&
             dut.core_b.u_ram.a_wdata_i == RUNNING_MARKER)
           core_b_running_seen = 1;
@@ -232,8 +278,13 @@ module safety_riscv_soc_stage5_battery_tb;
           core_b_summary_seen[b_summary_index] = 1'b1;
 
           if (b_summary_index == 0 &&
-              dut.core_b.u_ram.a_wdata_i == PASS_MARKER)
+              dut.core_b.u_ram.a_wdata_i == PASS_MARKER) begin
+            if (core_b_sequence_seen != 14'h3FFF ||
+                core_b_flags_seen != 14'h3FFF ||
+                core_b_summary_seen != 9'h1FF)
+              $fatal(1, "Core B published PASS before replacing all retained results");
             core_b_pass_seen = 1;
+          end
         end
 
         if (core_b_running_seen &&
@@ -314,6 +365,7 @@ module safety_riscv_soc_stage5_battery_tb;
     end
 
     $display("Starting Stage5 battery dual-core integration test");
+    $display("Initial RAM image: stale PASS marker and retained result records preloaded");
 
     repeat (4) @(posedge clk_i);
     #1;
@@ -336,8 +388,10 @@ module safety_riscv_soc_stage5_battery_tb;
       $fatal(1, "Safety profile policy verification failed");
 
     if (!core_a_running_seen || !core_b_running_seen ||
-        !core_a_pass_seen || !core_b_pass_seen)
-      $fatal(1, "Battery application markers missing");
+        !core_a_pass_seen || !core_b_pass_seen ||
+        !core_a_marker_first_write_seen ||
+        !core_b_marker_first_write_seen)
+      $fatal(1, "Battery application freshness markers missing");
 
     if (core_a_result_word_count != 28 ||
         core_b_result_word_count != 28 ||
@@ -376,6 +430,10 @@ module safety_riscv_soc_stage5_battery_tb;
     if (core_a_summary[4] != core_b_summary[4])
       $fatal(1, "Core A/B result checksums differ");
 
+    if (core_a_summary[4] != GOLDEN_CHECKSUM ||
+        core_b_summary[4] != GOLDEN_CHECKSUM)
+      $fatal(1, "Battery checksum does not match independent golden value");
+
     if (heartbeat_count < 18 ||
         heartbeat_value_o != last_heartbeat)
       $fatal(1, "Insufficient or inconsistent heartbeat activity");
@@ -392,6 +450,8 @@ module safety_riscv_soc_stage5_battery_tb;
     $display("Aggregate diagnostic mask      : %08h",
              core_a_summary[3]);
     $display("Core A/B checksums              : MATCH");
+    $display("Independent golden checksum    : %08h", GOLDEN_CHECKSUM);
+    $display("Stale PASS invalidation         : VERIFIED");
     $display("Accepted heartbeat updates     : %0d", heartbeat_count);
     $display("Final heartbeat sequence      : %08h", heartbeat_value_o);
     $display("Cycles observed                : %0d", cycle_count);

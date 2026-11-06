@@ -65,9 +65,8 @@ module safety_riscv_soc_stage1_tb;
 
   initial begin
     #200000;
-    $display("[%0t] STAGE1 FAIL: No expected RAM write observed",
-             $time);
-    $finish;
+    $fatal(1, "[%0t] STAGE1 FAIL: No expected RAM write observed",
+           $time);
   end
 
 endmodule

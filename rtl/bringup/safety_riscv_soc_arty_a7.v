@@ -40,6 +40,7 @@ module safety_riscv_soc_arty_a7 (
     wire        instr_fault_seen;
     wire        data_fault_seen;
     wire        supervisor_fault_seen;
+    wire        mmio_replica_integrity_fault_seen;
     wire [7:0]  fault_code;
 
     wire        safe_state_req;
@@ -93,6 +94,9 @@ module safety_riscv_soc_arty_a7 (
         .instr_fault_seen_o                 (instr_fault_seen),
         .data_fault_seen_o                  (data_fault_seen),
         .supervisor_fault_seen_o            (supervisor_fault_seen),
+        .core_a_double_fault_seen_o         (),
+        .core_b_double_fault_seen_o         (),
+        .mmio_replica_integrity_fault_seen_o (mmio_replica_integrity_fault_seen),
         .fault_code_o                       (fault_code),
 
         .safe_state_req_o                   (safe_state_req),

@@ -1,7 +1,8 @@
 module safety_riscv_soc_stage1_mmio #(
     parameter MemInitFile = "data/stage1_smoke.vmem",
     parameter integer RamDepth = 262144,
-    parameter EnableAddressGuard = 1'b0
+    parameter EnableAddressGuard = 1'b0,
+    parameter integer EnablePairedDataPath = 0
 ) (
     input  wire       clk_i,
     input  wire       rst_ni,
@@ -13,6 +14,13 @@ module safety_riscv_soc_stage1_mmio #(
     // detects a fault. Invalid guarded accesses may still complete with
     // a registered bus-error response, but are never forwarded to RAM.
     input  wire       memory_side_effect_inhibit_i,
+
+    // Optional Stage 4F paired capture-stage interface. Disabled by default
+    // so existing Stage 1/2/3 wrapper users retain the direct RAM path.
+    input  wire        paired_data_path_active_i,
+    input  wire        paired_data_gnt_i,
+    input  wire        paired_data_commit_valid_i,
+    input  wire [68:0] paired_data_commit_payload_i,
 
     // External MMIO response interface for the data bus
     input  wire        mmio_gnt_i,
@@ -40,6 +48,7 @@ module safety_riscv_soc_stage1_mmio #(
     output wire [31:0] instr_addr_o,
     output wire        instr_rvalid_o,
     output wire [31:0] instr_rdata_o,
+    output wire        instr_err_o,
 
     output wire        data_req_o,
     output wire        data_we_o,
@@ -48,10 +57,14 @@ module safety_riscv_soc_stage1_mmio #(
     output wire [31:0] data_wdata_o,
     output wire        data_rvalid_o,
     output wire [31:0] data_rdata_o,
+    output wire        data_err_o,
 
     // Address-guard faults are routed to the SoC-level sticky fault manager.
     output wire        instr_addr_fault_o,
-    output wire        data_addr_fault_o
+    output wire        data_addr_fault_o,
+
+    // Native Ibex double-fault event (pulse); sticky capture is at SoC level.
+    output wire        ibex_double_fault_seen_o
 );
 
   // RAM occupies [0x00100000, 0x00100000 + RamDepth*4).
@@ -135,7 +148,15 @@ module safety_riscv_soc_stage1_mmio #(
 
   wire [31:0] ram_instr_addr;
   wire [31:0] ram_data_addr;
+  wire [31:0] ram_data_wdata;
+  wire [3:0]  ram_data_be;
   wire        ram_data_we;
+  wire        paired_data_path_active;
+  wire [31:0] paired_data_commit_addr;
+  wire [31:0] paired_data_commit_wdata;
+  wire [3:0]  paired_data_commit_be;
+  wire        paired_data_commit_we;
+  wire        paired_data_commit_addr_in_ram;
 
   // Validate complete CPU addresses before the RAM wrapper truncates them
   // to its word-index bits. This prevents out-of-range aliasing.
@@ -148,22 +169,53 @@ module safety_riscv_soc_stage1_mmio #(
       ({1'b0, data_addr} < RAM_LIMIT_EXT);
 
   assign ram_instr_addr = instr_addr - 32'h0010_0000;
-  assign ram_data_addr  = data_addr  - 32'h0010_0000;
+
+  // The Stage 4F paired path receives the original CPU payload from the
+  // capture registers. Its byte address is mapped to the local RAM address
+  // only after capture and comparison have completed.
+  assign paired_data_path_active =
+      (EnablePairedDataPath != 0) && paired_data_path_active_i;
+
+  assign paired_data_commit_we   = paired_data_commit_payload_i[68];
+  assign paired_data_commit_be   = paired_data_commit_payload_i[67:64];
+  assign paired_data_commit_addr = paired_data_commit_payload_i[63:32];
+  assign paired_data_commit_wdata= paired_data_commit_payload_i[31:0];
+
+  assign paired_data_commit_addr_in_ram =
+      ({1'b0, paired_data_commit_addr} >= RAM_BASE_EXT) &&
+      ({1'b0, paired_data_commit_addr} < RAM_LIMIT_EXT);
+
+  assign ram_data_addr =
+      (paired_data_path_active ? paired_data_commit_addr : data_addr) -
+      32'h0010_0000;
+  assign ram_data_be =
+      paired_data_path_active ? paired_data_commit_be : data_be;
+  assign ram_data_wdata =
+      paired_data_path_active ? paired_data_commit_wdata : data_wdata;
+  assign ram_data_we =
+      (paired_data_path_active ? paired_data_commit_we : data_we) &&
+      !safe_state_i &&
+      !memory_side_effect_inhibit_i;
 
   assign ram_instr_req =
       instr_req &&
       !memory_side_effect_inhibit_i &&
       (!EnableAddressGuard || instr_addr_in_ram);
 
+  // In paired mode, RAM sees only the registered, comparison-qualified
+  // capture-stage transaction. In direct mode, preserve the original request.
   assign ram_data_req =
-      data_req &&
-      !data_is_mmio &&
-      !mmio_interlock_hold_i &&
-      !memory_side_effect_inhibit_i &&
-      (!EnableAddressGuard || data_addr_in_ram);
-
-  assign ram_data_we =
-      data_we && !safe_state_i && !memory_side_effect_inhibit_i;
+      paired_data_path_active
+          ? (paired_data_commit_valid_i &&
+             !data_is_mmio &&
+             !mmio_interlock_hold_i &&
+             !memory_side_effect_inhibit_i &&
+             (!EnableAddressGuard || paired_data_commit_addr_in_ram))
+          : (data_req &&
+             !data_is_mmio &&
+             !mmio_interlock_hold_i &&
+             !memory_side_effect_inhibit_i &&
+             (!EnableAddressGuard || data_addr_in_ram));
 
   // Reserve the entire 0x0020_xxxx region for MMIO.
   // The top-level interlock blocks invalid MMIO transactions.
@@ -174,8 +226,11 @@ module safety_riscv_soc_stage1_mmio #(
   assign instr_addr_fault_o =
       EnableAddressGuard && instr_req && !instr_addr_in_ram;
 
+  // Report a guarded data-address fault only when the processor request is
+  // actually accepted. In paired mode this occurs after capture/compare;
+  // in direct mode the existing same-cycle grant behaviour is preserved.
   assign data_addr_fault_o =
-      EnableAddressGuard && data_req &&
+      EnableAddressGuard && data_req && data_gnt &&
       !data_is_mmio && !data_addr_in_ram;
 
   // Preserve the request/grant/response protocol for invalid non-MMIO
@@ -236,6 +291,7 @@ module safety_riscv_soc_stage1_mmio #(
   // --------------------------------------------------------------------------
 
   ibex_top #(
+      .RV32M           (ibex_pkg::RV32MSlow),
       .BranchTargetALU (1'b1),
       .DmBaseAddr      (32'h0010_0000),
       .DmAddrMask      (32'h0000_0003),
@@ -343,7 +399,7 @@ module safety_riscv_soc_stage1_mmio #(
       // ----------------------------------------------------------------------
 
       .crash_dump_o            (),
-      .double_fault_seen_o     (),
+      .double_fault_seen_o     (ibex_double_fault_seen_o),
       .alert_minor_o           (),
       .alert_major_internal_o  (),
       .alert_major_bus_o       (),
@@ -383,13 +439,10 @@ module safety_riscv_soc_stage1_mmio #(
 
       // Port A: Data
       .a_req_i     (ram_data_req),
-      .a_we_i      (ram_data_we &&
-                    !data_is_mmio &&
-                    !mmio_interlock_hold_i &&
-                    (!EnableAddressGuard || data_addr_in_ram)),
-      .a_be_i      (data_be),
+      .a_we_i      (ram_data_req && ram_data_we),
+      .a_be_i      (ram_data_be),
       .a_addr_i    (ram_data_addr),
-      .a_wdata_i   (data_wdata),
+      .a_wdata_i   (ram_data_wdata),
       .a_rvalid_o  (ram_data_rvalid),
       .a_rdata_o   (ram_data_rdata),
 
@@ -419,8 +472,10 @@ module safety_riscv_soc_stage1_mmio #(
       !mmio_interlock_hold_i &&
       (data_is_mmio
           ? mmio_gnt_i
-          : (!memory_side_effect_inhibit_i ||
-             (EnableAddressGuard && !data_addr_in_ram)));
+          : (paired_data_path_active
+                ? paired_data_gnt_i
+                : (!memory_side_effect_inhibit_i ||
+                   (EnableAddressGuard && !data_addr_in_ram))));
 
   assign instr_err = instr_addr_error_q;
   assign data_err  = data_addr_error_q;
@@ -436,6 +491,7 @@ module safety_riscv_soc_stage1_mmio #(
   assign instr_addr_o   = instr_addr;
   assign instr_rvalid_o = instr_rvalid;
   assign instr_rdata_o  = instr_rdata_to_ibex;
+  assign instr_err_o    = instr_err;
 
   assign data_req_o     = data_req;
   assign data_we_o      = data_we;
@@ -444,5 +500,6 @@ module safety_riscv_soc_stage1_mmio #(
   assign data_wdata_o   = data_wdata;
   assign data_rvalid_o  = data_rvalid;
   assign data_rdata_o   = data_rdata_to_ibex;
+  assign data_err_o     = data_err;
 
 endmodule

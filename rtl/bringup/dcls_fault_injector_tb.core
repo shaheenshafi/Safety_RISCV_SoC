@@ -1,0 +1,27 @@
+CAPI=2:
+
+name : local:safety_riscv:dcls_fault_injector_tb:0.1
+description : Standalone DCLS request-path fault injector unit test
+
+filesets:
+  rtl:
+    files:
+      - ../safety/dcls_fault_injector.v
+    file_type : verilogSource
+
+  tb:
+    files:
+      - ../../tb/dcls_fault_injector_tb.sv
+    file_type : systemVerilogSource
+
+targets:
+  sim:
+    default_tool : verilator
+    filesets : [rtl, tb]
+    toplevel : dcls_fault_injector_tb
+    tools:
+      verilator:
+        mode : binary
+        verilator_options:
+          - "--timing"
+          - "-Wno-TIMESCALEMOD"

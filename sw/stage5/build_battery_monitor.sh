@@ -20,6 +20,7 @@ for tool in "$CC" "$OBJCOPY" "$READELF" "$NM" "$SIZE" "$SREC_CAT"; do
 done
 
 mkdir -p "$BUILD_DIR"
+REPO_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 
 ELF="$BUILD_DIR/battery_monitor.elf"
 BIN="$BUILD_DIR/battery_monitor.bin"
@@ -90,6 +91,11 @@ fi
 "$SREC_CAT" "$BIN" \
     -binary -offset 0x80 -byte-swap 4 \
     -o "$VMEM" -vmem 32
+
+python3 "$SCRIPT_DIR/prepare_battery_verification_image.py" \
+    --source "$VMEM" \
+    --normal-output "$REPO_ROOT/data/stage5_battery_monitor.vmem" \
+    --stale-pass-output "$REPO_ROOT/data/stage5_battery_monitor_stale_pass.vmem"
 
 echo "PASS: Battery firmware linked successfully"
 echo "PASS: Firmware entry point is 0x00100080"

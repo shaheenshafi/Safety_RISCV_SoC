@@ -26,11 +26,15 @@ volatile battery_result_t battery_results[BATTERY_SAMPLE_COUNT] __attribute__((s
 static volatile uint32_t * const battery_summary =
     (volatile uint32_t *)(uintptr_t)BATTERY_SUMMARY_ADDR;
 
+#define BATTERY_MEMORY_FENCE() \
+    __asm__ volatile ("fence rw, rw" ::: "memory")
+
 static void battery_application_fail(uint32_t code,
                                      uint32_t detail)
 {
     battery_summary[5] = code;
     battery_summary[6] = detail;
+    BATTERY_MEMORY_FENCE();
     battery_summary[0] = BATTERY_MARKER_FAIL;
 
     for (;;) {
@@ -52,6 +56,15 @@ int main(void)
     _Static_assert(sizeof(battery_result_t) == 8u,
                    "Unexpected battery result structure size");
 
+    /*
+     * Invalidate any result left by an earlier run before touching profile
+     * control, heartbeat MMIO, or other safety infrastructure.  The summary
+     * is valid only while word 0 contains PASS; retained detail words and
+     * .noinit sample records are ignored until this run republishes PASS.
+     */
+    battery_summary[0] = BATTERY_MARKER_RUNNING;
+    BATTERY_MEMORY_FENCE();
+
     /* Select and verify the Safety profile. */
     status = platform_profile_select(PLATFORM_PROFILE_SAFETY);
 
@@ -64,9 +77,6 @@ int main(void)
     /* Initialize the application heartbeat sequence. */
     platform_heartbeat_start();
     heartbeat_count = 1u;
-
-    /* All result records are overwritten before publishing PASS. */
-    battery_summary[0] = BATTERY_MARKER_RUNNING;
 
     /* Validate the reference diagnostic configuration. */
     if (!battery_thresholds_validate(&battery_reference_thresholds))
@@ -144,6 +154,7 @@ int main(void)
     battery_summary[6] = hardware_fault_status;
     battery_summary[7] = platform_heartbeat_value_read();
     battery_summary[8] = heartbeat_count;
+    BATTERY_MEMORY_FENCE();
     battery_summary[0] = BATTERY_MARKER_PASS;
 
     /* Keep the application heartbeat alive after workload completion. */

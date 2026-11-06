@@ -207,6 +207,7 @@ module safety_riscv_soc_stage4e (
       .instr_addr_o   (core_a_instr_addr),
       .instr_rvalid_o (core_a_instr_rvalid),
       .instr_rdata_o  (core_a_instr_rdata),
+      .instr_err_o    (),
 
       .data_req_o     (core_a_data_req),
       .data_we_o      (core_a_data_we),
@@ -215,8 +216,10 @@ module safety_riscv_soc_stage4e (
       .data_wdata_o   (core_a_data_wdata),
       .data_rvalid_o  (core_a_data_rvalid),
       .data_rdata_o   (core_a_data_rdata),
+      .data_err_o     (),
       .instr_addr_fault_o (),
-      .data_addr_fault_o  ()
+      .data_addr_fault_o  (),
+      .ibex_double_fault_seen_o ()
   );
 
   // --------------------------------------------------------------------------
@@ -244,6 +247,7 @@ module safety_riscv_soc_stage4e (
       .instr_addr_o   (core_b_instr_addr),
       .instr_rvalid_o (core_b_instr_rvalid),
       .instr_rdata_o  (core_b_instr_rdata),
+      .instr_err_o    (),
 
       .data_req_o     (core_b_data_req),
       .data_we_o      (core_b_data_we),
@@ -252,8 +256,10 @@ module safety_riscv_soc_stage4e (
       .data_wdata_o   (core_b_data_wdata),
       .data_rvalid_o  (core_b_data_rvalid),
       .data_rdata_o   (core_b_data_rdata),
+      .data_err_o     (),
       .instr_addr_fault_o (),
-      .data_addr_fault_o  ()
+      .data_addr_fault_o  (),
+      .ibex_double_fault_seen_o ()
   );
 
   // --------------------------------------------------------------------------

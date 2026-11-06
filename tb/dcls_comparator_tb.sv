@@ -77,7 +77,7 @@ module dcls_comparator_tb;
         $display("      instr_mismatch=%b data_mismatch=%b",
                  dcls_instr_mismatch_o,
                  dcls_data_mismatch_o);
-        $finish;
+        $fatal(1, "DCLS comparator test failed: %s", test_name);
       end
 
       $display("PASS: %s", test_name);
@@ -106,7 +106,7 @@ module dcls_comparator_tb;
                  dcls_instr_mismatch_o,
                  dcls_data_mismatch_o);
 
-        $finish;
+        $fatal(1, "DCLS comparator test failed: %s", test_name);
       end
 
       $display("PASS: %s", test_name);

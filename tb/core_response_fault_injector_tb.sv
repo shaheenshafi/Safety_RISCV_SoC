@@ -46,7 +46,7 @@ module core_response_fault_injector_tb;
         $display("  Actual  : instr=0x%08h data=0x%08h",
                  instr_rdata_o,
                  data_rdata_o);
-        $finish;
+        $fatal(1, "Core response fault injector test failed: %s", test_name);
       end
 
       $display("PASS: %s", test_name);

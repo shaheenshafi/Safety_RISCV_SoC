@@ -1,4 +1,3 @@
-
 `timescale 1ns/1ps
 
 module safety_mmio_config_stage4f (
@@ -15,19 +14,25 @@ module safety_mmio_config_stage4f (
     output reg         rvalid_o,
     output reg  [31:0] rdata_o,
 
-    // Configuration writes are blocked during safe state
+    // Configuration writes are blocked during safe state or an integrity fault.
     input  wire        safe_state_i,
+
+    // Top-level consensus: both replicated peripherals must agree to accept
+    // the transaction before either copy changes state or returns a response.
+    input  wire        accept_i,
 
     // Fault-manager status inputs (read-only)
     input  wire        fault_latched_i,
     input  wire        instr_fault_seen_i,
     input  wire        data_fault_seen_i,
     input  wire        supervisor_fault_seen_i,
+    input  wire        config_integrity_fault_seen_i,
     input  wire [7:0]  fault_code_i,
 
     // Configuration outputs
     output reg  [1:0]  profile_o,
     output reg         injection_authorize_o,
+    output wire        config_integrity_fault_o,
 
     // Derived policy outputs
     output wire [1:0]  selected_profile_o,
@@ -50,7 +55,25 @@ module safety_mmio_config_stage4f (
   localparam [1:0] PROFILE_DIAGNOSTIC = 2'b10;
   localparam [1:0] PROFILE_RESERVED = 2'b11;
 
-  // Accept only accesses to the four defined registers.
+  // Each safety-critical configuration value is stored with its complement.
+  // A single-bit upset in either copy is detected by the combinational checks.
+  // This is error detection, not correction, and does not claim protection
+  // against common-mode corruption of both copies.
+  reg [1:0] profile_complement_q;
+  reg       injection_authorize_complement_q;
+
+  wire profile_integrity_ok;
+  wire injection_authorize_integrity_ok;
+
+  assign profile_integrity_ok = (profile_complement_q == ~profile_o);
+  assign injection_authorize_integrity_ok =
+      (injection_authorize_complement_q == ~injection_authorize_o);
+
+  assign config_integrity_fault_o =
+      !(profile_integrity_ok && injection_authorize_integrity_ok) ||
+      (profile_o == PROFILE_RESERVED);
+
+  // Accept only accesses to the five defined registers.
   wire address_valid;
   assign address_valid =
       (addr_i == REG_PROFILE_CTRL) ||
@@ -62,22 +85,28 @@ module safety_mmio_config_stage4f (
   assign gnt_o = req_i && address_valid;
 
   // A new heartbeat counts as progress only for an accepted, full-word
-  // write with a changed sequence value and no active safe state.
+  // write with a changed sequence value and no active safe state/config fault.
   assign heartbeat_update_o =
-      gnt_o && we_i && (be_i == 4'hF) && !safe_state_i &&
+      gnt_o && accept_i && we_i && (be_i == 4'hF) && !safe_state_i &&
+      !config_integrity_fault_o &&
       (addr_i == REG_HEARTBEAT) &&
       (wdata_i != heartbeat_value_o);
 
-  // Profile policy matches the Stage 4D controller.
+  // Integrity failure invalidates the selected profile. DCLS is forced ON
+  // while the fault is present so a corrupted value cannot silently disable
+  // comparison before the fault manager latches the configuration fault.
   assign selected_profile_o = profile_o;
-  assign profile_valid_o = (profile_o != PROFILE_RESERVED);
+  assign profile_valid_o =
+      !config_integrity_fault_o && (profile_o != PROFILE_RESERVED);
 
   assign dcls_enable_o =
-      profile_valid_o &&
-      ((profile_o == PROFILE_SAFETY) ||
-       (profile_o == PROFILE_DIAGNOSTIC));
+      config_integrity_fault_o ||
+      (profile_valid_o &&
+       ((profile_o == PROFILE_SAFETY) ||
+        (profile_o == PROFILE_DIAGNOSTIC)));
 
   assign fault_injection_enable_o =
+      !config_integrity_fault_o &&
       profile_valid_o &&
       (profile_o == PROFILE_DIAGNOSTIC) &&
       injection_authorize_o;
@@ -87,23 +116,40 @@ module safety_mmio_config_stage4f (
   always @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
       profile_o <= PROFILE_BASIC;
+      profile_complement_q <= ~PROFILE_BASIC;
       injection_authorize_o <= 1'b0;
+      injection_authorize_complement_q <= 1'b1;
       heartbeat_value_o <= 32'b0;
       rvalid_o <= 1'b0;
       rdata_o <= 32'b0;
     end else begin
-      rvalid_o <= gnt_o;
+      rvalid_o <= gnt_o && accept_i;
 
-      if (gnt_o) begin
+      if (gnt_o && accept_i) begin
         if (we_i) begin
-          // Byte-enable bit 0 controls the low-byte configuration fields.
-          if (!safe_state_i && be_i[0]) begin
+          // Writes are rejected during safe state or an integrity fault.
+          if (!safe_state_i && !config_integrity_fault_o && be_i[0]) begin
             if ((addr_i == REG_PROFILE_CTRL) &&
-                (wdata_i[1:0] != PROFILE_RESERVED))
+                (wdata_i[1:0] != PROFILE_RESERVED)) begin
               profile_o <= wdata_i[1:0];
+              profile_complement_q <= ~wdata_i[1:0];
 
-            if (addr_i == REG_INJECTION_AUTH)
+              // Authorization is valid only within a continuous Diagnostic
+              // session. Clear it on every profile transition, including
+              // leaving Diagnostic, so it cannot survive mode changes.
+              if (wdata_i[1:0] != profile_o) begin
+                injection_authorize_o <= 1'b0;
+                injection_authorize_complement_q <= 1'b1;
+              end
+            end
+
+            // Fault injection may be authorized only after Diagnostic mode
+            // has been selected. The authorization copy is updated together.
+            if ((addr_i == REG_INJECTION_AUTH) &&
+                (profile_o == PROFILE_DIAGNOSTIC)) begin
               injection_authorize_o <= wdata_i[0];
+              injection_authorize_complement_q <= ~wdata_i[0];
+            end
 
             if (addr_i == REG_HEARTBEAT && be_i == 4'hF)
               heartbeat_value_o <= wdata_i;
@@ -120,7 +166,9 @@ module safety_mmio_config_stage4f (
 
             REG_PROFILE_STATUS:
               rdata_o <= {
-                27'b0,
+                25'b0,
+                config_integrity_fault_seen_i,
+                config_integrity_fault_o,
                 fault_injection_enable_o,
                 dcls_enable_o,
                 profile_valid_o,
@@ -131,7 +179,8 @@ module safety_mmio_config_stage4f (
               rdata_o <= {
                 16'b0,
                 fault_code_i,
-                4'b0,
+                3'b0,
+                config_integrity_fault_seen_i,
                 supervisor_fault_seen_i,
                 data_fault_seen_i,
                 instr_fault_seen_i,

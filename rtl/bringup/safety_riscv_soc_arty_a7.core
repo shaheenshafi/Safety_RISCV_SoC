@@ -10,6 +10,8 @@ filesets:
       - safety_riscv_soc_stage4f.v
       - safety_riscv_soc_arty_a7.v
       - ../safety/dcls_comparator.v
+      - ../safety/dcls_paired_data_capture_stage.v
+      - ../safety/dcls_response_error_monitor.v
       - ../safety/dcls_fault_injector.v
       - ../safety/core_response_fault_injector.v
       - ../safety/safety_fault_manager_stage4f.v

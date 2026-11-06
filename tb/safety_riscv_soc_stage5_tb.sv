@@ -72,6 +72,7 @@ module safety_riscv_soc_stage5_tb;
 
       .mmio_interlock_hold_o (mmio_interlock_hold_o),
       .mmio_interlock_fault_o (mmio_interlock_fault_o),
+      .mmio_replica_integrity_fault_seen_o (),
 
       .dcls_instr_mismatch_o (dcls_instr_mismatch_o),
       .dcls_data_mismatch_o (dcls_data_mismatch_o),
@@ -81,6 +82,8 @@ module safety_riscv_soc_stage5_tb;
       .instr_fault_seen_o (instr_fault_seen_o),
       .data_fault_seen_o (data_fault_seen_o),
       .supervisor_fault_seen_o (supervisor_fault_seen_o),
+      .core_a_double_fault_seen_o (),
+      .core_b_double_fault_seen_o (),
       .fault_code_o (fault_code_o),
       .safe_state_req_o (safe_state_req_o),
 

@@ -11,3 +11,11 @@ obj_dir/
 
 # Stage5 firmware build artifacts
 sw/stage5/build/
+
+# Local Vivado runs, generated reports, and journals
+/vivado_build/
+/logs/
+*.jou
+
+# Local backup of pre-clock-gating Arty manifest
+/rtl/bringup/safety_riscv_soc_arty_a7.core.before_xilinx_clock_gating
