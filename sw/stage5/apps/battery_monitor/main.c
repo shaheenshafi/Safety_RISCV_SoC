@@ -103,6 +103,10 @@ int main(void)
         if (flags != vector->expected_flags)
             battery_application_fail(BATTERY_FAIL_SAMPLE, i + 1u);
 
+        /* Service the supervisor after validating this sample. */
+        platform_heartbeat_kick();
+        heartbeat_count++;
+
         aggregate_flags |= flags;
 
         /* Deterministic rolling checksum over sequence and flags. */
@@ -113,10 +117,6 @@ int main(void)
         checksum ^= flags;
 
         processed_count++;
-
-        /* Service the hardware supervisor after each sample. */
-        platform_heartbeat_kick();
-        heartbeat_count++;
     }
 
     /* Bridge the transition from sample processing to final reporting. */
