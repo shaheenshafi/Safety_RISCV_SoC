@@ -1,0 +1,545 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Sun Nov  8 23:35:45 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -file reports/synthesis/timing_summary_synth.rpt
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+No report available as report_methodology has not been run prior. Run report_methodology on the current design for the summary of methodology violations.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (1)
+6. checking no_output_delay (4)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (1)
+------------------------------
+ There is 1 input port with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (4)
+-------------------------------
+ There are 4 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+     -0.366       -0.984                      9                12081       -0.006       -0.221                     64                12081        9.500        0.000                       0                  4220  
+
+
+Timing constraints are not met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock        Waveform(ns)       Period(ns)      Frequency(MHz)
+-----        ------------       ----------      --------------
+sys_clk_pin  {0.000 10.000}     20.000          50.000          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+sys_clk_pin        -0.366       -0.984                      9                 8595       -0.006       -0.221                     64                 8595        9.500        0.000                       0                  4220  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group         From Clock         To Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------         ----------         --------               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+**async_default**  sys_clk_pin        sys_clk_pin             15.834        0.000                      0                 3486        0.486        0.000                      0                 3486  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  sys_clk_pin
+  To Clock:  sys_clk_pin
+
+Setup :            9  Failing Endpoints,  Worst Slack       -0.366ns,  Total Violation       -0.984ns
+Hold  :           64  Failing Endpoints,  Worst Slack       -0.006ns,  Total Violation       -0.221ns
+PW    :            0  Failing Endpoints,  Worst Slack        9.500ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (VIOLATED) :        -0.366ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/id_fsm_q_reg/C
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/u_fault_manager/fault_code_o_reg[0]/D
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            20.000ns  (sys_clk_pin rise@20.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        20.080ns  (logic 5.825ns (29.009%)  route 14.255ns (70.991%))
+  Logic Levels:           34  (CARRY4=7 LUT2=3 LUT4=6 LUT5=6 LUT6=12)
+  Clock Path Skew:        -0.295ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.380ns = ( 22.380 - 20.000 ) 
+    Source Clock Delay      (SCD):    2.746ns
+    Clock Pessimism Removal (CPR):    0.071ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.584     2.066    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_IBUF
+                         BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096     2.162 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1908, unplaced)      0.584     2.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/clk
+                         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/id_fsm_q_reg/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_fdce_C_Q)         0.478     3.224 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/id_fsm_q_reg/Q
+                         net (fo=10, unplaced)        0.513     3.737    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/id_fsm_q_reg_0
+                         LUT2 (Prop_lut2_I0_O)        0.295     4.032 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/i___7_i_23__0/O
+                         net (fo=4, unplaced)         0.473     4.505    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_15__0_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     4.629 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_19__0/O
+                         net (fo=1, unplaced)         0.449     5.078    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_19__0_n_0
+                         LUT6 (Prop_lut6_I5_O)        0.124     5.202 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_15__0/O
+                         net (fo=1, unplaced)         0.449     5.651    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_15__0_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     5.775 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[17]_i_9__0/O
+                         net (fo=13, unplaced)        0.499     6.274    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/id_stage_i/alu_op_a_mux_sel[0]
+                         LUT2 (Prop_lut2_I0_O)        0.124     6.398 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[16]_i_3__0/O
+                         net (fo=27, unplaced)        0.799     7.197    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[16]_i_3__0_n_0
+                         LUT6 (Prop_lut6_I0_O)        0.124     7.321 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_q[0]_i_2__1/O
+                         net (fo=7, unplaced)         0.484     7.805    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/alu_operand_a_ex[0]
+                         LUT6 (Prop_lut6_I0_O)        0.124     7.929 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_4__0/O
+                         net (fo=2, unplaced)         0.460     8.389    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/ex_block_i/adder_in_a[1]
+                         LUT6 (Prop_lut6_I0_O)        0.124     8.513 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_8__0/O
+                         net (fo=1, unplaced)         0.000     8.513    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_8__0_n_0
+                         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533     9.046 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.046    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.163 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[6]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.163    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[6]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.280 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[10]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.280    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[10]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.397 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[14]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.397    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[14]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.514 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[18]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.514    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[18]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     9.631 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[22]_i_1__0/CO[3]
+                         net (fo=1, unplaced)         0.000     9.631    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[22]_i_1__0_n_0
+                         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.331     9.962 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/addr_last_q_reg[26]_i_1__0/O[3]
+                         net (fo=17, unplaced)        0.886    10.848    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_intermediate_val_reg[0].imd_val_q_reg[0][27][3]
+                         LUT4 (Prop_lut4_I1_O)        0.307    11.155 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/div_by_zero_q_i_11__0/O
+                         net (fo=1, unplaced)         0.449    11.604    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/div_by_zero_q_i_11__0_n_0
+                         LUT5 (Prop_lut5_I4_O)        0.124    11.728 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/div_by_zero_q_i_7__0/O
+                         net (fo=1, unplaced)         0.449    12.177    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/div_by_zero_q_i_7__0_n_0
+                         LUT4 (Prop_lut4_I2_O)        0.124    12.301 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/div_by_zero_q_i_2__0/O
+                         net (fo=6, unplaced)         0.481    12.782    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/alu_is_equal_result
+                         LUT6 (Prop_lut6_I4_O)        0.124    12.906 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/i___7_i_6__0/O
+                         net (fo=1, unplaced)         0.449    13.355    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/controller_i/rdata_q_reg[8]_1
+                         LUT6 (Prop_lut6_I2_O)        0.124    13.479 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/id_stage_i/controller_i/i___7_i_1__0/O
+                         net (fo=146, unplaced)       0.558    14.037    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/valid_q_reg[2]_1
+                         LUT5 (Prop_lut5_I3_O)        0.124    14.161 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/g_stored_addr_nr.stored_addr_q[24]_i_1__0/O
+                         net (fo=4, unplaced)         0.756    14.917    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/core_b_instr_addr[22]
+                         LUT4 (Prop_lut4_I1_O)        0.124    15.041 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/rvalid_o_i_41/O
+                         net (fo=1, unplaced)         0.732    15.773    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/rvalid_o_i_41_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.124    15.897 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/rvalid_o_i_27/O
+                         net (fo=1, unplaced)         0.941    16.838    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/rvalid_o_i_27_n_0
+                         LUT6 (Prop_lut6_I3_O)        0.124    16.962 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/rvalid_o_i_10/O
+                         net (fo=2, unplaced)         0.460    17.422    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/rvalid_o_reg_1
+                         LUT5 (Prop_lut5_I3_O)        0.124    17.546 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/rvalid_o_i_3/O
+                         net (fo=9, unplaced)         0.490    18.036    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/valid_req_q_reg
+                         LUT4 (Prop_lut4_I0_O)        0.124    18.160 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/mem_reg_0_i_24/O
+                         net (fo=1, unplaced)         0.449    18.609    u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_3_0
+                         LUT5 (Prop_lut5_I0_O)        0.124    18.733 r  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=104, unplaced)       0.550    19.283    u_safety_riscv_soc/core_a/paired_data_path_active
+                         LUT2 (Prop_lut2_I0_O)        0.116    19.399 r  u_safety_riscv_soc/core_a/a_rvalid_o_i_3/O
+                         net (fo=2, unplaced)         0.182    19.581    u_safety_riscv_soc/core_a/a_rvalid_o_i_3_n_0
+                         LUT4 (Prop_lut4_I1_O)        0.328    19.909 r  u_safety_riscv_soc/core_a/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, unplaced)         0.449    20.358    u_safety_riscv_soc/core_a/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+                         LUT5 (Prop_lut5_I0_O)        0.124    20.482 r  u_safety_riscv_soc/core_a/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=9, unplaced)         0.490    20.972    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_gnt
+                         LUT6 (Prop_lut6_I3_O)        0.124    21.096 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/fault_code_o[2]_i_6/O
+                         net (fo=2, unplaced)         0.460    21.556    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_code_o[0]_i_3
+                         LUT6 (Prop_lut6_I0_O)        0.124    21.680 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_code_o[0]_i_4/O
+                         net (fo=1, unplaced)         0.449    22.129    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_code_o_reg[0]_3
+                         LUT6 (Prop_lut6_I2_O)        0.124    22.253 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_code_o[0]_i_3/O
+                         net (fo=1, unplaced)         0.449    22.702    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_code_o[0]_i_3_n_0
+                         LUT5 (Prop_lut5_I3_O)        0.124    22.826 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_code_o[0]_i_1/O
+                         net (fo=1, unplaced)         0.000    22.826    u_safety_riscv_soc/u_fault_manager/fault_code_o_reg[0]_1
+                         FDCE                                         r  u_safety_riscv_soc/u_fault_manager/fault_code_o_reg[0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     20.000    20.000 r  <hidden>
+    E3                                                0.000    20.000 r  clk
+                         net (fo=0)                   0.000    20.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    21.411 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.439    21.850    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.091    21.941 r  clk_IBUF_BUFG_inst/O
+                         net (fo=402, unplaced)       0.439    22.380    u_safety_riscv_soc/u_fault_manager/CLK
+                         FDCE                                         r  u_safety_riscv_soc/u_fault_manager/fault_code_o_reg[0]/C
+                         clock pessimism              0.071    22.451    <hidden>
+                         clock uncertainty           -0.035    22.415    <hidden>
+                         FDCE (Setup_fdce_C_D)        0.044    22.459    u_safety_riscv_soc/u_fault_manager/fault_code_o_reg[0]
+  -------------------------------------------------------------------
+                         required time                         22.459    <hidden>
+                         arrival time                         -22.826    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.366    <hidden>
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (VIOLATED) :        -0.006ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]_i_2/C
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]/D
+                            (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             sys_clk_pin
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        0.386ns  (logic 0.245ns (63.437%)  route 0.141ns (36.563%))
+  Logic Levels:           1  (LUT3=1)
+  Clock Path Skew:        0.293ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.985ns
+    Source Clock Delay      (SCD):    0.504ns
+    Clock Pessimism Removal (CPR):    0.188ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.114     0.364    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.026     0.390 r  clk_IBUF_BUFG_inst/O
+                         net (fo=402, unplaced)       0.114     0.504    u_safety_riscv_soc/core_a/CLK
+                         FDRE                                         r  u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]_i_2/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_fdre_C_Q)         0.147     0.651 r  u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]_i_2/Q
+                         net (fo=4, unplaced)         0.141     0.792    u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]_i_2_n_0
+                         LUT3 (Prop_lut3_I2_O)        0.098     0.890 r  u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q[2][0]_i_1/O
+                         net (fo=1, unplaced)         0.000     0.890    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/b_rdata_o[0]
+                         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.259     0.697    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_IBUF
+                         BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029     0.726 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1907, unplaced)      0.259     0.985    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/clk
+                         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]/C
+                         clock pessimism             -0.188     0.797    <hidden>
+                         FDRE (Hold_fdre_C_D)         0.099     0.896    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][0]
+  -------------------------------------------------------------------
+                         required time                         -0.896    <hidden>
+                         arrival time                           0.890    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 -0.006    <hidden>
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         sys_clk_pin
+Waveform(ns):       { 0.000 10.000 }
+Period(ns):         20.000
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location  Pin
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         20.000      17.056               u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_0/CLKARDCLK
+Low Pulse Width   Slow    FDCE/C              n/a            0.500         10.000      9.500                heartbeat_led_reg/C
+High Pulse Width  Slow    FDCE/C              n/a            0.500         10.000      9.500                heartbeat_led_reg/C
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  sys_clk_pin
+  To Clock:  sys_clk_pin
+
+Setup :            0  Failing Endpoints,  Worst Slack       15.834ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.486ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             15.834ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_a/core_reset_sync_reg[0]/CLR
+                            (recovery check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            20.000ns  (sys_clk_pin rise@20.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        3.634ns  (logic 1.021ns (28.096%)  route 2.613ns (71.904%))
+  Logic Levels:           3  (LUT2=2 LUT6=1)
+  Clock Path Skew:        -0.145ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    2.380ns = ( 22.380 - 20.000 ) 
+    Source Clock Delay      (SCD):    2.746ns
+    Clock Pessimism Removal (CPR):    0.221ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.584     2.066    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.096     2.162 r  clk_IBUF_BUFG_inst/O
+                         net (fo=402, unplaced)       0.584     2.746    u_safety_riscv_soc/u_mmio_config/CLK
+                         FDPE                                         r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDPE (Prop_fdpe_C_Q)         0.478     3.224 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/Q
+                         net (fo=3, unplaced)         0.983     4.207    u_safety_riscv_soc/u_mmio_config/profile_complement_q[1]
+                         LUT6 (Prop_lut6_I0_O)        0.295     4.502 f  u_safety_riscv_soc/u_mmio_config/led_OBUF[3]_inst_i_2/O
+                         net (fo=8, unplaced)         0.487     4.989    u_safety_riscv_soc/u_fault_manager/progress_age_q_reg[7]
+                         LUT2 (Prop_lut2_I1_O)        0.124     5.113 f  u_safety_riscv_soc/u_fault_manager/led_OBUF[3]_inst_i_1/O
+                         net (fo=22, unplaced)        0.511     5.624    u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+                         LUT2 (Prop_lut2_I0_O)        0.124     5.748 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, unplaced)         0.632     6.380    u_safety_riscv_soc/core_a/core_reset_sync_reg[1]_0
+                         FDCE                                         f  u_safety_riscv_soc/core_a/core_reset_sync_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     20.000    20.000 r  <hidden>
+    E3                                                0.000    20.000 r  clk
+                         net (fo=0)                   0.000    20.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    21.411 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.439    21.850    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.091    21.941 r  clk_IBUF_BUFG_inst/O
+                         net (fo=402, unplaced)       0.439    22.380    u_safety_riscv_soc/core_a/CLK
+                         FDCE                                         r  u_safety_riscv_soc/core_a/core_reset_sync_reg[0]/C
+                         clock pessimism              0.221    22.601    <hidden>
+                         clock uncertainty           -0.035    22.565    <hidden>
+                         FDCE (Recov_fdce_C_CLR)     -0.352    22.213    u_safety_riscv_soc/core_a/core_reset_sync_reg[0]
+  -------------------------------------------------------------------
+                         required time                         22.213    <hidden>
+                         arrival time                          -6.380    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 15.834    <hidden>
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.486ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_a/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[10].rf_reg_q_reg[0]/CLR
+                            (removal check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        0.691ns  (logic 0.245ns (35.436%)  route 0.446ns (64.564%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.293ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.985ns
+    Source Clock Delay      (SCD):    0.504ns
+    Clock Pessimism Removal (CPR):    0.188ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.114     0.364    clk_IBUF
+                         BUFG (Prop_bufg_I_O)         0.026     0.390 r  clk_IBUF_BUFG_inst/O
+                         net (fo=402, unplaced)       0.114     0.504    u_safety_riscv_soc/core_a/CLK
+                         FDCE                                         r  u_safety_riscv_soc/core_a/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+                         FDCE (Prop_fdce_C_Q)         0.147     0.651 r  u_safety_riscv_soc/core_a/core_reset_sync_reg[1]/Q
+                         net (fo=1, unplaced)         0.131     0.782    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/out[0]
+                         LUT1 (Prop_lut1_I0_O)        0.098     0.880 f  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2/O
+                         net (fo=1618, unplaced)      0.315     1.195    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/core_reset_sync_reg[1]
+                         FDCE                                         f  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[10].rf_reg_q_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  clk_IBUF_inst/O
+                         net (fo=3, unplaced)         0.259     0.697    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_IBUF
+                         BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029     0.726 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1907, unplaced)      0.259     0.985    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/clk
+                         FDCE                                         r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[10].rf_reg_q_reg[0]/C
+                         clock pessimism             -0.188     0.797    <hidden>
+                         FDCE (Remov_fdce_C_CLR)     -0.088     0.709    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[10].rf_reg_q_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -0.709    <hidden>
+                         arrival time                           1.195    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.486    <hidden>
+
+
+
+
+

@@ -1,0 +1,326 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 01:13:25 2026
+# Process ID         : 36412
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/report_lutar1_both_reset_stages.tcl -log build/logs/report_lutar1_both_reset_stages.log -journal build/logs/report_lutar1_both_reset_stages.jou
+# Log file           : R:/build/logs/report_lutar1_both_reset_stages.log
+# Journal file       : R:/build/logs/report_lutar1_both_reset_stages.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 4941 MB
+#-----------------------------------------------------------
+source scripts/report_lutar1_both_reset_stages.tcl
+# open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+Command: open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.048 . Memory (MB): peak = 379.965 ; gain = 5.605
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.075 . Memory (MB): peak = 892.359 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1004.008 ; gain = 2.383
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.014 . Memory (MB): peak = 1619.984 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1619.984 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1619.984 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.276 . Memory (MB): peak = 1637.504 ; gain = 17.520
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1637.504 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.143 . Memory (MB): peak = 1637.504 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.461 . Memory (MB): peak = 1637.504 ; gain = 17.520
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.509 . Memory (MB): peak = 1637.504 ; gain = 20.520
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1637.504 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:25 ; elapsed = 00:00:21 . Memory (MB): peak = 1637.504 ; gain = 1271.633
+# foreach index {0 1} {
+#     set cell_name "u_safety_riscv_soc/core_b/core_reset_sync_reg\[$index\]"
+#     set cell [get_cells -quiet $cell_name]
+#
+#     puts "\n========== CORE B RESET STAGE $index =========="
+#     puts "CELL: $cell"
+#
+#     if {[llength $cell] == 0} {
+#         puts "ERROR: Reset synchronizer cell not found."
+#         continue
+#     }
+#
+#     set clr [get_pins -quiet -of_objects $cell \
+#         -filter {REF_PIN_NAME == CLR}]
+#
+#     puts "CLR: $clr"
+#
+#     if {[llength $clr] == 0} {
+#         puts "ERROR: CLR pin not found."
+#         continue
+#     }
+#
+#     report_timing -to $clr \
+#         -delay_type min_max \
+#         -max_paths 20 \
+#         -path_type full
+# }
+
+========== CORE B RESET STAGE 0 ==========
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+CLR: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -to_pins  -max_paths 20 -nworst 1 -delay_type min_max -sort_by slack.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:13:53 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -to [get_pins -quiet -of_objects [get_cells -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[0]}] -filter {REF_PIN_NAME == CLR}] -delay_type min_max -max_paths 20 -path_type full
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.798ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+                            (removal check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        0.743ns  (logic 0.227ns (30.538%)  route 0.516ns (69.462%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.037ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.004ns
+    Source Clock Delay      (SCD):    1.487ns
+    Clock Pessimism Removal (CPR):    0.479ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      1.487     1.487    <hidden>
+    SLICE_X63Y94         FDCE                         0.000     1.487 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+    SLICE_X63Y94         FDCE (Prop_fdce_C_Q)         0.128     1.615 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/Q
+                         net (fo=2, routed)           0.283     1.898    u_safety_riscv_soc/core_b/out[0]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I1_O)        0.099     1.997 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.234     2.231    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      2.004     2.004    <hidden>
+                         clock pessimism             -0.479     1.524    <hidden>
+    SLICE_X64Y91         FDCE (Remov_fdce_C_CLR)     -0.092     1.432    u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -1.432    <hidden>
+                         arrival time                           2.231    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.798    <hidden>
+
+Slack (MET) :             14.159ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+                            (recovery check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            20.000ns  (sys_clk_pin rise@20.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        5.283ns  (logic 0.966ns (18.285%)  route 4.317ns (81.715%))
+  Logic Levels:           3  (LUT2=2 LUT6=1)
+  Clock Path Skew:        -0.118ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.934ns = ( 24.934 - 20.000 )
+    Source Clock Delay      (SCD):    5.239ns
+    Clock Pessimism Removal (CPR):    0.187ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      5.239     5.239    <hidden>
+    SLICE_X43Y97         FDPE                         0.000     5.239 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+    SLICE_X43Y97         FDPE (Prop_fdpe_C_Q)         0.419     5.658 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/Q
+                         net (fo=3, routed)           0.882     6.539    u_safety_riscv_soc/u_mmio_config/profile_complement_q[1]
+    SLICE_X43Y97         LUT6 (Prop_lut6_I0_O)        0.299     6.838 f  u_safety_riscv_soc/u_mmio_config/led_OBUF[3]_inst_i_2/O
+                         net (fo=8, routed)           0.972     7.810    u_safety_riscv_soc/u_fault_manager/progress_age_q_reg[7]
+    SLICE_X47Y95         LUT2 (Prop_lut2_I1_O)        0.124     7.934 f  u_safety_riscv_soc/u_fault_manager/led_OBUF[3]_inst_i_1/O
+                         net (fo=22, routed)          1.806     9.740    u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I0_O)        0.124     9.864 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.658    10.522    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     20.000    20.000 r  <hidden>
+                         propagated clock network latency
+                                                      4.934    24.934    <hidden>
+                         clock pessimism              0.187    25.121    <hidden>
+                         clock uncertainty           -0.035    25.085    <hidden>
+    SLICE_X64Y91         FDCE (Recov_fdce_C_CLR)     -0.405    24.680    u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+  -------------------------------------------------------------------
+                         required time                         24.680    <hidden>
+                         arrival time                         -10.522    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 14.159    <hidden>
+
+
+
+
+
+========== CORE B RESET STAGE 1 ==========
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+CLR: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -to_pins  -max_paths 20 -nworst 1 -delay_type min_max -sort_by slack.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:13:53 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -to [get_pins -quiet -of_objects [get_cells -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[1]}] -filter {REF_PIN_NAME == CLR}] -delay_type min_max -max_paths 20 -path_type full
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.798ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+                            (removal check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        0.743ns  (logic 0.227ns (30.538%)  route 0.516ns (69.462%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.037ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.004ns
+    Source Clock Delay      (SCD):    1.487ns
+    Clock Pessimism Removal (CPR):    0.479ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      1.487     1.487    <hidden>
+    SLICE_X63Y94         FDCE                         0.000     1.487 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+    SLICE_X63Y94         FDCE (Prop_fdce_C_Q)         0.128     1.615 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/Q
+                         net (fo=2, routed)           0.283     1.898    u_safety_riscv_soc/core_b/out[0]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I1_O)        0.099     1.997 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.234     2.231    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      2.004     2.004    <hidden>
+                         clock pessimism             -0.479     1.524    <hidden>
+    SLICE_X64Y91         FDCE (Remov_fdce_C_CLR)     -0.092     1.432    u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+  -------------------------------------------------------------------
+                         required time                         -1.432    <hidden>
+                         arrival time                           2.231    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.798    <hidden>
+
+Slack (MET) :             14.159ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+                            (recovery check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            20.000ns  (sys_clk_pin rise@20.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        5.283ns  (logic 0.966ns (18.285%)  route 4.317ns (81.715%))
+  Logic Levels:           3  (LUT2=2 LUT6=1)
+  Clock Path Skew:        -0.118ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.934ns = ( 24.934 - 20.000 )
+    Source Clock Delay      (SCD):    5.239ns
+    Clock Pessimism Removal (CPR):    0.187ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      5.239     5.239    <hidden>
+    SLICE_X43Y97         FDPE                         0.000     5.239 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+    SLICE_X43Y97         FDPE (Prop_fdpe_C_Q)         0.419     5.658 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/Q
+                         net (fo=3, routed)           0.882     6.539    u_safety_riscv_soc/u_mmio_config/profile_complement_q[1]
+    SLICE_X43Y97         LUT6 (Prop_lut6_I0_O)        0.299     6.838 f  u_safety_riscv_soc/u_mmio_config/led_OBUF[3]_inst_i_2/O
+                         net (fo=8, routed)           0.972     7.810    u_safety_riscv_soc/u_fault_manager/progress_age_q_reg[7]
+    SLICE_X47Y95         LUT2 (Prop_lut2_I1_O)        0.124     7.934 f  u_safety_riscv_soc/u_fault_manager/led_OBUF[3]_inst_i_1/O
+                         net (fo=22, routed)          1.806     9.740    u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I0_O)        0.124     9.864 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.658    10.522    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     20.000    20.000 r  <hidden>
+                         propagated clock network latency
+                                                      4.934    24.934    <hidden>
+                         clock pessimism              0.187    25.121    <hidden>
+                         clock uncertainty           -0.035    25.085    <hidden>
+    SLICE_X64Y91         FDCE (Recov_fdce_C_CLR)     -0.405    24.680    u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+  -------------------------------------------------------------------
+                         required time                         24.680    <hidden>
+                         arrival time                         -10.522    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 14.159    <hidden>
+
+
+
+
+# puts "\n========== END =========="
+
+========== END ==========
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 01:13:53 2026...

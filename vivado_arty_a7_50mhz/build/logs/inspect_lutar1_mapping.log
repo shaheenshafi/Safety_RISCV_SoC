@@ -1,0 +1,698 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 00:52:18 2026
+# Process ID         : 36284
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/inspect_lutar1_mapping.tcl -log build/logs/inspect_lutar1_mapping.log -journal build/logs/inspect_lutar1_mapping.jou
+# Log file           : R:/build/logs/inspect_lutar1_mapping.log
+# Journal file       : R:/build/logs/inspect_lutar1_mapping.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 5151 MB
+#-----------------------------------------------------------
+source scripts/inspect_lutar1_mapping.tcl
+# set dcp "checkpoints/implementation/arty_a7_50mhz_routed.dcp"
+# puts "========== OPEN ROUTED CHECKPOINT =========="
+========== OPEN ROUTED CHECKPOINT ==========
+# open_checkpoint $dcp
+Command: open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 377.711 ; gain = 4.750
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.079 . Memory (MB): peak = 894.512 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1006.738 ; gain = 2.258
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.012 . Memory (MB): peak = 1623.227 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1623.227 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1623.227 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.273 . Memory (MB): peak = 1641.066 ; gain = 17.840
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1641.066 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.142 . Memory (MB): peak = 1641.066 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.453 . Memory (MB): peak = 1641.066 ; gain = 17.840
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.502 . Memory (MB): peak = 1641.066 ; gain = 20.836
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1641.066 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:24 ; elapsed = 00:00:21 . Memory (MB): peak = 1641.066 ; gain = 1275.184
+# set lut [get_cells -quiet {u_safety_riscv_soc/core_b/i___95}]
+# set coreb [get_cells -quiet {u_safety_riscv_soc/core_b}]
+# puts "\n========== LUT CELL PROPERTIES =========="
+
+========== LUT CELL PROPERTIES ==========
+# if {[llength $lut] == 1} {
+#     report_property $lut
+#     puts "REF_NAME: [get_property REF_NAME $lut]"
+#     puts "ORIG_REF_NAME: [get_property ORIG_REF_NAME $lut]"
+#     puts "PARENT: [get_property PARENT $lut]"
+# } else {
+#     puts "LUT cell not found or not unique"
+# }
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.B6LUT
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        hex     false      4'hB
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       0
+LINE_NUMBER                 int     true       1
+LOC                         site    false      SLICE_X63Y94
+NAME                        string  true       u_safety_riscv_soc/core_b/i___95
+ORIG_REF_NAME               string  true       LUT2
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       LUT
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       others
+PRIMITIVE_TYPE              enum    true       LUT.others.LUT2
+REF_NAME                    string  true       LUT2
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/i___95
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+REF_NAME: LUT2
+ORIG_REF_NAME: LUT2
+PARENT: u_safety_riscv_soc/core_b
+# puts "\n========== CORE B CELL PROPERTIES =========="
+
+========== CORE B CELL PROPERTIES ==========
+# if {[llength $coreb] == 1} {
+#     report_property $coreb
+# } else {
+#     puts "Core B cell not found or not unique"
+# }
+Property                    Type    Read-only  Value
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage4f.v
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       0
+IS_ENCRYPTED                bool    true       0
+IS_MATCHED                  bool    true       0
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       0
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       0
+LINE_NUMBER                 int     true       431
+NAME                        string  true       u_safety_riscv_soc/core_b
+ORIG_REF_NAME               string  true       safety_riscv_soc_stage1_mmio
+PARENT                      cell    true       u_safety_riscv_soc
+PRIMITIVE_COUNT             int     true       6407
+REF_NAME                    string  true       safety_riscv_soc_stage1_mmio_0
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b
+# puts "\n========== LUT INPUT AND OUTPUT CONNECTIVITY =========="
+
+========== LUT INPUT AND OUTPUT CONNECTIVITY ==========
+# foreach pin_name {
+#     u_safety_riscv_soc/core_b/i___95/I0
+#     u_safety_riscv_soc/core_b/i___95/I1
+#     u_safety_riscv_soc/core_b/i___95/O
+# } {
+#     set pin [get_pins -quiet $pin_name]
+#     puts "\nPIN: $pin_name"
+#
+#     if {[llength $pin] == 1} {
+#         puts "DIRECTION: [get_property DIRECTION $pin]"
+#         set nets [get_nets -quiet -of_objects $pin]
+#         foreach net $nets {
+#             puts "NET: $net"
+#             puts "NET HIERARCHY: [get_property NAME $net]"
+#             puts "NET DRIVER PINS:"
+#             foreach p [get_pins -quiet -of_objects $net \
+#                 -filter {DIRECTION == OUT}] {
+#                 puts "  $p"
+#             }
+#             puts "NET LOAD PINS:"
+#             foreach p [get_pins -quiet -of_objects $net \
+#                 -filter {DIRECTION == IN}] {
+#                 puts "  $p"
+#             }
+#         }
+#     } else {
+#         puts "Pin not found or not unique"
+#     }
+# }
+
+PIN: u_safety_riscv_soc/core_b/i___95/I0
+DIRECTION: IN
+NET: u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+NET HIERARCHY: u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+NET DRIVER PINS:
+NET LOAD PINS:
+  u_safety_riscv_soc/core_b/i___95/I0
+  u_safety_riscv_soc/core_b/mem_reg_0_i_30/I3
+  u_safety_riscv_soc/core_b/u_ibex/progress_age_q_reg[8]
+  u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+
+PIN: u_safety_riscv_soc/core_b/i___95/I1
+DIRECTION: IN
+NET: u_safety_riscv_soc/core_b/out[0]
+NET HIERARCHY: u_safety_riscv_soc/core_b/out[0]
+NET DRIVER PINS:
+NET LOAD PINS:
+  u_safety_riscv_soc/core_b/i___95/I1
+  u_safety_riscv_soc/core_b/out[0]
+
+PIN: u_safety_riscv_soc/core_b/i___95/O
+DIRECTION: OUT
+NET: u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+NET HIERARCHY: u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+NET DRIVER PINS:
+  u_safety_riscv_soc/core_b/i___95/O
+  u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+NET LOAD PINS:
+  u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+# puts "\n========== PROGRESS COUNTER REGISTER =========="
+
+========== PROGRESS COUNTER REGISTER ==========
+# set progress_regs [get_cells -quiet -hier \
+#     -filter {NAME =~ *progress_age_q_reg*}]
+# puts "Matching register cells: [llength $progress_regs]"
+Matching register cells: 9
+# foreach c $progress_regs {
+#     puts "\nCELL: $c"
+#     puts "REF_NAME: [get_property REF_NAME $c]"
+#     puts "ORIG_REF_NAME: [get_property ORIG_REF_NAME $c]"
+#     report_property $c
+#
+#     foreach p [get_pins -quiet -of_objects $c] {
+#         puts "PIN: $p | DIR: [get_property DIRECTION $p] | NET: [get_nets -quiet -of_objects $p]"
+#     }
+# }
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.BFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X45Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]_0[0]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[0]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/D[0]
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.AFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X44Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[1]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[1]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[1]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.AFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X45Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[2]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[2]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[2]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.A5FF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X45Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[3]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[3]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[3]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.BFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X44Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[4]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[4]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[4]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.A5FF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X44Y99
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[5]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[5]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[5]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.AFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X41Y96
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[6]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[6]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[6]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.BFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X41Y96
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[7]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[7]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[7]_i_1_n_0
+
+CELL: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]
+REF_NAME: FDCE
+ORIG_REF_NAME: FDCE
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.CFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/safety/safety_execution_supervisor.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+LINE_NUMBER                 int     true       63
+LOC                         site    false      SLICE_X43Y95
+NAME                        string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/u_execution_supervisor
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]/Q | DIR: OUT | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q[8]
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]/C | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/CLK
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]/CE | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/<const1>
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]/CLR | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]_0
+PIN: u_safety_riscv_soc/u_execution_supervisor/progress_age_q_reg[8]/D | DIR: IN | NET: u_safety_riscv_soc/u_execution_supervisor/D[1]
+# puts "\n========== RESET RELEASE REGISTER =========="
+
+========== RESET RELEASE REGISTER ==========
+# set reset_regs [get_cells -quiet -hier \
+#     -filter {NAME =~ *soc_reset_release_sync_reg*}]
+# puts "Matching register cells: [llength $reset_regs]"
+Matching register cells: 2
+# foreach c $reset_regs {
+#     puts "\nCELL: $c"
+#     puts "REF_NAME: [get_property REF_NAME $c]"
+#     report_property $c
+#
+#     foreach p [get_pins -quiet -of_objects $c] {
+#         puts "PIN: $p | DIR: [get_property DIRECTION $p] | NET: [get_nets -quiet -of_objects $p]"
+#     }
+# }
+
+CELL: u_safety_riscv_soc/soc_reset_release_sync_reg[0]
+REF_NAME: FDCE
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.AFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage4f.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       100
+LOC                         site    false      SLICE_X63Y94
+NAME                        string  true       u_safety_riscv_soc/soc_reset_release_sync_reg[0]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/soc_reset_release_sync_reg[0]
+SHREG_EXTRACT               enum    false      NO
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[0]/Q | DIR: OUT | NET: u_safety_riscv_soc/soc_reset_release_sync[0]
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[0]/C | DIR: IN | NET: u_safety_riscv_soc/CLK
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[0]/CE | DIR: IN | NET: u_safety_riscv_soc/<const1>
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[0]/CLR | DIR: IN | NET: u_safety_riscv_soc/reset
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[0]/D | DIR: IN | NET: u_safety_riscv_soc/<const1>
+
+CELL: u_safety_riscv_soc/soc_reset_release_sync_reg[1]
+REF_NAME: FDCE
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.A5FF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage4f.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       100
+LOC                         site    false      SLICE_X63Y94
+NAME                        string  true       u_safety_riscv_soc/soc_reset_release_sync_reg[1]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/soc_reset_release_sync_reg[1]
+SHREG_EXTRACT               enum    false      NO
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/Q | DIR: OUT | NET: u_safety_riscv_soc/soc_reset_release_sync[1]
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C | DIR: IN | NET: u_safety_riscv_soc/CLK
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/CE | DIR: IN | NET: u_safety_riscv_soc/<const1>
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/CLR | DIR: IN | NET: u_safety_riscv_soc/reset
+PIN: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/D | DIR: IN | NET: u_safety_riscv_soc/soc_reset_release_sync[0]
+# puts "\n========== END INSPECTION =========="
+
+========== END INSPECTION ==========
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 00:52:44 2026...

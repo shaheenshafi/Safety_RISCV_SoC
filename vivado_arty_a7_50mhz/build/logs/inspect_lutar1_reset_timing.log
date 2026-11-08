@@ -1,0 +1,321 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 01:07:20 2026
+# Process ID         : 35940
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/inspect_lutar1_reset_timing.tcl -log build/logs/inspect_lutar1_reset_timing.log -journal build/logs/inspect_lutar1_reset_timing.jou
+# Log file           : R:/build/logs/inspect_lutar1_reset_timing.log
+# Journal file       : R:/build/logs/inspect_lutar1_reset_timing.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 5168 MB
+#-----------------------------------------------------------
+source scripts/inspect_lutar1_reset_timing.tcl
+# open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+Command: open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.055 . Memory (MB): peak = 378.512 ; gain = 4.762
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.076 . Memory (MB): peak = 894.871 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 1006.531 ; gain = 2.254
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1622.816 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1622.816 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1622.816 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.275 . Memory (MB): peak = 1640.582 ; gain = 17.766
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1640.582 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.144 . Memory (MB): peak = 1640.582 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.461 . Memory (MB): peak = 1640.582 ; gain = 17.766
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.509 . Memory (MB): peak = 1640.582 ; gain = 20.734
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1640.582 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:24 ; elapsed = 00:00:21 . Memory (MB): peak = 1640.582 ; gain = 1276.285
+# set lut_i0 [get_pins {u_safety_riscv_soc/core_b/i___95/I0}]
+# set lut_o  [get_pins {u_safety_riscv_soc/core_b/i___95/O}]
+# puts "\n========== LUT INPUT TIMING =========="
+
+========== LUT INPUT TIMING ==========
+# foreach pattern {
+#     *u_mmio_config/profile_o_reg*
+#     *u_mmio_config/profile_complement_q_reg*
+#     *u_mmio_config/injection_authorize_o_reg*
+#     *u_mmio_config/injection_authorize_complement_q_reg*
+#     *u_fault_manager/fault_latched_o_reg*
+# } {
+#     set cells [get_cells -quiet -hier -filter "NAME =~ $pattern"]
+#
+#     foreach c $cells {
+#         set q [get_pins -quiet -of_objects $c -filter {REF_PIN_NAME == Q}]
+#         if {[llength $q] > 0} {
+#             puts "\nSOURCE: $q"
+#             report_timing -from $q -to $lut_i0 \
+#                 -delay_type min_max -max_paths 2 \
+#                 -input_pins -nets
+#         }
+#     }
+# }
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/profile_o_reg[0]/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects {u_safety_riscv_soc/u_mmio_config/profile_o_reg[0]} -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/profile_o_reg[1]/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects {u_safety_riscv_soc/u_mmio_config/profile_o_reg[1]} -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[0]/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects {u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[0]} -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects {u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]} -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/injection_authorize_o_reg/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects u_safety_riscv_soc/u_mmio_config/injection_authorize_o_reg -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_mmio_config/injection_authorize_complement_q_reg/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:48 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects u_safety_riscv_soc/u_mmio_config/injection_authorize_complement_q_reg -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+SOURCE: u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg/Q
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 2 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:49 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins -quiet -of_objects u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg -filter {REF_PIN_NAME == Q}] -to [get_pins u_safety_riscv_soc/core_b/i___95/I0] -delay_type min_max -max_paths 2 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+# puts "\n========== LUT OUTPUT TO RESET CLEAR =========="
+
+========== LUT OUTPUT TO RESET CLEAR ==========
+# foreach pin_name {
+#     u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+#     u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+# } {
+#     set dst [get_pins -quiet $pin_name]
+#     puts "\nDESTINATION: $dst"
+#
+#     report_timing -from $lut_o -to $dst \
+#         -delay_type min_max -max_paths 5 \
+#         -input_pins -nets
+# }
+
+DESTINATION: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 5 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:49 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins u_safety_riscv_soc/core_b/i___95/O] -to [get_pins -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR}] -delay_type min_max -max_paths 5 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+
+DESTINATION: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+CRITICAL WARNING: [Vivado 12-1569] report_timing: The -nets option to is deprecated. The default behavior is to display net names if the timing path format allows it.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -from_pins  -to_pins  -max_paths 5 -nworst 1 -delay_type min_max -sort_by slack.
+INFO: [Timing 38-72] No paths found.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:07:49 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -from [get_pins u_safety_riscv_soc/core_b/i___95/O] -to [get_pins -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR}] -delay_type min_max -max_paths 5 -input_pins -nets
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+No timing paths found.
+
+
+# puts "\n========== END =========="
+
+========== END ==========
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 01:07:49 2026...

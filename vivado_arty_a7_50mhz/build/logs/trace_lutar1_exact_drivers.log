@@ -1,0 +1,314 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 01:03:14 2026
+# Process ID         : 18920
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/trace_lutar1_exact_drivers.tcl -log build/logs/trace_lutar1_exact_drivers.log -journal build/logs/trace_lutar1_exact_drivers.jou
+# Log file           : R:/build/logs/trace_lutar1_exact_drivers.log
+# Journal file       : R:/build/logs/trace_lutar1_exact_drivers.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 5137 MB
+#-----------------------------------------------------------
+source scripts/trace_lutar1_exact_drivers.tcl
+# open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+Command: open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 379.391 ; gain = 5.605
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.079 . Memory (MB): peak = 892.168 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.024 . Memory (MB): peak = 1003.559 ; gain = 1.926
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.015 . Memory (MB): peak = 1619.605 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1619.605 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1619.605 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.302 . Memory (MB): peak = 1637.156 ; gain = 17.551
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1637.156 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.148 . Memory (MB): peak = 1637.156 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.491 . Memory (MB): peak = 1637.156 ; gain = 17.551
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.542 . Memory (MB): peak = 1637.156 ; gain = 21.527
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1637.156 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:24 ; elapsed = 00:00:20 . Memory (MB): peak = 1637.156 ; gain = 1272.395
+# set lut [get_cells -quiet {u_safety_riscv_soc/core_b/i___95}]
+# puts "\n========== LUT DETAILS =========="
+
+========== LUT DETAILS ==========
+# report_property $lut
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.B6LUT
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        hex     false      4'hB
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       0
+LINE_NUMBER                 int     true       1
+LOC                         site    false      SLICE_X63Y94
+NAME                        string  true       u_safety_riscv_soc/core_b/i___95
+ORIG_REF_NAME               string  true       LUT2
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       LUT
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       others
+PRIMITIVE_TYPE              enum    true       LUT.others.LUT2
+REF_NAME                    string  true       LUT2
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/i___95
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+# foreach input_pin {I0 I1} {
+#     set pin [get_pins -quiet "u_safety_riscv_soc/core_b/i___95/$input_pin"]
+#     set net [get_nets -quiet -of_objects $pin]
+#
+#     puts "\n========== INPUT $input_pin =========="
+#     puts "PIN: $pin"
+#     puts "NET: $net"
+#
+#     puts "\n--- Net properties ---"
+#     report_property $net
+#
+#     puts "\n--- Connected pins and cells ---"
+#     foreach p [get_pins -quiet -of_objects $net] {
+#         set cell [get_cells -quiet -of_objects $p]
+#         puts "PIN: $p"
+#         puts "DIRECTION: [get_property DIRECTION $p]"
+#         puts "CELL: $cell"
+#
+#         if {[llength $cell] > 0} {
+#             puts "CELL_TYPE: [get_property REF_NAME $cell]"
+#             puts "CELL_ORIG_TYPE: [get_property ORIG_REF_NAME $cell]"
+#         }
+#     }
+#
+#     puts "\n--- Driver pins ---"
+#     set drivers [get_pins -quiet -of_objects $net \
+#         -filter {DIRECTION == OUT}]
+#
+#     if {[llength $drivers] == 0} {
+#         puts "No direct output pin returned by this query."
+#     } else {
+#         foreach d $drivers {
+#             puts "DRIVER: $d"
+#             puts "DRIVER_CELL: [get_cells -quiet -of_objects $d]"
+#         }
+#     }
+#
+#     puts "\n--- Sequential startpoints in fan-in ---"
+#     set starts [all_fanin -flat -to $pin -startpoints_only]
+#     foreach s $starts {
+#         puts "STARTPOINT: $s"
+#     }
+# }
+
+========== INPUT I0 ==========
+PIN: u_safety_riscv_soc/core_b/i___95/I0
+NET: u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+
+--- Net properties ---
+Property            Type    Read-only  Value
+CLASS               string  true       net
+CLOCK_VTREE_TYPE    string  true
+CROSSING_SLRS       string  true
+DRIVER_COUNT        int     true       1
+FLAT_PIN_COUNT      int     true       23
+IS_CONTAIN_ROUTING  bool    true       0
+IS_INTERNAL         bool    true       0
+IS_REUSED           bool    true       1
+IS_ROUTE_FIXED      bool    false      0
+MARK_DEBUG          bool    false      0
+NAME                string  true       u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+PARENT              string  true       u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg_1
+PARENT_CELL         cell    true       u_safety_riscv_soc/core_b
+PARTITION_ID        int     true       0
+PIN_COUNT           int     true       3
+REUSE_STATUS        enum    true
+ROUTE_STATUS        enum    true       ROUTED
+SCOPED_NAME         string  true       u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+TYPE                enum    true       SIGNAL
+
+--- Connected pins and cells ---
+PIN: u_safety_riscv_soc/core_b/i___95/I0
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/i___95
+CELL_TYPE: LUT2
+CELL_ORIG_TYPE: LUT2
+PIN: u_safety_riscv_soc/core_b/mem_reg_0_i_30/I3
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/mem_reg_0_i_30
+CELL_TYPE: LUT5
+CELL_ORIG_TYPE: LUT5
+PIN: u_safety_riscv_soc/core_b/u_ibex/progress_age_q_reg[8]
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/u_ibex
+CELL_TYPE: ibex_top
+CELL_ORIG_TYPE: ibex_top
+PIN: u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b
+CELL_TYPE: safety_riscv_soc_stage1_mmio_0
+CELL_ORIG_TYPE: safety_riscv_soc_stage1_mmio
+
+--- Driver pins ---
+No direct output pin returned by this query.
+
+--- Sequential startpoints in fan-in ---
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[0]/C
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/profile_o_reg[0]/C
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/injection_authorize_complement_q_reg/C
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/injection_authorize_o_reg/C
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/profile_o_reg[1]/C
+STARTPOINT: u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+STARTPOINT: u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg/C
+
+========== INPUT I1 ==========
+PIN: u_safety_riscv_soc/core_b/i___95/I1
+NET: u_safety_riscv_soc/core_b/out[0]
+
+--- Net properties ---
+Property            Type    Read-only  Value
+BUS_NAME            string  true       out
+BUS_START           int     true       0
+BUS_STOP            int     true       0
+BUS_WIDTH           int     true       1
+CLASS               string  true       net
+CLOCK_VTREE_TYPE    string  true
+CROSSING_SLRS       string  true
+DRIVER_COUNT        int     true       1
+FLAT_PIN_COUNT      int     true       3
+IS_CONTAIN_ROUTING  bool    true       0
+IS_INTERNAL         bool    true       0
+IS_REUSED           bool    true       1
+IS_ROUTE_FIXED      bool    false      0
+MARK_DEBUG          bool    false      0
+NAME                string  true       u_safety_riscv_soc/core_b/out[0]
+PARENT              string  true       u_safety_riscv_soc/soc_reset_release_sync[1]
+PARENT_CELL         cell    true       u_safety_riscv_soc/core_b
+PARTITION_ID        int     true       0
+PIN_COUNT           int     true       1
+REUSE_STATUS        enum    true
+ROUTE_STATUS        enum    true       ROUTED
+SCOPED_NAME         string  true       u_safety_riscv_soc/core_b/out[0]
+TYPE                enum    true       SIGNAL
+
+--- Connected pins and cells ---
+PIN: u_safety_riscv_soc/core_b/i___95/I1
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/i___95
+CELL_TYPE: LUT2
+CELL_ORIG_TYPE: LUT2
+PIN: u_safety_riscv_soc/core_b/out[0]
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b
+CELL_TYPE: safety_riscv_soc_stage1_mmio_0
+CELL_ORIG_TYPE: safety_riscv_soc_stage1_mmio
+
+--- Driver pins ---
+No direct output pin returned by this query.
+
+--- Sequential startpoints in fan-in ---
+STARTPOINT: u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+# puts "\n========== RELATED NET NAMES =========="
+
+========== RELATED NET NAMES ==========
+# foreach pattern {
+#     *fault_latched*
+#     *profile_integrity_fault*
+#     *safe_state*
+#     *soc_reset_release_sync*
+# } {
+#     puts "\nPATTERN: $pattern"
+#     foreach n [get_nets -quiet -hier -filter "NAME =~ $pattern"] {
+#         puts "NET: $n"
+#     }
+# }
+
+PATTERN: *fault_latched*
+NET: u_safety_riscv_soc/core_a/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/core_a/u_ibex/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/u_ibex/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/u_ibex/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/u_ibex/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/u_ibex/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_latched_o_reg
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_latched_o_reg_2
+NET: u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/fault_latched_o_reg_3
+NET: u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg_0
+NET: u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg_1
+NET: u_safety_riscv_soc/u_fault_manager/fault_latched_o_reg_2
+
+PATTERN: *profile_integrity_fault*
+
+PATTERN: *safe_state*
+
+PATTERN: *soc_reset_release_sync*
+NET: u_safety_riscv_soc/soc_reset_release_sync[0]
+NET: u_safety_riscv_soc/soc_reset_release_sync[1]
+NET: u_safety_riscv_soc/core_a/soc_reset_release_sync_reg[1]
+NET: u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+# puts "\n========== END =========="
+
+========== END ==========
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 01:03:42 2026...

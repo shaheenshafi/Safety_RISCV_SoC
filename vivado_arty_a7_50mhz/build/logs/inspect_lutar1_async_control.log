@@ -1,0 +1,573 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 01:08:51 2026
+# Process ID         : 42244
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/inspect_lutar1_async_control.tcl -log build/logs/inspect_lutar1_async_control.log -journal build/logs/inspect_lutar1_async_control.jou
+# Log file           : R:/build/logs/inspect_lutar1_async_control.log
+# Journal file       : R:/build/logs/inspect_lutar1_async_control.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 4958 MB
+#-----------------------------------------------------------
+source scripts/inspect_lutar1_async_control.tcl
+# open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+Command: open_checkpoint checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.052 . Memory (MB): peak = 377.945 ; gain = 4.648
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.074 . Memory (MB): peak = 894.660 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.025 . Memory (MB): peak = 1006.730 ; gain = 2.637
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1622.945 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1622.945 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1622.945 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.274 . Memory (MB): peak = 1640.992 ; gain = 18.047
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1640.992 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.143 . Memory (MB): peak = 1640.992 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.455 . Memory (MB): peak = 1640.992 ; gain = 18.047
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.503 . Memory (MB): peak = 1640.992 ; gain = 20.004
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1640.992 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:25 ; elapsed = 00:00:21 . Memory (MB): peak = 1640.992 ; gain = 1276.777
+# set lut [get_cells {u_safety_riscv_soc/core_b/i___95}]
+# set lut_o [get_pins {u_safety_riscv_soc/core_b/i___95/O}]
+# set reset_net [get_nets -of_objects $lut_o]
+# puts "\n========== LUT OUTPUT NET =========="
+
+========== LUT OUTPUT NET ==========
+# puts "LUT: $lut"
+LUT: u_safety_riscv_soc/core_b/i___95
+# puts "OUTPUT PIN: $lut_o"
+OUTPUT PIN: u_safety_riscv_soc/core_b/i___95/O
+# puts "OUTPUT NET: $reset_net"
+OUTPUT NET: u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+# report_property $reset_net
+Property            Type    Read-only  Value
+CLASS               string  true       net
+CLOCK_VTREE_TYPE    string  true
+CROSSING_SLRS       string  true
+DRIVER_COUNT        int     true       1
+FLAT_PIN_COUNT      int     true       5
+IS_CONTAIN_ROUTING  bool    true       0
+IS_INTERNAL         bool    true       0
+IS_REUSED           bool    true       1
+IS_ROUTE_FIXED      bool    false      0
+MARK_DEBUG          bool    false      0
+NAME                string  true       u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+PARENT              string  true       u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+PARENT_CELL         cell    true       u_safety_riscv_soc/core_b
+PARTITION_ID        int     true       0
+PIN_COUNT           int     true       3
+REUSE_STATUS        enum    true
+ROUTE_STATUS        enum    true       ROUTED
+SCOPED_NAME         string  true       u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+TYPE                enum    true       SIGNAL
+# puts "\n========== ALL RESET NET CONNECTIONS =========="
+
+========== ALL RESET NET CONNECTIONS ==========
+# foreach p [get_pins -of_objects $reset_net] {
+#     puts "\nPIN: $p"
+#     puts "DIRECTION: [get_property DIRECTION $p]"
+#     set c [get_cells -of_objects $p]
+#     puts "CELL: $c"
+#     if {[llength $c] > 0} {
+#         report_property $c
+#     }
+# }
+
+PIN: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.BFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       86
+LOC                         site    false      SLICE_X64Y91
+NAME                        string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+
+PIN: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+DIRECTION: IN
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.B5FF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       86
+LOC                         site    false      SLICE_X64Y91
+NAME                        string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+
+PIN: u_safety_riscv_soc/core_b/i___95/O
+DIRECTION: OUT
+CELL: u_safety_riscv_soc/core_b/i___95
+Property                    Type    Read-only  Value
+BEL                         string  false      SLICEL.B6LUT
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        hex     false      4'hB
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       0
+LINE_NUMBER                 int     true       1
+LOC                         site    false      SLICE_X63Y94
+NAME                        string  true       u_safety_riscv_soc/core_b/i___95
+ORIG_REF_NAME               string  true       LUT2
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       LUT
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       others
+PRIMITIVE_TYPE              enum    true       LUT.others.LUT2
+REF_NAME                    string  true       LUT2
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/i___95
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+
+PIN: u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+DIRECTION: OUT
+CELL: u_safety_riscv_soc/core_b
+Property                    Type    Read-only  Value
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage4f.v
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       0
+IS_ENCRYPTED                bool    true       0
+IS_MATCHED                  bool    true       0
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       0
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       0
+LINE_NUMBER                 int     true       431
+NAME                        string  true       u_safety_riscv_soc/core_b
+ORIG_REF_NAME               string  true       safety_riscv_soc_stage1_mmio
+PARENT                      cell    true       u_safety_riscv_soc
+PRIMITIVE_COUNT             int     true       6407
+REF_NAME                    string  true       safety_riscv_soc_stage1_mmio_0
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b
+# puts "\n========== RESET SYNCHRONIZER CELLS =========="
+
+========== RESET SYNCHRONIZER CELLS ==========
+# foreach name {
+#     u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+#     u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+# } {
+#     set c [get_cells -quiet $name]
+#     puts "\nCELL: $c"
+#     if {[llength $c] > 0} {
+#         report_property $c
+#         puts "CLR PIN:"
+#         report_property [get_pins -of_objects $c -filter {REF_PIN_NAME == CLR}]
+#         puts "CLK PIN:"
+#         report_property [get_pins -of_objects $c -filter {REF_PIN_NAME == C}]
+#     }
+# }
+
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.BFF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       86
+LOC                         site    false      SLICE_X64Y91
+NAME                        string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+CLR PIN:
+Property            Type     Read-only  Value
+CLASS               string   true       pin
+DIRECTION           enum     true       IN
+HD.ASSIGNED_PPLOCS  string*  true
+HD.TANDEM           int      false      0
+HOLD_SLACK          double   true       needs timing update***
+IS_CLEAR            bool     true       1
+IS_CLOCK            bool     true       0
+IS_CONNECTED        bool     true       1
+IS_ENABLE           bool     true       0
+IS_INVERTED         bool     false      0
+IS_LEAF             bool     true       1
+IS_ORIG_PIN         bool     true       1
+IS_PRESET           bool     true       0
+IS_RESET            bool     true       0
+IS_REUSED           bool     true       0
+IS_SET              bool     true       0
+IS_SETRESET         bool     true       0
+IS_TIED             bool     true       0
+IS_WRITE_ENABLE     bool     true       0
+LOGIC_VALUE         string   true       needs timing update***
+NAME                string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+PARENT_CELL         cell     true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+PARTITION_ID        int      true       0
+REF_NAME            string   true       FDCE
+REF_PIN_NAME        string   true       CLR
+SCOPED_NAME         string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+SETUP_SLACK         double   true       needs timing update***
+CLK PIN:
+Property            Type     Read-only  Value
+CLASS               string   true       pin
+DIRECTION           enum     true       IN
+HD.ASSIGNED_PPLOCS  string*  true
+HD.TANDEM           int      false      0
+HOLD_SLACK          double   true       needs timing update***
+IS_CLEAR            bool     true       0
+IS_CLOCK            bool     true       1
+IS_CONNECTED        bool     true       1
+IS_ENABLE           bool     true       0
+IS_INVERTED         bool     false      0
+IS_LEAF             bool     true       1
+IS_ORIG_PIN         bool     true       1
+IS_PRESET           bool     true       0
+IS_RESET            bool     true       0
+IS_REUSED           bool     true       0
+IS_SET              bool     true       0
+IS_SETRESET         bool     true       0
+IS_TIED             bool     true       0
+IS_WRITE_ENABLE     bool     true       0
+LOGIC_VALUE         string   true       needs timing update***
+NAME                string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/C
+PARENT_CELL         cell     true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+PARTITION_ID        int      true       0
+REF_NAME            string   true       FDCE
+REF_PIN_NAME        string   true       C
+SCOPED_NAME         string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/C
+SETUP_SLACK         double   true       needs timing update***
+
+CELL: u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+Property                    Type    Read-only  Value
+ASYNC_REG                   bool    false      1
+BEL                         string  false      SLICEL.B5FF
+CLASS                       string  true       cell
+FILE_NAME                   string  true       R:/src/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/safety_riscv_soc_stage1_mmio.v
+INIT                        binary  false      1'b0
+INSERT_MBUFG_CONTROL_LOGIC  bool    false      0
+IS_BEL_FIXED                bool    false      0
+IS_BLACKBOX                 bool    true       0
+IS_BOUNDARY_INST            bool    true       0
+IS_DEBUGGABLE               bool    true       1
+IS_ENCRYPTED                bool    true       0
+IS_LOC_FIXED                bool    false      0
+IS_MATCHED                  bool    true       1
+IS_ORIG_CELL                bool    true       1
+IS_PRIMITIVE                bool    true       1
+IS_REUSED                   bool    true       0
+IS_SEQUENTIAL               bool    true       1
+KEEP                        string  false      yes
+LINE_NUMBER                 int     true       86
+LOC                         site    false      SLICE_X64Y91
+NAME                        string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+ORIG_REF_NAME               string  true       FDCE
+PARENT                      cell    true       u_safety_riscv_soc/core_b
+PRIMITIVE_COUNT             int     true       1
+PRIMITIVE_GROUP             enum    true       FLOP_LATCH
+PRIMITIVE_LEVEL             enum    true       LEAF
+PRIMITIVE_SUBGROUP          enum    true       flop
+PRIMITIVE_TYPE              enum    true       FLOP_LATCH.flop.FDCE
+REF_NAME                    string  true       FDCE
+REUSE_STATUS                enum    true
+SCOPED_NAME                 string  true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+SLR_INDEX                   int     true       0
+STATUS                      enum    true       PLACED
+CLR PIN:
+Property            Type     Read-only  Value
+CLASS               string   true       pin
+DIRECTION           enum     true       IN
+HD.ASSIGNED_PPLOCS  string*  true
+HD.TANDEM           int      false      0
+HOLD_SLACK          double   true       needs timing update***
+IS_CLEAR            bool     true       1
+IS_CLOCK            bool     true       0
+IS_CONNECTED        bool     true       1
+IS_ENABLE           bool     true       0
+IS_INVERTED         bool     false      0
+IS_LEAF             bool     true       1
+IS_ORIG_PIN         bool     true       1
+IS_PRESET           bool     true       0
+IS_RESET            bool     true       0
+IS_REUSED           bool     true       0
+IS_SET              bool     true       0
+IS_SETRESET         bool     true       0
+IS_TIED             bool     true       0
+IS_WRITE_ENABLE     bool     true       0
+LOGIC_VALUE         string   true       needs timing update***
+NAME                string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+PARENT_CELL         cell     true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+PARTITION_ID        int      true       0
+REF_NAME            string   true       FDCE
+REF_PIN_NAME        string   true       CLR
+SCOPED_NAME         string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/CLR
+SETUP_SLACK         double   true       needs timing update***
+CLK PIN:
+Property            Type     Read-only  Value
+CLASS               string   true       pin
+DIRECTION           enum     true       IN
+HD.ASSIGNED_PPLOCS  string*  true
+HD.TANDEM           int      false      0
+HOLD_SLACK          double   true       needs timing update***
+IS_CLEAR            bool     true       0
+IS_CLOCK            bool     true       1
+IS_CONNECTED        bool     true       1
+IS_ENABLE           bool     true       0
+IS_INVERTED         bool     false      0
+IS_LEAF             bool     true       1
+IS_ORIG_PIN         bool     true       1
+IS_PRESET           bool     true       0
+IS_RESET            bool     true       0
+IS_REUSED           bool     true       0
+IS_SET              bool     true       0
+IS_SETRESET         bool     true       0
+IS_TIED             bool     true       0
+IS_WRITE_ENABLE     bool     true       0
+LOGIC_VALUE         string   true       needs timing update***
+NAME                string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+PARENT_CELL         cell     true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]
+PARTITION_ID        int      true       0
+REF_NAME            string   true       FDCE
+REF_PIN_NAME        string   true       C
+SCOPED_NAME         string   true       u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+SETUP_SLACK         double   true       needs timing update***
+# puts "\n========== ASYNC RESET TIMING CHECK =========="
+
+========== ASYNC RESET TIMING CHECK ==========
+# report_timing -to [get_pins -of_objects \
+#     [get_cells -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[0]}] \
+#     -filter {REF_PIN_NAME == CLR}] \
+#     -delay_type min_max -max_paths 10 -path_type full
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -to_pins  -max_paths 10 -nworst 1 -delay_type min_max -sort_by slack.
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 01:09:19 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing -to [get_pins -of_objects [get_cells -quiet {u_safety_riscv_soc/core_b/core_reset_sync_reg[0]}] -filter {REF_PIN_NAME == CLR}] -delay_type min_max -max_paths 10 -path_type full
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack (MET) :             0.798ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+                            (removal check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        0.743ns  (logic 0.227ns (30.538%)  route 0.516ns (69.462%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.037ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    2.004ns
+    Source Clock Delay      (SCD):    1.487ns
+    Clock Pessimism Removal (CPR):    0.479ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      1.487     1.487    <hidden>
+    SLICE_X63Y94         FDCE                         0.000     1.487 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/C
+    SLICE_X63Y94         FDCE (Prop_fdce_C_Q)         0.128     1.615 r  u_safety_riscv_soc/soc_reset_release_sync_reg[1]/Q
+                         net (fo=2, routed)           0.283     1.898    u_safety_riscv_soc/core_b/out[0]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I1_O)        0.099     1.997 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.234     2.231    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      2.004     2.004    <hidden>
+                         clock pessimism             -0.479     1.524    <hidden>
+    SLICE_X64Y91         FDCE (Remov_fdce_C_CLR)     -0.092     1.432    u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -1.432    <hidden>
+                         arrival time                           2.231    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.798    <hidden>
+
+Slack (MET) :             14.159ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+                            (rising edge-triggered cell FDPE clocked by sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Destination:            u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+                            (recovery check against rising-edge clock sys_clk_pin  {rise@0.000ns fall@10.000ns period=20.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            20.000ns  (sys_clk_pin rise@20.000ns - sys_clk_pin rise@0.000ns)
+  Data Path Delay:        5.283ns  (logic 0.966ns (18.285%)  route 4.317ns (81.715%))
+  Logic Levels:           3  (LUT2=2 LUT6=1)
+  Clock Path Skew:        -0.118ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.934ns = ( 24.934 - 20.000 )
+    Source Clock Delay      (SCD):    5.239ns
+    Clock Pessimism Removal (CPR):    0.187ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock sys_clk_pin rise edge)
+                                                      0.000     0.000 r  <hidden>
+                         propagated clock network latency
+                                                      5.239     5.239    <hidden>
+    SLICE_X43Y97         FDPE                         0.000     5.239 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/C
+    SLICE_X43Y97         FDPE (Prop_fdpe_C_Q)         0.419     5.658 r  u_safety_riscv_soc/u_mmio_config/profile_complement_q_reg[1]/Q
+                         net (fo=3, routed)           0.882     6.539    u_safety_riscv_soc/u_mmio_config/profile_complement_q[1]
+    SLICE_X43Y97         LUT6 (Prop_lut6_I0_O)        0.299     6.838 f  u_safety_riscv_soc/u_mmio_config/led_OBUF[3]_inst_i_2/O
+                         net (fo=8, routed)           0.972     7.810    u_safety_riscv_soc/u_fault_manager/progress_age_q_reg[7]
+    SLICE_X47Y95         LUT2 (Prop_lut2_I1_O)        0.124     7.934 f  u_safety_riscv_soc/u_fault_manager/led_OBUF[3]_inst_i_1/O
+                         net (fo=22, routed)          1.806     9.740    u_safety_riscv_soc/core_b/progress_age_q_reg[8]
+    SLICE_X63Y94         LUT2 (Prop_lut2_I0_O)        0.124     9.864 f  u_safety_riscv_soc/core_b/i___95/O
+                         net (fo=4, routed)           0.658    10.522    u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1]
+    SLICE_X64Y91         FDCE                                         f  u_safety_riscv_soc/core_b/core_reset_sync_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock sys_clk_pin rise edge)
+                                                     20.000    20.000 r  <hidden>
+                         propagated clock network latency
+                                                      4.934    24.934    <hidden>
+                         clock pessimism              0.187    25.121    <hidden>
+                         clock uncertainty           -0.035    25.085    <hidden>
+    SLICE_X64Y91         FDCE (Recov_fdce_C_CLR)     -0.405    24.680    u_safety_riscv_soc/core_b/core_reset_sync_reg[0]
+  -------------------------------------------------------------------
+                         required time                         24.680    <hidden>
+                         arrival time                         -10.522    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 14.159    <hidden>
+
+
+
+
+# puts "\n========== END =========="
+
+========== END ==========
+# close_design
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 01:09:20 2026...

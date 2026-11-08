@@ -1,0 +1,641 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 00:44:25 2026
+# Process ID         : 40216
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/inspect_core_b_boundary.tcl -log build/logs/core_b_boundary_inspection.log -journal build/logs/core_b_boundary_inspection.jou
+# Log file           : R:/build/logs/core_b_boundary_inspection.log
+# Journal file       : R:/build/logs/core_b_boundary_inspection.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 5142 MB
+#-----------------------------------------------------------
+source scripts/inspect_core_b_boundary.tcl
+# set dcp [file normalize "checkpoints/implementation/arty_a7_50mhz_routed.dcp"]
+# open_checkpoint $dcp
+Command: open_checkpoint R:/checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.046 . Memory (MB): peak = 380.227 ; gain = 6.855
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.078 . Memory (MB): peak = 893.176 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 1004.930 ; gain = 2.207
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 1622.414 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1622.414 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1622.414 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.279 . Memory (MB): peak = 1639.504 ; gain = 17.090
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1639.504 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.148 . Memory (MB): peak = 1639.504 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.472 . Memory (MB): peak = 1639.504 ; gain = 17.090
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.523 . Memory (MB): peak = 1639.504 ; gain = 23.043
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1639.504 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:24 ; elapsed = 00:00:20 . Memory (MB): peak = 1639.504 ; gain = 1274.867
+# set parent_name {u_safety_riscv_soc/core_b}
+# set parent [get_cells -quiet $parent_name]
+# puts "\n===== CORE B PARENT CELL ====="
+
+===== CORE B PARENT CELL =====
+# puts "Matches: [llength $parent]"
+Matches: 1
+# if {[llength $parent] == 1} {
+#     puts "Name: [get_property NAME $parent]"
+#     puts "Reference: [get_property REF_NAME $parent]"
+#
+#     puts "\n===== ALL PARENT CELL PINS ====="
+#     foreach p [get_pins -of_objects $parent] {
+#         set net [get_nets -quiet -of_objects $p]
+#         set net_name "<unconnected>"
+#         if {[llength $net] > 0} {
+#             set net_name [get_property NAME $net]
+#         }
+#
+#         puts "[get_property NAME $p] | \
+# [get_property DIRECTION $p] | $net_name"
+#     }
+#
+#     puts "\n===== PINS MATCHING OUT ====="
+#     foreach p [get_pins -of_objects $parent -filter {NAME =~ *out*}] {
+#         puts "[get_property NAME $p] | \
+# [get_property DIRECTION $p] | \
+# [get_property REF_PIN_NAME $p]"
+#
+#         foreach n [get_nets -quiet -of_objects $p] {
+#             puts "  NET: [get_property NAME $n]"
+#         }
+#     }
+# }
+Name: u_safety_riscv_soc/core_b
+Reference: safety_riscv_soc_stage1_mmio_0
+
+===== ALL PARENT CELL PINS =====
+u_safety_riscv_soc/core_b/CLK |  IN | u_safety_riscv_soc/CLK
+u_safety_riscv_soc/core_b/CO[0] |  IN | u_safety_riscv_soc/data_wdata_mismatch0
+u_safety_riscv_soc/core_b/D[0] |  OUT | u_safety_riscv_soc/core_b_data_rdata[30]
+u_safety_riscv_soc/core_b/D[1] |  OUT | u_safety_riscv_soc/core_b_data_rdata[31]
+u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs_reg[2] |  OUT | u_safety_riscv_soc/core_b_n_141
+u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs_reg[2]_0 |  OUT | u_safety_riscv_soc/core_b_n_146
+u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs_reg[2]_1 |  OUT | u_safety_riscv_soc/core_b_n_147
+u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs_reg[2]_2 |  OUT | u_safety_riscv_soc/core_b_n_148
+u_safety_riscv_soc/core_b/Q[0] |  IN | u_safety_riscv_soc/mmio_rdata_a[0]
+u_safety_riscv_soc/core_b/Q[10] |  IN | u_safety_riscv_soc/mmio_rdata_a[10]
+u_safety_riscv_soc/core_b/Q[11] |  IN | u_safety_riscv_soc/mmio_rdata_a[11]
+u_safety_riscv_soc/core_b/Q[12] |  IN | u_safety_riscv_soc/mmio_rdata_a[12]
+u_safety_riscv_soc/core_b/Q[13] |  IN | u_safety_riscv_soc/mmio_rdata_a[13]
+u_safety_riscv_soc/core_b/Q[14] |  IN | u_safety_riscv_soc/mmio_rdata_a[14]
+u_safety_riscv_soc/core_b/Q[15] |  IN | u_safety_riscv_soc/mmio_rdata_a[15]
+u_safety_riscv_soc/core_b/Q[16] |  IN | u_safety_riscv_soc/mmio_rdata_a[16]
+u_safety_riscv_soc/core_b/Q[17] |  IN | u_safety_riscv_soc/mmio_rdata_a[17]
+u_safety_riscv_soc/core_b/Q[18] |  IN | u_safety_riscv_soc/mmio_rdata_a[18]
+u_safety_riscv_soc/core_b/Q[19] |  IN | u_safety_riscv_soc/mmio_rdata_a[19]
+u_safety_riscv_soc/core_b/Q[1] |  IN | u_safety_riscv_soc/mmio_rdata_a[1]
+u_safety_riscv_soc/core_b/Q[20] |  IN | u_safety_riscv_soc/mmio_rdata_a[20]
+u_safety_riscv_soc/core_b/Q[21] |  IN | u_safety_riscv_soc/mmio_rdata_a[21]
+u_safety_riscv_soc/core_b/Q[22] |  IN | u_safety_riscv_soc/mmio_rdata_a[22]
+u_safety_riscv_soc/core_b/Q[23] |  IN | u_safety_riscv_soc/mmio_rdata_a[23]
+u_safety_riscv_soc/core_b/Q[24] |  IN | u_safety_riscv_soc/mmio_rdata_a[24]
+u_safety_riscv_soc/core_b/Q[25] |  IN | u_safety_riscv_soc/mmio_rdata_a[25]
+u_safety_riscv_soc/core_b/Q[26] |  IN | u_safety_riscv_soc/mmio_rdata_a[26]
+u_safety_riscv_soc/core_b/Q[27] |  IN | u_safety_riscv_soc/mmio_rdata_a[27]
+u_safety_riscv_soc/core_b/Q[28] |  IN | u_safety_riscv_soc/mmio_rdata_a[28]
+u_safety_riscv_soc/core_b/Q[29] |  IN | u_safety_riscv_soc/mmio_rdata_a[29]
+u_safety_riscv_soc/core_b/Q[2] |  IN | u_safety_riscv_soc/mmio_rdata_a[2]
+u_safety_riscv_soc/core_b/Q[30] |  IN | u_safety_riscv_soc/mmio_rdata_a[30]
+u_safety_riscv_soc/core_b/Q[31] |  IN | u_safety_riscv_soc/mmio_rdata_a[31]
+u_safety_riscv_soc/core_b/Q[3] |  IN | u_safety_riscv_soc/mmio_rdata_a[3]
+u_safety_riscv_soc/core_b/Q[4] |  IN | u_safety_riscv_soc/mmio_rdata_a[4]
+u_safety_riscv_soc/core_b/Q[5] |  IN | u_safety_riscv_soc/mmio_rdata_a[5]
+u_safety_riscv_soc/core_b/Q[6] |  IN | u_safety_riscv_soc/mmio_rdata_a[6]
+u_safety_riscv_soc/core_b/Q[7] |  IN | u_safety_riscv_soc/mmio_rdata_a[7]
+u_safety_riscv_soc/core_b/Q[8] |  IN | u_safety_riscv_soc/mmio_rdata_a[8]
+u_safety_riscv_soc/core_b/Q[9] |  IN | u_safety_riscv_soc/mmio_rdata_a[9]
+u_safety_riscv_soc/core_b/S[0] |  OUT | u_safety_riscv_soc/core_b_n_153
+u_safety_riscv_soc/core_b/S[1] |  OUT | u_safety_riscv_soc/core_b_n_152
+u_safety_riscv_soc/core_b/S[2] |  OUT | u_safety_riscv_soc/core_b_n_151
+u_safety_riscv_soc/core_b/S[3] |  OUT | u_safety_riscv_soc/core_b_n_150
+u_safety_riscv_soc/core_b/a_rvalid_o_i_19 |  OUT | u_safety_riscv_soc/core_b_n_143
+u_safety_riscv_soc/core_b/a_rvalid_o_reg |  IN | u_safety_riscv_soc/core_a_n_1
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_0 |  IN | u_safety_riscv_soc/core_a_n_73
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_1 |  IN | u_safety_riscv_soc/u_execution_supervisor_n_6
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_2 |  IN | u_safety_riscv_soc/core_a_n_72
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_i_15[0] |  IN | u_safety_riscv_soc/core_a_data_wdata[0]
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_i_15[1] |  IN | u_safety_riscv_soc/core_a_data_wdata[1]
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_i_15[2] |  IN | u_safety_riscv_soc/core_a_data_wdata[2]
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_i_15[3] |  IN | u_safety_riscv_soc/core_a_data_wdata[30]
+u_safety_riscv_soc/core_b/a_rvalid_o_reg_i_15[4] |  IN | u_safety_riscv_soc/core_a_data_wdata[31]
+u_safety_riscv_soc/core_b/adder_result_ext_o[0] |  OUT | u_safety_riscv_soc/core_b_data_addr[2]
+u_safety_riscv_soc/core_b/adder_result_ext_o[10] |  OUT | u_safety_riscv_soc/core_b_data_addr[12]
+u_safety_riscv_soc/core_b/adder_result_ext_o[11] |  OUT | u_safety_riscv_soc/core_b_data_addr[13]
+u_safety_riscv_soc/core_b/adder_result_ext_o[12] |  OUT | u_safety_riscv_soc/core_b_data_addr[14]
+u_safety_riscv_soc/core_b/adder_result_ext_o[13] |  OUT | u_safety_riscv_soc/core_b_data_addr[15]
+u_safety_riscv_soc/core_b/adder_result_ext_o[14] |  OUT | u_safety_riscv_soc/core_b_data_addr[16]
+u_safety_riscv_soc/core_b/adder_result_ext_o[15] |  OUT | u_safety_riscv_soc/core_b_data_addr[17]
+u_safety_riscv_soc/core_b/adder_result_ext_o[16] |  OUT | u_safety_riscv_soc/core_b_data_addr[18]
+u_safety_riscv_soc/core_b/adder_result_ext_o[17] |  OUT | u_safety_riscv_soc/core_b_data_addr[19]
+u_safety_riscv_soc/core_b/adder_result_ext_o[18] |  OUT | u_safety_riscv_soc/core_b_data_addr[20]
+u_safety_riscv_soc/core_b/adder_result_ext_o[19] |  OUT | u_safety_riscv_soc/core_b_data_addr[21]
+u_safety_riscv_soc/core_b/adder_result_ext_o[1] |  OUT | u_safety_riscv_soc/core_b_data_addr[3]
+u_safety_riscv_soc/core_b/adder_result_ext_o[20] |  OUT | u_safety_riscv_soc/core_b_data_addr[22]
+u_safety_riscv_soc/core_b/adder_result_ext_o[21] |  OUT | u_safety_riscv_soc/core_b_data_addr[23]
+u_safety_riscv_soc/core_b/adder_result_ext_o[22] |  OUT | u_safety_riscv_soc/core_b_data_addr[24]
+u_safety_riscv_soc/core_b/adder_result_ext_o[23] |  OUT | u_safety_riscv_soc/core_b_data_addr[25]
+u_safety_riscv_soc/core_b/adder_result_ext_o[24] |  OUT | u_safety_riscv_soc/core_b_data_addr[26]
+u_safety_riscv_soc/core_b/adder_result_ext_o[25] |  OUT | u_safety_riscv_soc/core_b_data_addr[27]
+u_safety_riscv_soc/core_b/adder_result_ext_o[26] |  OUT | u_safety_riscv_soc/core_b_data_addr[28]
+u_safety_riscv_soc/core_b/adder_result_ext_o[27] |  OUT | u_safety_riscv_soc/core_b_data_addr[29]
+u_safety_riscv_soc/core_b/adder_result_ext_o[28] |  OUT | u_safety_riscv_soc/core_b_data_addr[30]
+u_safety_riscv_soc/core_b/adder_result_ext_o[29] |  OUT | u_safety_riscv_soc/core_b_data_addr[31]
+u_safety_riscv_soc/core_b/adder_result_ext_o[2] |  OUT | u_safety_riscv_soc/core_b_data_addr[4]
+u_safety_riscv_soc/core_b/adder_result_ext_o[3] |  OUT | u_safety_riscv_soc/core_b_data_addr[5]
+u_safety_riscv_soc/core_b/adder_result_ext_o[4] |  OUT | u_safety_riscv_soc/core_b_data_addr[6]
+u_safety_riscv_soc/core_b/adder_result_ext_o[5] |  OUT | u_safety_riscv_soc/core_b_data_addr[7]
+u_safety_riscv_soc/core_b/adder_result_ext_o[6] |  OUT | u_safety_riscv_soc/core_b_data_addr[8]
+u_safety_riscv_soc/core_b/adder_result_ext_o[7] |  OUT | u_safety_riscv_soc/core_b_data_addr[9]
+u_safety_riscv_soc/core_b/adder_result_ext_o[8] |  OUT | u_safety_riscv_soc/core_b_data_addr[10]
+u_safety_riscv_soc/core_b/adder_result_ext_o[9] |  OUT | u_safety_riscv_soc/core_b_data_addr[11]
+u_safety_riscv_soc/core_b/addr_last_q_reg[26]_i_1__0[0] |  OUT | u_safety_riscv_soc/core_b_n_222
+u_safety_riscv_soc/core_b/addr_last_q_reg[26]_i_1__0[1] |  OUT | u_safety_riscv_soc/core_b_n_221
+u_safety_riscv_soc/core_b/addr_last_q_reg[26]_i_1__0_0[0] |  OUT | u_safety_riscv_soc/core_b_n_228
+u_safety_riscv_soc/core_b/addr_last_q_reg[26]_i_1__0_0[1] |  OUT | u_safety_riscv_soc/core_b_n_227
+u_safety_riscv_soc/core_b/addr_last_q_reg[31]_i_2[0] |  OUT | u_safety_riscv_soc/core_b_n_224
+u_safety_riscv_soc/core_b/addr_last_q_reg[31]_i_2[1] |  OUT | u_safety_riscv_soc/core_b_n_223
+u_safety_riscv_soc/core_b/addr_last_q_reg[31]_i_2_0[0] |  OUT | u_safety_riscv_soc/core_b_n_230
+u_safety_riscv_soc/core_b/addr_last_q_reg[31]_i_2_0[1] |  OUT | u_safety_riscv_soc/core_b_n_229
+u_safety_riscv_soc/core_b/bt_a_operand_0[0] |  OUT | u_safety_riscv_soc/bt_a_operand_0[0]
+u_safety_riscv_soc/core_b/bt_a_operand_0[10] |  OUT | u_safety_riscv_soc/bt_a_operand_0[10]
+u_safety_riscv_soc/core_b/bt_a_operand_0[11] |  OUT | u_safety_riscv_soc/bt_a_operand_0[11]
+u_safety_riscv_soc/core_b/bt_a_operand_0[12] |  OUT | u_safety_riscv_soc/bt_a_operand_0[12]
+u_safety_riscv_soc/core_b/bt_a_operand_0[13] |  OUT | u_safety_riscv_soc/bt_a_operand_0[13]
+u_safety_riscv_soc/core_b/bt_a_operand_0[14] |  OUT | u_safety_riscv_soc/bt_a_operand_0[14]
+u_safety_riscv_soc/core_b/bt_a_operand_0[15] |  OUT | u_safety_riscv_soc/bt_a_operand_0[15]
+u_safety_riscv_soc/core_b/bt_a_operand_0[16] |  OUT | u_safety_riscv_soc/bt_a_operand_0[16]
+u_safety_riscv_soc/core_b/bt_a_operand_0[1] |  OUT | u_safety_riscv_soc/bt_a_operand_0[1]
+u_safety_riscv_soc/core_b/bt_a_operand_0[2] |  OUT | u_safety_riscv_soc/bt_a_operand_0[2]
+u_safety_riscv_soc/core_b/bt_a_operand_0[3] |  OUT | u_safety_riscv_soc/bt_a_operand_0[3]
+u_safety_riscv_soc/core_b/bt_a_operand_0[4] |  OUT | u_safety_riscv_soc/bt_a_operand_0[4]
+u_safety_riscv_soc/core_b/bt_a_operand_0[5] |  OUT | u_safety_riscv_soc/bt_a_operand_0[5]
+u_safety_riscv_soc/core_b/bt_a_operand_0[6] |  OUT | u_safety_riscv_soc/bt_a_operand_0[6]
+u_safety_riscv_soc/core_b/bt_a_operand_0[7] |  OUT | u_safety_riscv_soc/bt_a_operand_0[7]
+u_safety_riscv_soc/core_b/bt_a_operand_0[8] |  OUT | u_safety_riscv_soc/bt_a_operand_0[8]
+u_safety_riscv_soc/core_b/bt_a_operand_0[9] |  OUT | u_safety_riscv_soc/bt_a_operand_0[9]
+u_safety_riscv_soc/core_b/clk_IBUF |  IN | u_safety_riscv_soc/clk_IBUF
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[21][0] |  OUT | u_safety_riscv_soc/core_b_n_189
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[21][1] |  OUT | u_safety_riscv_soc/core_b_n_188
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[21][2] |  OUT | u_safety_riscv_soc/core_b_n_187
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[21][3] |  OUT | u_safety_riscv_soc/core_b_n_186
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[9][0] |  OUT | u_safety_riscv_soc/core_b_n_193
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[9][1] |  OUT | u_safety_riscv_soc/core_b_n_192
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[9][2] |  OUT | u_safety_riscv_soc/core_b_n_191
+u_safety_riscv_soc/core_b/compare_payload_b_q_reg[9][3] |  OUT | u_safety_riscv_soc/core_b_n_190
+u_safety_riscv_soc/core_b/core_a_data_be[0] |  IN | u_safety_riscv_soc/core_a_data_be[0]
+u_safety_riscv_soc/core_b/core_a_data_be[1] |  IN | u_safety_riscv_soc/core_a_data_be[1]
+u_safety_riscv_soc/core_b/core_a_data_be[2] |  IN | u_safety_riscv_soc/core_a_data_be[2]
+u_safety_riscv_soc/core_b/core_a_data_be[3] |  IN | u_safety_riscv_soc/core_a_data_be[3]
+u_safety_riscv_soc/core_b/core_a_data_err |  IN | u_safety_riscv_soc/core_a_data_err
+u_safety_riscv_soc/core_b/core_a_data_req |  IN | u_safety_riscv_soc/core_a_data_req
+u_safety_riscv_soc/core_b/core_a_data_rvalid |  IN | u_safety_riscv_soc/core_a_data_rvalid
+u_safety_riscv_soc/core_b/core_a_data_we |  IN | u_safety_riscv_soc/core_a_data_we
+u_safety_riscv_soc/core_b/core_a_instr_err |  IN | u_safety_riscv_soc/core_a_instr_err
+u_safety_riscv_soc/core_b/core_a_instr_rvalid |  IN | u_safety_riscv_soc/core_a_instr_rvalid
+u_safety_riscv_soc/core_b/core_b_data_be[0] |  OUT | u_safety_riscv_soc/core_b_data_be[0]
+u_safety_riscv_soc/core_b/core_b_data_be[1] |  OUT | u_safety_riscv_soc/core_b_data_be[1]
+u_safety_riscv_soc/core_b/core_b_data_be[2] |  OUT | u_safety_riscv_soc/core_b_data_be[2]
+u_safety_riscv_soc/core_b/core_b_data_be[3] |  OUT | u_safety_riscv_soc/core_b_data_be[3]
+u_safety_riscv_soc/core_b/core_b_data_req |  OUT | u_safety_riscv_soc/core_b_data_req
+u_safety_riscv_soc/core_b/core_b_data_we |  OUT | u_safety_riscv_soc/core_b_data_we
+u_safety_riscv_soc/core_b/core_b_ibex_double_fault |  OUT | u_safety_riscv_soc/core_b_ibex_double_fault
+u_safety_riscv_soc/core_b/core_b_instr_addr[0] |  OUT | u_safety_riscv_soc/core_b_instr_addr[2]
+u_safety_riscv_soc/core_b/core_b_instr_addr[10] |  OUT | u_safety_riscv_soc/core_b_instr_addr[12]
+u_safety_riscv_soc/core_b/core_b_instr_addr[11] |  OUT | u_safety_riscv_soc/core_b_instr_addr[13]
+u_safety_riscv_soc/core_b/core_b_instr_addr[12] |  OUT | u_safety_riscv_soc/core_b_instr_addr[14]
+u_safety_riscv_soc/core_b/core_b_instr_addr[13] |  OUT | u_safety_riscv_soc/core_b_instr_addr[15]
+u_safety_riscv_soc/core_b/core_b_instr_addr[14] |  OUT | u_safety_riscv_soc/core_b_instr_addr[16]
+u_safety_riscv_soc/core_b/core_b_instr_addr[15] |  OUT | u_safety_riscv_soc/core_b_instr_addr[17]
+u_safety_riscv_soc/core_b/core_b_instr_addr[16] |  OUT | u_safety_riscv_soc/core_b_instr_addr[18]
+u_safety_riscv_soc/core_b/core_b_instr_addr[17] |  OUT | u_safety_riscv_soc/core_b_instr_addr[19]
+u_safety_riscv_soc/core_b/core_b_instr_addr[18] |  OUT | u_safety_riscv_soc/core_b_instr_addr[20]
+u_safety_riscv_soc/core_b/core_b_instr_addr[19] |  OUT | u_safety_riscv_soc/core_b_instr_addr[21]
+u_safety_riscv_soc/core_b/core_b_instr_addr[1] |  OUT | u_safety_riscv_soc/core_b_instr_addr[3]
+u_safety_riscv_soc/core_b/core_b_instr_addr[20] |  OUT | u_safety_riscv_soc/core_b_instr_addr[22]
+u_safety_riscv_soc/core_b/core_b_instr_addr[21] |  OUT | u_safety_riscv_soc/core_b_instr_addr[23]
+u_safety_riscv_soc/core_b/core_b_instr_addr[22] |  OUT | u_safety_riscv_soc/core_b_instr_addr[24]
+u_safety_riscv_soc/core_b/core_b_instr_addr[23] |  OUT | u_safety_riscv_soc/core_b_instr_addr[25]
+u_safety_riscv_soc/core_b/core_b_instr_addr[24] |  OUT | u_safety_riscv_soc/core_b_instr_addr[26]
+u_safety_riscv_soc/core_b/core_b_instr_addr[25] |  OUT | u_safety_riscv_soc/core_b_instr_addr[27]
+u_safety_riscv_soc/core_b/core_b_instr_addr[26] |  OUT | u_safety_riscv_soc/core_b_instr_addr[28]
+u_safety_riscv_soc/core_b/core_b_instr_addr[27] |  OUT | u_safety_riscv_soc/core_b_instr_addr[29]
+u_safety_riscv_soc/core_b/core_b_instr_addr[28] |  OUT | u_safety_riscv_soc/core_b_instr_addr[30]
+u_safety_riscv_soc/core_b/core_b_instr_addr[29] |  OUT | u_safety_riscv_soc/core_b_instr_addr[31]
+u_safety_riscv_soc/core_b/core_b_instr_addr[2] |  OUT | u_safety_riscv_soc/core_b_instr_addr[4]
+u_safety_riscv_soc/core_b/core_b_instr_addr[3] |  OUT | u_safety_riscv_soc/core_b_instr_addr[5]
+u_safety_riscv_soc/core_b/core_b_instr_addr[4] |  OUT | u_safety_riscv_soc/core_b_instr_addr[6]
+u_safety_riscv_soc/core_b/core_b_instr_addr[5] |  OUT | u_safety_riscv_soc/core_b_instr_addr[7]
+u_safety_riscv_soc/core_b/core_b_instr_addr[6] |  OUT | u_safety_riscv_soc/core_b_instr_addr[8]
+u_safety_riscv_soc/core_b/core_b_instr_addr[7] |  OUT | u_safety_riscv_soc/core_b_instr_addr[9]
+u_safety_riscv_soc/core_b/core_b_instr_addr[8] |  OUT | u_safety_riscv_soc/core_b_instr_addr[10]
+u_safety_riscv_soc/core_b/core_b_instr_addr[9] |  OUT | u_safety_riscv_soc/core_b_instr_addr[11]
+u_safety_riscv_soc/core_b/core_b_instr_addr_fault |  OUT | u_safety_riscv_soc/core_b_instr_addr_fault
+u_safety_riscv_soc/core_b/data_addr_error_q_i_3_0 |  OUT | u_safety_riscv_soc/core_b_n_128
+u_safety_riscv_soc/core_b/data_gnt |  IN | u_safety_riscv_soc/data_gnt
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[0] |  IN | u_safety_riscv_soc/core_a_data_rdata[0]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[10] |  IN | u_safety_riscv_soc/core_a_data_rdata[10]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[11] |  IN | u_safety_riscv_soc/core_a_data_rdata[11]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[12] |  IN | u_safety_riscv_soc/core_a_data_rdata[12]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[13] |  IN | u_safety_riscv_soc/core_a_data_rdata[13]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[14] |  IN | u_safety_riscv_soc/core_a_data_rdata[14]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[15] |  IN | u_safety_riscv_soc/core_a_data_rdata[15]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[16] |  IN | u_safety_riscv_soc/core_a_data_rdata[16]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[17] |  IN | u_safety_riscv_soc/core_a_data_rdata[17]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[18] |  IN | u_safety_riscv_soc/core_a_data_rdata[18]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[19] |  IN | u_safety_riscv_soc/core_a_data_rdata[19]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[1] |  IN | u_safety_riscv_soc/core_a_data_rdata[1]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[20] |  IN | u_safety_riscv_soc/core_a_data_rdata[20]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[21] |  IN | u_safety_riscv_soc/core_a_data_rdata[21]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[22] |  IN | u_safety_riscv_soc/core_a_data_rdata[22]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[23] |  IN | u_safety_riscv_soc/core_a_data_rdata[23]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[24] |  IN | u_safety_riscv_soc/core_a_data_rdata[24]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[25] |  IN | u_safety_riscv_soc/core_a_data_rdata[25]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[26] |  IN | u_safety_riscv_soc/core_a_data_rdata[26]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[27] |  IN | u_safety_riscv_soc/core_a_data_rdata[27]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[28] |  IN | u_safety_riscv_soc/core_a_data_rdata[28]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[29] |  IN | u_safety_riscv_soc/core_a_data_rdata[29]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[2] |  IN | u_safety_riscv_soc/core_a_data_rdata[2]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[3] |  IN | u_safety_riscv_soc/core_a_data_rdata[3]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[4] |  IN | u_safety_riscv_soc/core_a_data_rdata[4]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[5] |  IN | u_safety_riscv_soc/core_a_data_rdata[5]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[6] |  IN | u_safety_riscv_soc/core_a_data_rdata[6]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[7] |  IN | u_safety_riscv_soc/core_a_data_rdata[7]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[8] |  IN | u_safety_riscv_soc/core_a_data_rdata[8]
+u_safety_riscv_soc/core_b/data_rdata_mismatch0_carry__1[9] |  IN | u_safety_riscv_soc/core_a_data_rdata[9]
+u_safety_riscv_soc/core_b/fault_code_o[0]_i_3 |  IN | u_safety_riscv_soc/u_paired_data_capture_stage_n_148
+u_safety_riscv_soc/core_b/fault_code_o[0]_i_4 |  IN | u_safety_riscv_soc/core_a_n_300
+u_safety_riscv_soc/core_b/fault_code_o[0]_i_4_0 |  IN | u_safety_riscv_soc/core_a_n_301
+u_safety_riscv_soc/core_b/fault_code_o[2]_i_2[0] |  IN | u_safety_riscv_soc/instr_rdata_mismatch0
+u_safety_riscv_soc/core_b/fault_q_reg[0] |  OUT | u_safety_riscv_soc/core_b_n_134
+u_safety_riscv_soc/core_b/fault_q_reg[1] |  OUT | u_safety_riscv_soc/core_b_n_133
+u_safety_riscv_soc/core_b/fault_q_reg_0 |  OUT | u_safety_riscv_soc/core_b_n_135
+u_safety_riscv_soc/core_b/fault_q_reg_1 |  OUT | u_safety_riscv_soc/core_b_n_136
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[0] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[0]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[10] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[10]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[11] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[11]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[12] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[12]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[13] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[13]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[14] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[14]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[15] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[15]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[16] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[16]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[17] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[17]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[18] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[18]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[19] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[19]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[1] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[1]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[20] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[20]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[21] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[21]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[22] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[22]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[23] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[23]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[24] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[24]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[25] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[25]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[26] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[26]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[2] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[2]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[3] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[3]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[4] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[4]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[5] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[5]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[6] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[6]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[7] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[7]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[8] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[8]
+u_safety_riscv_soc/core_b/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[9] |  IN | u_safety_riscv_soc/g_fetch_addr_nr.fetch_addr_q[28]_i_3__0[9]
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][10]_i_2_0[0] |  OUT | u_safety_riscv_soc/core_b_n_204
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][10]_i_2_0[1] |  OUT | u_safety_riscv_soc/core_b_n_203
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][10]_i_2_0[2] |  OUT | u_safety_riscv_soc/core_b_n_202
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][10]_i_2_0[3] |  OUT | u_safety_riscv_soc/core_b_n_201
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][22]_i_2_0[0] |  OUT | u_safety_riscv_soc/core_b_n_208
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][22]_i_2_0[1] |  OUT | u_safety_riscv_soc/core_b_n_207
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][22]_i_2_0[2] |  OUT | u_safety_riscv_soc/core_b_n_206
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][22]_i_2_0[3] |  OUT | u_safety_riscv_soc/core_b_n_205
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][27]_i_2_0[0] |  OUT | u_safety_riscv_soc/core_b_n_210
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][27]_i_2_0[1] |  OUT | u_safety_riscv_soc/core_b_n_209
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][31]_i_5_0[0] |  OUT | u_safety_riscv_soc/core_b_instr_rdata[30]
+u_safety_riscv_soc/core_b/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][31]_i_5_0[1] |  OUT | u_safety_riscv_soc/core_b_instr_rdata[31]
+u_safety_riscv_soc/core_b/g_instr_addr_nr.instr_addr_q[28]_i_6__0[0] |  IN | u_safety_riscv_soc/g_instr_addr_nr.instr_addr_q[28]_i_6__0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[13] |  OUT | u_safety_riscv_soc/core_b_n_149
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[23][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[23][0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[23][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[23][1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[23][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[23][2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[23][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[23][3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][0] |  OUT | u_safety_riscv_soc/core_b_data_wdata[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][10] |  OUT | u_safety_riscv_soc/core_b_data_wdata[13]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][11] |  OUT | u_safety_riscv_soc/core_b_data_wdata[14]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][12] |  OUT | u_safety_riscv_soc/core_b_data_wdata[15]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][13] |  OUT | u_safety_riscv_soc/core_b_data_wdata[16]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][14] |  OUT | u_safety_riscv_soc/core_b_data_wdata[17]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][15] |  OUT | u_safety_riscv_soc/core_b_data_wdata[18]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][16] |  OUT | u_safety_riscv_soc/core_b_data_wdata[19]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][17] |  OUT | u_safety_riscv_soc/core_b_data_wdata[20]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][18] |  OUT | u_safety_riscv_soc/core_b_data_wdata[21]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][19] |  OUT | u_safety_riscv_soc/core_b_data_wdata[22]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][1] |  OUT | u_safety_riscv_soc/core_b_data_wdata[4]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][20] |  OUT | u_safety_riscv_soc/core_b_data_wdata[23]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][21] |  OUT | u_safety_riscv_soc/core_b_data_wdata[24]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][22] |  OUT | u_safety_riscv_soc/core_b_data_wdata[25]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][23] |  OUT | u_safety_riscv_soc/core_b_data_wdata[26]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][24] |  OUT | u_safety_riscv_soc/core_b_data_wdata[27]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][25] |  OUT | u_safety_riscv_soc/core_b_data_wdata[28]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][26] |  OUT | u_safety_riscv_soc/core_b_data_wdata[29]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][2] |  OUT | u_safety_riscv_soc/core_b_data_wdata[5]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][3] |  OUT | u_safety_riscv_soc/core_b_data_wdata[6]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][4] |  OUT | u_safety_riscv_soc/core_b_data_wdata[7]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][5] |  OUT | u_safety_riscv_soc/core_b_data_wdata[8]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][6] |  OUT | u_safety_riscv_soc/core_b_data_wdata[9]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][7] |  OUT | u_safety_riscv_soc/core_b_data_wdata[10]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][8] |  OUT | u_safety_riscv_soc/core_b_data_wdata[11]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[24][9] |  OUT | u_safety_riscv_soc/core_b_data_wdata[12]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_1[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_1[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_1[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_1[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_2[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_2[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_2[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_2[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.instr_rdata_id_o_reg[5] |  OUT | u_safety_riscv_soc/core_b_n_144
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[11][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[11]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[11][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[11]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[11][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[11]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[11][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[11]_0[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[11]_0[0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[11]_2[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[15][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[15]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[15][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[15]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[15][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[15]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[15][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[15]_0[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[19][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[19]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[19][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[19]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[19][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[19]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[19][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[19]_0[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[23][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[23]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[23][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[23]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[23][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[23]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[23][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[23]_0[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[27][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[27]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[27][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[27]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[27][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[27]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[27][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[27]_0[3]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[2][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[2][0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[2][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[2][1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[7][0] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[7]_0[0]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[7][1] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[7]_0[1]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[7][2] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[7]_0[2]
+u_safety_riscv_soc/core_b/g_instr_rdata_nr.pc_id_o_reg[7][3] |  OUT | u_safety_riscv_soc/g_instr_rdata_nr.pc_id_o_reg[7]_0[3]
+u_safety_riscv_soc/core_b/heartbeat_value_o[31]_i_2[0] |  OUT | u_safety_riscv_soc/core_b_n_200
+u_safety_riscv_soc/core_b/heartbeat_value_o[31]_i_2_0[0] |  OUT | u_safety_riscv_soc/core_b_n_226
+u_safety_riscv_soc/core_b/instr_addr_error_q_reg_0 |  OUT | u_safety_riscv_soc/core_b_n_68
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[0] |  IN | u_safety_riscv_soc/core_a_instr_rdata[0]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[10] |  IN | u_safety_riscv_soc/core_a_instr_rdata[10]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[11] |  IN | u_safety_riscv_soc/core_a_instr_rdata[11]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[12] |  IN | u_safety_riscv_soc/core_a_instr_rdata[12]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[13] |  IN | u_safety_riscv_soc/core_a_instr_rdata[13]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[14] |  IN | u_safety_riscv_soc/core_a_instr_rdata[14]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[15] |  IN | u_safety_riscv_soc/core_a_instr_rdata[15]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[16] |  IN | u_safety_riscv_soc/core_a_instr_rdata[16]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[17] |  IN | u_safety_riscv_soc/core_a_instr_rdata[17]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[18] |  IN | u_safety_riscv_soc/core_a_instr_rdata[18]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[19] |  IN | u_safety_riscv_soc/core_a_instr_rdata[19]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[1] |  IN | u_safety_riscv_soc/core_a_instr_rdata[1]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[20] |  IN | u_safety_riscv_soc/core_a_instr_rdata[20]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[21] |  IN | u_safety_riscv_soc/core_a_instr_rdata[21]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[22] |  IN | u_safety_riscv_soc/core_a_instr_rdata[22]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[23] |  IN | u_safety_riscv_soc/core_a_instr_rdata[23]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[24] |  IN | u_safety_riscv_soc/core_a_instr_rdata[24]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[25] |  IN | u_safety_riscv_soc/core_a_instr_rdata[25]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[26] |  IN | u_safety_riscv_soc/core_a_instr_rdata[26]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[27] |  IN | u_safety_riscv_soc/core_a_instr_rdata[27]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[28] |  IN | u_safety_riscv_soc/core_a_instr_rdata[28]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[29] |  IN | u_safety_riscv_soc/core_a_instr_rdata[29]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[2] |  IN | u_safety_riscv_soc/core_a_instr_rdata[2]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[3] |  IN | u_safety_riscv_soc/core_a_instr_rdata[3]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[4] |  IN | u_safety_riscv_soc/core_a_instr_rdata[4]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[5] |  IN | u_safety_riscv_soc/core_a_instr_rdata[5]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[6] |  IN | u_safety_riscv_soc/core_a_instr_rdata[6]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[7] |  IN | u_safety_riscv_soc/core_a_instr_rdata[7]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[8] |  IN | u_safety_riscv_soc/core_a_instr_rdata[8]
+u_safety_riscv_soc/core_b/instr_rdata_mismatch0_carry__1[9] |  IN | u_safety_riscv_soc/core_a_instr_rdata[9]
+u_safety_riscv_soc/core_b/mem_reg_0_i_27[0] |  OUT | u_safety_riscv_soc/core_b_n_199
+u_safety_riscv_soc/core_b/mem_reg_0_i_27_0[0] |  OUT | u_safety_riscv_soc/core_b_n_225
+u_safety_riscv_soc/core_b/memory_side_effect_inhibit_i0 |  OUT | u_safety_riscv_soc/memory_side_effect_inhibit_i0
+u_safety_riscv_soc/core_b/mismatch_event |  IN | u_safety_riscv_soc/mismatch_event
+u_safety_riscv_soc/core_b/mmio_gnt |  IN | u_safety_riscv_soc/mmio_gnt
+u_safety_riscv_soc/core_b/mmio_rvalid |  IN | u_safety_riscv_soc/mmio_rvalid
+u_safety_riscv_soc/core_b/out[0] |  IN | u_safety_riscv_soc/soc_reset_release_sync[1]
+u_safety_riscv_soc/core_b/p_14_in |  OUT | u_safety_riscv_soc/p_14_in
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[0] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[0]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[10] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[10]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[11] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[11]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[12] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[12]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[13] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[13]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[14] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[14]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[15] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[15]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[16] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[16]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[17] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[17]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[18] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[18]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[19] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[19]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[1] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[1]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[20] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[20]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[21] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[21]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[22] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[22]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[23] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[23]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[24] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[24]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[25] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[25]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[26] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[26]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[27] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[27]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[28] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[28]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[29] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[29]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[2] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[2]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[30] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[30]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[31] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[31]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[32] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[34]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[33] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[35]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[34] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[36]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[35] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[37]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[36] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[38]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[37] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[39]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[38] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[40]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[39] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[41]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[3] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[3]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[40] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[42]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[41] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[43]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[42] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[44]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[43] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[45]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[44] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[46]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[45] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[47]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[46] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[48]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[47] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[49]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[48] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[50]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[49] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[51]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[4] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[4]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[50] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[52]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[51] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[53]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[52] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[54]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[53] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[55]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[54] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[56]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[55] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[57]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[56] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[58]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[57] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[59]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[58] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[60]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[59] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[61]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[5] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[5]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[60] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[62]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[61] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[63]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[62] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[64]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[63] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[65]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[64] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[66]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[65] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[67]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[66] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[68]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[6] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[6]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[7] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[7]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[8] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[8]
+u_safety_riscv_soc/core_b/paired_data_commit_payload_b[9] |  IN | u_safety_riscv_soc/paired_data_commit_payload_b[9]
+u_safety_riscv_soc/core_b/paired_data_compare_b[0] |  OUT | u_safety_riscv_soc/paired_data_compare_b[0]
+u_safety_riscv_soc/core_b/paired_data_compare_b[10] |  OUT | u_safety_riscv_soc/paired_data_compare_b[10]
+u_safety_riscv_soc/core_b/paired_data_compare_b[11] |  OUT | u_safety_riscv_soc/paired_data_compare_b[11]
+u_safety_riscv_soc/core_b/paired_data_compare_b[12] |  OUT | u_safety_riscv_soc/paired_data_compare_b[12]
+u_safety_riscv_soc/core_b/paired_data_compare_b[13] |  OUT | u_safety_riscv_soc/paired_data_compare_b[13]
+u_safety_riscv_soc/core_b/paired_data_compare_b[14] |  OUT | u_safety_riscv_soc/paired_data_compare_b[14]
+u_safety_riscv_soc/core_b/paired_data_compare_b[15] |  OUT | u_safety_riscv_soc/paired_data_compare_b[15]
+u_safety_riscv_soc/core_b/paired_data_compare_b[16] |  OUT | u_safety_riscv_soc/paired_data_compare_b[16]
+u_safety_riscv_soc/core_b/paired_data_compare_b[17] |  OUT | u_safety_riscv_soc/paired_data_compare_b[17]
+u_safety_riscv_soc/core_b/paired_data_compare_b[18] |  OUT | u_safety_riscv_soc/paired_data_compare_b[18]
+u_safety_riscv_soc/core_b/paired_data_compare_b[19] |  OUT | u_safety_riscv_soc/paired_data_compare_b[19]
+u_safety_riscv_soc/core_b/paired_data_compare_b[1] |  OUT | u_safety_riscv_soc/paired_data_compare_b[1]
+u_safety_riscv_soc/core_b/paired_data_compare_b[20] |  OUT | u_safety_riscv_soc/paired_data_compare_b[20]
+u_safety_riscv_soc/core_b/paired_data_compare_b[21] |  OUT | u_safety_riscv_soc/paired_data_compare_b[21]
+u_safety_riscv_soc/core_b/paired_data_compare_b[22] |  OUT | u_safety_riscv_soc/paired_data_compare_b[22]
+u_safety_riscv_soc/core_b/paired_data_compare_b[23] |  OUT | u_safety_riscv_soc/paired_data_compare_b[23]
+u_safety_riscv_soc/core_b/paired_data_compare_b[24] |  OUT | u_safety_riscv_soc/paired_data_compare_b[24]
+u_safety_riscv_soc/core_b/paired_data_compare_b[25] |  OUT | u_safety_riscv_soc/paired_data_compare_b[25]
+u_safety_riscv_soc/core_b/paired_data_compare_b[26] |  OUT | u_safety_riscv_soc/paired_data_compare_b[26]
+u_safety_riscv_soc/core_b/paired_data_compare_b[27] |  OUT | u_safety_riscv_soc/paired_data_compare_b[27]
+u_safety_riscv_soc/core_b/paired_data_compare_b[28] |  OUT | u_safety_riscv_soc/paired_data_compare_b[28]
+u_safety_riscv_soc/core_b/paired_data_compare_b[29] |  OUT | u_safety_riscv_soc/paired_data_compare_b[29]
+u_safety_riscv_soc/core_b/paired_data_compare_b[2] |  OUT | u_safety_riscv_soc/paired_data_compare_b[2]
+u_safety_riscv_soc/core_b/paired_data_compare_b[30] |  OUT | u_safety_riscv_soc/paired_data_compare_b[30]
+u_safety_riscv_soc/core_b/paired_data_compare_b[31] |  OUT | u_safety_riscv_soc/paired_data_compare_b[31]
+u_safety_riscv_soc/core_b/paired_data_compare_b[3] |  OUT | u_safety_riscv_soc/paired_data_compare_b[3]
+u_safety_riscv_soc/core_b/paired_data_compare_b[4] |  OUT | u_safety_riscv_soc/paired_data_compare_b[4]
+u_safety_riscv_soc/core_b/paired_data_compare_b[5] |  OUT | u_safety_riscv_soc/paired_data_compare_b[5]
+u_safety_riscv_soc/core_b/paired_data_compare_b[6] |  OUT | u_safety_riscv_soc/paired_data_compare_b[6]
+u_safety_riscv_soc/core_b/paired_data_compare_b[7] |  OUT | u_safety_riscv_soc/paired_data_compare_b[7]
+u_safety_riscv_soc/core_b/paired_data_compare_b[8] |  OUT | u_safety_riscv_soc/paired_data_compare_b[8]
+u_safety_riscv_soc/core_b/paired_data_compare_b[9] |  OUT | u_safety_riscv_soc/paired_data_compare_b[9]
+u_safety_riscv_soc/core_b/paired_data_gnt_a |  IN | u_safety_riscv_soc/paired_data_gnt_a
+u_safety_riscv_soc/core_b/paired_data_path_active |  IN | u_safety_riscv_soc/paired_data_path_active
+u_safety_riscv_soc/core_b/payload_b_q_reg[46][0] |  OUT | u_safety_riscv_soc/core_b_n_194
+u_safety_riscv_soc/core_b/payload_b_q_reg[57][0] |  OUT | u_safety_riscv_soc/core_b_n_197
+u_safety_riscv_soc/core_b/payload_b_q_reg[57][1] |  OUT | u_safety_riscv_soc/core_b_n_196
+u_safety_riscv_soc/core_b/payload_b_q_reg[57][2] |  OUT | u_safety_riscv_soc/core_b_n_195
+u_safety_riscv_soc/core_b/payload_b_q_reg[66][0] |  OUT | u_safety_riscv_soc/core_b_n_198
+u_safety_riscv_soc/core_b/profile_complement_q_reg[0] |  OUT | u_safety_riscv_soc/core_b_n_138
+u_safety_riscv_soc/core_b/progress_age_q1 |  IN | u_safety_riscv_soc/progress_age_q1
+u_safety_riscv_soc/core_b/progress_age_q_reg[0][0] |  IN | u_safety_riscv_soc/progress_age_q[0]
+u_safety_riscv_soc/core_b/progress_age_q_reg[0]_0 |  IN | u_safety_riscv_soc/core_a_n_211
+u_safety_riscv_soc/core_b/progress_age_q_reg[8] |  IN | u_safety_riscv_soc/led_OBUF[2]
+u_safety_riscv_soc/core_b/progress_age_q_reg[8]_0[0] |  IN | u_safety_riscv_soc/heartbeat_update_o0
+u_safety_riscv_soc/core_b/progress_age_q_reg[8]_1 |  IN | u_safety_riscv_soc/core_a_n_204
+u_safety_riscv_soc/core_b/progress_timeout_fault_o_reg |  OUT | u_safety_riscv_soc/core_b_n_132
+u_safety_riscv_soc/core_b/progress_timeout_fault_o_reg_0 |  OUT | u_safety_riscv_soc/core_b_n_139
+u_safety_riscv_soc/core_b/rdata_offset_q_reg[1]_i_1[0] |  OUT | u_safety_riscv_soc/core_b_n_5
+u_safety_riscv_soc/core_b/rdata_offset_q_reg[1]_i_1_0[0] |  OUT | u_safety_riscv_soc/core_b_n_36
+u_safety_riscv_soc/core_b/rvalid_o_i_4[0] |  IN | u_safety_riscv_soc/data_rdata_mismatch0
+u_safety_riscv_soc/core_b/rvalid_o_reg[0] |  OUT | u_safety_riscv_soc/core_b_n_214
+u_safety_riscv_soc/core_b/rvalid_o_reg[1] |  OUT | u_safety_riscv_soc/core_b_n_213
+u_safety_riscv_soc/core_b/rvalid_o_reg[2] |  OUT | u_safety_riscv_soc/core_b_n_212
+u_safety_riscv_soc/core_b/rvalid_o_reg[3] |  OUT | u_safety_riscv_soc/core_b_n_211
+u_safety_riscv_soc/core_b/rvalid_o_reg_0[0] |  OUT | u_safety_riscv_soc/core_b_n_218
+u_safety_riscv_soc/core_b/rvalid_o_reg_0[1] |  OUT | u_safety_riscv_soc/core_b_n_217
+u_safety_riscv_soc/core_b/rvalid_o_reg_0[2] |  OUT | u_safety_riscv_soc/core_b_n_216
+u_safety_riscv_soc/core_b/rvalid_o_reg_0[3] |  OUT | u_safety_riscv_soc/core_b_n_215
+u_safety_riscv_soc/core_b/rvalid_o_reg_1[0] |  OUT | u_safety_riscv_soc/core_b_n_220
+u_safety_riscv_soc/core_b/rvalid_o_reg_1[1] |  OUT | u_safety_riscv_soc/core_b_n_219
+u_safety_riscv_soc/core_b/rvalid_o_reg_2 |  IN | u_safety_riscv_soc/core_a_n_4
+u_safety_riscv_soc/core_b/rvalid_o_reg_3 |  IN | u_safety_riscv_soc/led_OBUF[0]
+u_safety_riscv_soc/core_b/rvalid_o_reg_4 |  IN | u_safety_riscv_soc/core_a_n_134
+u_safety_riscv_soc/core_b/rvalid_o_reg_5 |  IN | u_safety_riscv_soc/u_paired_data_capture_stage_n_132
+u_safety_riscv_soc/core_b/rvalid_o_reg_6 |  IN | u_safety_riscv_soc/core_a_n_208
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[0] |  IN | u_safety_riscv_soc/core_a_data_addr[2]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[10] |  IN | u_safety_riscv_soc/core_a_data_addr[30]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[11] |  IN | u_safety_riscv_soc/core_a_data_addr[31]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[1] |  IN | u_safety_riscv_soc/core_a_data_addr[12]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[2] |  IN | u_safety_riscv_soc/core_a_data_addr[13]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[3] |  IN | u_safety_riscv_soc/core_a_data_addr[14]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[4] |  IN | u_safety_riscv_soc/core_a_data_addr[21]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[5] |  IN | u_safety_riscv_soc/core_a_data_addr[22]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[6] |  IN | u_safety_riscv_soc/core_a_data_addr[23]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[7] |  IN | u_safety_riscv_soc/core_a_data_addr[24]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[8] |  IN | u_safety_riscv_soc/core_a_data_addr[25]
+u_safety_riscv_soc/core_b/rvalid_o_reg_i_30[9] |  IN | u_safety_riscv_soc/core_a_data_addr[26]
+u_safety_riscv_soc/core_b/soc_reset_release_sync_reg[1] |  OUT | u_safety_riscv_soc/core_b_n_4
+u_safety_riscv_soc/core_b/state_q_reg[1] |  OUT | u_safety_riscv_soc/core_b_n_131
+u_safety_riscv_soc/core_b/state_q_reg[1]_0 |  IN | u_safety_riscv_soc/u_paired_data_capture_stage_n_133
+u_safety_riscv_soc/core_b/valid_req_q_reg |  OUT | u_safety_riscv_soc/core_b_n_1
+u_safety_riscv_soc/core_b/valid_req_q_reg_0 |  OUT | u_safety_riscv_soc/core_b_n_67
+u_safety_riscv_soc/core_b/watchdog_age_q[7]_i_3 |  IN | u_safety_riscv_soc/u_mmio_config_n_12
+u_safety_riscv_soc/core_b/watchdog_age_q[7]_i_3_0[0] |  IN | u_safety_riscv_soc/data_addr_mismatch0
+u_safety_riscv_soc/core_b/watchdog_age_q[7]_i_3_1 |  IN | u_safety_riscv_soc/core_a_n_212
+
+===== PINS MATCHING OUT =====
+u_safety_riscv_soc/core_b/out[0] |  IN |  out[0]
+  NET: u_safety_riscv_soc/soc_reset_release_sync[1]
+u_safety_riscv_soc/core_b/progress_timeout_fault_o_reg |  OUT |  progress_timeout_fault_o_reg
+  NET: u_safety_riscv_soc/core_b_n_132
+u_safety_riscv_soc/core_b/progress_timeout_fault_o_reg_0 |  OUT |  progress_timeout_fault_o_reg_0
+  NET: u_safety_riscv_soc/core_b_n_139
+# puts "\n===== LUT I1 NET DRIVER QUERY ====="
+
+===== LUT I1 NET DRIVER QUERY =====
+# set i1 [get_pins -quiet {u_safety_riscv_soc/core_b/i___95/I1}]
+# set net [get_nets -quiet -of_objects $i1]
+# foreach n $net {
+#     puts "Net: [get_property NAME $n]"
+#
+#     set drivers [get_pins -quiet -of_objects $n \
+#         -filter {DIRECTION == OUT}]
+#
+#     puts "Output driver count: [llength $drivers]"
+#
+#     foreach d $drivers {
+#         puts "Driver: [get_property NAME $d]"
+#     }
+# }
+Net: u_safety_riscv_soc/core_b/out[0]
+Output driver count: 0
+# close_design
+# puts "\nCORE B BOUNDARY INSPECTION COMPLETE"
+
+CORE B BOUNDARY INSPECTION COMPLETE
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 00:44:51 2026...

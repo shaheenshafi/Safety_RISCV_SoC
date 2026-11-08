@@ -1,5 +1,6 @@
 # FuseSoC / simulation build artifacts
-build/
+build/*
+!/vivado_arty_a7_50mhz/build/
 
 # Generated Verilator / Edalize files
 *.log
@@ -19,3 +20,16 @@ sw/stage5/build/
 
 # Local backup of pre-clock-gating Arty manifest
 /rtl/bringup/safety_riscv_soc_arty_a7.core.before_xilinx_clock_gating
+
+# Vivado temporary working directories
+.Xil/
+
+# Keep the standalone Arty A7 Vivado project under version control
+!/vivado_arty_a7_50mhz/build/
+!/vivado_arty_a7_50mhz/build/**
+
+# Exclude regenerable Vivado working data
+/vivado_arty_a7_50mhz/build/project/arty_a7_50mhz.runs/
+/vivado_arty_a7_50mhz/build/project/arty_a7_50mhz.cache/
+/vivado_arty_a7_50mhz/build/project/arty_a7_50mhz.hw/
+/vivado_arty_a7_50mhz/build/project/arty_a7_50mhz.ip_user_files/

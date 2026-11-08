@@ -1,0 +1,179 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Nov  9 00:10:16 2026
+# Process ID         : 41124
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/pre_bitstream_audit.tcl -log build/logs/pre_bitstream_audit.log -journal build/logs/pre_bitstream_audit.jou
+# Log file           : R:/build/logs/pre_bitstream_audit.log
+# Journal file       : R:/build/logs/pre_bitstream_audit.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 4919 MB
+#-----------------------------------------------------------
+source scripts/pre_bitstream_audit.tcl
+# set dcp [file normalize "checkpoints/implementation/arty_a7_50mhz_routed.dcp"]
+# if {![file exists $dcp]} {
+#     error "Routed checkpoint not found: $dcp"
+# }
+# open_checkpoint $dcp
+Command: open_checkpoint R:/checkpoints/implementation/arty_a7_50mhz_routed.dcp
+
+Starting open_checkpoint Task
+
+Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.049 . Memory (MB): peak = 378.523 ; gain = 4.891
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.076 . Memory (MB): peak = 892.770 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 721 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.023 . Memory (MB): peak = 1004.527 ; gain = 2.906
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1620.398 ; gain = 0.000
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1620.398 ; gain = 0.000
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1620.398 ; gain = 0.000
+Read placeStorage: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.279 . Memory (MB): peak = 1638.270 ; gain = 17.871
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1638.270 ; gain = 0.000
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.143 . Memory (MB): peak = 1638.270 ; gain = 0.000
+Read Physdb Files: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.462 . Memory (MB): peak = 1638.270 ; gain = 17.871
+Restored from archive | CPU: 1.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.512 . Memory (MB): peak = 1638.270 ; gain = 21.805
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1638.270 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+INFO: [Project 1-604] Checkpoint was created with Vivado v2026.1 (64-bit) build 6511674
+open_checkpoint: Time (s): cpu = 00:00:24 ; elapsed = 00:00:21 . Memory (MB): peak = 1638.270 ; gain = 1274.359
+# puts "\n===== DESIGN IDENTITY ====="
+
+===== DESIGN IDENTITY =====
+# puts "Part: [get_property PART [current_design]]"
+Part: xc7a100tcsg324-1
+# puts "Top:  [get_property TOP [current_fileset]]"
+Top:
+# puts "\n===== TOP-LEVEL PORTS ====="
+
+===== TOP-LEVEL PORTS =====
+# foreach p [get_ports] {
+#     puts "[get_property NAME $p] | [get_property DIRECTION $p] | [get_property PACKAGE_PIN $p] | [get_property IOSTANDARD $p]"
+# }
+clk | IN | E3 | LVCMOS33
+led[0] | OUT | H5 | LVCMOS33
+led[1] | OUT | J5 | LVCMOS33
+led[2] | OUT | T9 | LVCMOS33
+led[3] | OUT | T10 | LVCMOS33
+reset | IN | C2 | LVCMOS33
+# puts "\n===== CLOCKS ====="
+
+===== CLOCKS =====
+# report_clocks
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov  9 00:10:41 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_clocks
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Report
+
+
+Attributes
+  P: Propagated
+  G: Generated
+  A: Auto-derived
+  R: Renamed
+  V: Virtual
+  I: Inverted
+  S: Pin phase-shifted with Latency mode
+
+Clock        Period(ns)  Waveform(ns)    Attributes  Sources
+sys_clk_pin  20.000      {0.000 10.000}  P           {clk}
+
+
+====================================================
+Generated Clocks
+====================================================
+
+
+
+====================================================
+User Uncertainty
+====================================================
+
+
+
+====================================================
+User Jitter
+====================================================
+
+
+# puts "\n===== UNCONSTRAINED PORTS ====="
+
+===== UNCONSTRAINED PORTS =====
+WARNING: [Vivado 12-584] No ports matched '[get_ports -filter {PACKAGE_PIN == ""}]'.
+# set unconstrained_ports [get_ports -filter {PACKAGE_PIN == ""}]
+# puts "Ports without PACKAGE_PIN: [llength $unconstrained_ports]"
+Ports without PACKAGE_PIN: 0
+# foreach p $unconstrained_ports {
+#     puts "UNASSIGNED: [get_property NAME $p]"
+# }
+# puts "\n===== UNCONSTRAINED PATHS ====="
+
+===== UNCONSTRAINED PATHS =====
+# report_timing_summary -report_unconstrained -check_timing_verbose \
+#     -file "reports/timing/pre_bitstream_timing_audit.rpt"
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 2 CPUs
+# puts "\n===== CONFIGURATION PROPERTIES ====="
+
+===== CONFIGURATION PROPERTIES =====
+# foreach prop {CFGBVS CONFIG_VOLTAGE} {
+#     if {[catch {set value [get_property $prop [current_design]]}]} {
+#         set value "UNAVAILABLE"
+#     }
+#     puts "$prop = $value"
+# }
+CFGBVS =
+CONFIG_VOLTAGE =
+# puts "\n===== DRC SUMMARY ====="
+
+===== DRC SUMMARY =====
+# report_drc -file "reports/implementation/pre_bitstream_drc_audit.rpt"
+Command: report_drc -file reports/implementation/pre_bitstream_drc_audit.rpt
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Softwares/XilinxVivado/2026.1/Vivado/data/ip'.
+INFO: [DRC 23-27] Running DRC with 2 threads
+WARNING: [DRC 23-804] Only the first 20 REQP-1839 messages were issued by report_drc. An additional 1 messages have not been issued. Use 'set_property MAX_MESSAGES <number> [get_drc_check REQP-1839]' to change the number of messages that should be reported.
+INFO: [Vivado_Tcl 2-168] The results of DRC are in file R:/reports/implementation/pre_bitstream_drc_audit.rpt.
+report_drc completed successfully
+# close_design
+# puts "\nPRE-BITSTREAM READ-ONLY AUDIT COMPLETE"
+
+PRE-BITSTREAM READ-ONLY AUDIT COMPLETE
+# exit
+INFO: [Common 17-206] Exiting Vivado at Mon Nov  9 00:10:49 2026...

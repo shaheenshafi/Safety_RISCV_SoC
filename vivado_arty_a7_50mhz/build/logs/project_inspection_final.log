@@ -1,0 +1,97 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 03-jul-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:02:23 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sun Nov  8 23:29:23 2026
+# Process ID         : 35800
+# Current directory  : R:/
+# Command line       : vivado.exe -mode batch -source scripts/inspect_project.tcl -log build/logs/project_inspection_final.log -journal build/logs/project_inspection_final.jou
+# Log file           : R:/build/logs/project_inspection_final.log
+# Journal file       : R:/build/logs/project_inspection_final.jou
+# Running On         : LordSHAH
+# Platform           : Windows 11
+# Operating System   : 26300
+# Processor Detail   : Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+# CPU Frequency      : 2592 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 16954 MB
+# Swap memory        : 9503 MB
+# Total Virtual      : 26458 MB
+# Available Virtual  : 5321 MB
+#-----------------------------------------------------------
+source scripts/inspect_project.tcl
+# set ws [file normalize [file join [file dirname [info script]] ".."]]
+# set xpr [file join $ws build project arty_a7_50mhz.xpr]
+# puts "\n========== OPEN EXISTING PROJECT =========="
+
+========== OPEN EXISTING PROJECT ==========
+# open_project $xpr
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'R:/build/project/arty_a7_50mhz.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build
+open_project: Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 675.035 ; gain = 310.762
+# puts "\n========== PROJECT CONFIGURATION =========="
+
+========== PROJECT CONFIGURATION ==========
+# puts "Project: [current_project]"
+Project: arty_a7_50mhz
+# puts "Part: [get_property PART [current_project]]"
+Part: xc7a100tcsg324-1
+# puts "Top: [get_property TOP [get_filesets sources_1]]"
+Top: safety_riscv_soc_arty_a7
+# set rtl [get_files -of_objects [get_filesets sources_1]]
+# puts "RTL files: [llength $rtl]"
+RTL files: 152
+# if {[llength $rtl] != 152} {
+#     error "Unexpected RTL file count"
+# }
+# foreach f $rtl {
+#     if {![file exists [get_property NAME $f]]} {
+#         error "Missing RTL: [get_property NAME $f]"
+#     }
+# }
+# puts "PASS: all 152 RTL paths resolve"
+PASS: all 152 RTL paths resolve
+# set xdc [get_files -of_objects [get_filesets constrs_1]]
+# puts "XDC files: [llength $xdc]"
+XDC files: 2
+# if {[llength $xdc] != 2} {
+#     error "Unexpected XDC file count"
+# }
+# foreach f $xdc {
+#     puts "  [get_property NAME $f]"
+#     if {![file exists [get_property NAME $f]]} {
+#         error "Missing XDC: [get_property NAME $f]"
+#     }
+# }
+  R:/constraints/arty_a7_100t_pins.xdc
+  R:/constraints/clock_50mhz.xdc
+# puts "PASS: both XDC paths resolve"
+PASS: both XDC paths resolve
+# puts "\n========== STATIC CLOCK CONSTRAINT CHECK =========="
+
+========== STATIC CLOCK CONSTRAINT CHECK ==========
+# set clock_file [file join $ws constraints clock_50mhz.xdc]
+# set fh [open $clock_file r]
+# set clock_text [read $fh]
+# close $fh
+# if {![regexp -- {-period[[:space:]]+20\.000} $clock_text]} {
+#     error "20.000 ns period not found in clock_50mhz.xdc"
+# }
+# if {![regexp -- {get_ports[[:space:]]+\{clk\}} $clock_text]} {
+#     error "Clock constraint does not target port clk"
+# }
+# puts "PASS: clock_50mhz.xdc specifies a 20.000 ns clock on clk"
+PASS: clock_50mhz.xdc specifies a 20.000 ns clock on clk
+# puts "\n========== PROJECT SAVE =========="
+
+========== PROJECT SAVE ==========
+# close_project
+# puts "PASS: existing project inspected and saved"
+PASS: existing project inspected and saved
+# exit 0
+INFO: [Common 17-206] Exiting Vivado at Sun Nov  8 23:29:36 2026...
