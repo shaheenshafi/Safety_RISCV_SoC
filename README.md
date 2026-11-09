@@ -117,16 +117,23 @@ Environment and setup information is maintained in [DEVELOPMENT_SETUP.md](docs/D
 
 ## 6. Simulation and Verification Results
 
-The Stage 6 regression baseline records eight passing regression groups:
+The Stage 6 regression baseline records eight passing verification groups:
+six principal simulation targets and two separately executed Stage 4F
+fault-containment scenarios.
 
 1. Stage 5 basic SoC simulation
 2. Stage 5 HAL simulation
 3. Battery-monitoring integration simulation
-4. Stage 4F supervisor RAM/MMIO containment
-5. Supervisor timeout detection
-6. Native Ibex double-fault detection
-7. Response-error monitor verification
-8. Associated safety containment and integration checks
+4. Supervisor timeout detection
+5. Native Ibex double-fault detection
+6. Response-error monitor verification
+7. Supervisor-to-RAM containment
+8. Supervisor-to-MMIO containment
+
+The six principal targets are listed in
+`logs/stage2_final_regression_o2_20261108/results.txt`.
+The RAM and MMIO containment scenarios are documented in their
+separate run logs in the same directory.
 
 Key recorded battery-monitoring results include:
 
@@ -147,68 +154,94 @@ These results establish the recorded digital simulation baseline. They are not e
 
 ## 7. FPGA Synthesis and Implementation
 
-The Arty A7-100T FPGA target was synthesized and taken through implementation and routing using Vivado 2026.1.
+The Arty A7-100T target was synthesized and taken through placement and routing using Vivado 2026.1.
 
-**Implementation target**
+**Current implementation baseline**
 
 - Top module: `safety_riscv_soc_arty_a7`
 - FPGA part: `xc7a100tcsg324-1`
-- Clock constraint: 100 MHz (10 ns)
-- Implementation run: `arty_a7_timing_opt2`
+- Clock constraint: 50 MHz (20 ns)
+- Implementation workspace: `vivado_arty_a7_50mhz`
+- Design state: Fully Routed
 
 ### Synthesis utilization
 
 | Resource | Used | Available | Utilization |
 |---|---:|---:|---:|
-| LUTs | 7,509 | 63,400 | 11.84% |
-| Registers | 4,202 | 126,800 | 3.31% |
+| Slice LUTs | 7,409 | 63,400 | 11.69% |
+| Slice registers | 4,201 | 126,800 | 3.31% |
 | BRAM tiles | 8 | 135 | 5.93% |
-| DSP | 0 | 240 | 0% |
+| DSPs | 0 | 240 | 0% |
 
-### Placed utilization
+### Routed utilization
 
 | Resource | Used | Available | Utilization |
 |---|---:|---:|---:|
-| LUTs | 7,839 | 63,400 | 12.36% |
-| Slice registers | 4,202 | 126,800 | 3.31% |
-| DSP | 0 | 240 | 0% |
+| Slice LUTs | 7,452 | 63,400 | 11.75% |
+| Slice registers | 4,201 | 126,800 | 3.31% |
+| BRAM tiles | 8 | 135 | 5.93% |
+| DSPs | 0 | 240 | 0% |
 
-### Routing and timing status
+### Routing and timing
 
-The implementation reached the **Fully Routed** design state, with 11,205 routable nets fully routed and zero routing errors.
-
-However, the routed timing analysis did not meet the 100 MHz clock constraint:
+The 50 MHz implementation reached the **Fully Routed** design state. All 11,123 routable nets were fully routed, with zero routing errors.
 
 | Timing metric | Routed result |
 |---|---:|
+| Clock period constraint | 20 ns (50 MHz) |
+| WNS | +0.013 ns |
+| TNS | 0 ns |
+| Setup failing endpoints | 0 of 8,595 |
+| WHS | +0.074 ns |
+| THS | 0 ns |
+| Hold failing endpoints | 0 of 8,595 |
+| Worst pulse-width slack | +9.500 ns |
+| Pulse-width failing endpoints | 0 |
+
+The reported setup and hold checks meet the 50 MHz constraint. The setup margin is only **+0.013 ns**, so this result should not be interpreted as evidence of broad timing margin or a validated maximum operating frequency.
+
+### Historical 100 MHz implementation attempt
+
+An earlier implementation attempt used a 10 ns (100 MHz) constraint. It reached the Fully Routed state but did not meet timing:
+
+| Timing metric | Historical result |
+|---|---:|
 | Clock period constraint | 10 ns |
-| Worst Negative Slack (WNS) | -9.178 ns |
-| Total Negative Slack (TNS) | -21,083.062 ns |
+| WNS | -9.178 ns |
+| TNS | -21,083.062 ns |
 | Setup failing endpoints | 7,000 |
 | Hold failing endpoints | 0 |
 | Worst hold slack | +0.037 ns |
 
-**Timing constraints are not met.** The 100 MHz value is the applied design constraint, not a demonstrated operating frequency.
+This is retained as historical implementation evidence; it is not the current 50 MHz baseline.
 
-The routed DRC report also contains warnings, including missing configuration-voltage design properties and RAMB36 asynchronous-control checks. These findings remain documented and should not be interpreted as proof of memory corruption.
+### DRC and methodology findings
 
-No claim of physical FPGA execution or hardware fault-injection validation is made.
+The final routed DRC report records one `CFGBVS-1` warning, two `CHECK-3` reporting-limit warnings, and 2,000 reported `REQP-1839` BRAM asynchronous-control entries. The report indicates that the rule reporting limit was reached, so 2,000 is the reported count, not a proven upper bound on the total findings.
+
+The methodology report records 14 warning instances: one `LUTAR-1`, eight `SYNTH-6`, and five `TIMING-18`. These findings remain documented and have not been waived or suppressed.
 
 **Detailed evidence:** [Stage 6 FPGA Implementation Evidence](docs/stage6/STEP3_FPGA_IMPLEMENTATION_EVIDENCE.md)
+
+The generated bitstream is identified by SHA-256
+`561714dd1adbaf8c41d69587a7383f4f9550603208a7f0084fe2269d0ea62e83`.
+Its identity has been verified, but it has not been validated on or programmed into the physical FPGA.
 
 ## 8. Known Limitations and Outstanding Validation
 
 The following limitations remain:
 
-- Routed timing does not meet the 100 MHz clock constraint.
-- The maximum achievable operating frequency has not been established.
-- The reported BRAM asynchronous-control DRC warnings require appropriate follow-up assessment.
-- FPGA configuration-voltage properties require verification against the board documentation before being set.
-- Physical FPGA execution and hardware-level functional validation remain pending.
-- Hardware fault-injection testing has not been established by the simulation results.
+- The 50 MHz routed setup margin is small (+0.013 ns); the maximum achievable operating frequency has not been established.
+- The 100 MHz historical implementation attempt did not meet its timing constraint.
+- The `REQP-1839` BRAM asynchronous-control DRC findings remain unresolved. The expanded report lists 2,000 entries and indicates that the reporting limit was reached.
+- The `CFGBVS-1` warning remains open until configuration-voltage properties are verified against the official board documentation.
+- The `LUTAR-1` reset warning remains a limitation: positive recovery/removal timing checks do not prove glitch-free asynchronous reset behaviour.
+- The `SYNTH-6` and `TIMING-18` methodology warnings remain documented.
+- The bitstream hash is verified, but physical FPGA programming and application execution have not been demonstrated.
+- Hardware-level fault-injection and containment testing remain pending.
 - No ISO 26262 certification or production-readiness claim is made.
 
-The current evidence therefore supports a verified digital simulation baseline and a completed FPGA synthesis and routed implementation attempt, with timing and physical validation limitations clearly identified.
+The current evidence supports a passing digital simulation baseline, successful FPGA synthesis and routing at a 50 MHz constraint, and a generated bitstream whose hash has been verified. It does not establish physical hardware operation or safety certification.
 
 ## 9. Technical Documentation and Evidence
 
@@ -235,7 +268,8 @@ The current evidence therefore supports a verified digital simulation baseline a
 | Recorded simulation regression baseline | Passed |
 | FPGA synthesis | Completed |
 | FPGA placement and routing | Completed |
-| 100 MHz timing closure | Not met |
+| 50 MHz routed timing checks | Met; +0.013 ns setup slack |
+| Historical 100 MHz timing attempt | Not met |
 | Physical FPGA validation | Pending |
 | Hardware fault-injection validation | Pending |
 | Functional-safety certification | Not established |
