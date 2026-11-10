@@ -121,9 +121,9 @@ module safety_riscv_soc_stage1_safe (
       .test_en_i               (1'b0),
 
       // I-Cache RAM configuration
-      .ram_cfg_icache_tag_i    (),
+.ram_cfg_icache_tag_i ('{default: prim_ram_1p_pkg::RAM_1P_CFG_REQ_DEFAULT}),
       .ram_cfg_icache_tag_o    (),
-      .ram_cfg_icache_data_i   (),
+.ram_cfg_icache_data_i ('{default: prim_ram_1p_pkg::RAM_1P_CFG_REQ_DEFAULT}),
       .ram_cfg_icache_data_o   (),
 
       // CHERIoT disabled

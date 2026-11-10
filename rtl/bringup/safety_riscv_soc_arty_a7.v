@@ -24,6 +24,10 @@ module safety_riscv_soc_arty_a7 (
     output wire [3:0] led
 );
 
+    wire clk_50mhz;
+    wire soc_reset_n;
+
+
     wire [1:0]  selected_profile;
     wire        profile_valid;
     wire        dcls_enable;
@@ -54,9 +58,19 @@ module safety_riscv_soc_arty_a7 (
 
     reg heartbeat_led;
 
+    // Convert the physical 100 MHz board oscillator into the 50 MHz SoC clock.
+    // The SoC remains in reset until the MMCM locks and reset release is
+    // synchronized to the generated clock.
+    arty_a7_clock_50mhz u_board_clock (
+        .clk_100mhz    (clk),
+        .reset_n       (reset),
+        .clk_50mhz     (clk_50mhz),
+        .reset_50mhz_n (soc_reset_n)
+    );
+
     // Toggle the heartbeat LED on each accepted application checkpoint.
-    always @(posedge clk or negedge reset) begin
-        if (!reset)
+    always @(posedge clk_50mhz or negedge soc_reset_n) begin
+        if (!soc_reset_n)
             heartbeat_led <= 1'b0;
         else if (heartbeat_update)
             heartbeat_led <= ~heartbeat_led;
@@ -70,8 +84,8 @@ module safety_riscv_soc_arty_a7 (
     safety_riscv_soc_stage4f #(
         .MemInitFile("data/stage5_battery_monitor.vmem")
     ) u_safety_riscv_soc (
-        .clk_i                              (clk),
-        .rst_ni                             (reset),
+        .clk_i                              (clk_50mhz),
+        .rst_ni                             (soc_reset_n),
 
         .fault_inject_target_i              (2'b00),
         .fault_inject_mask_i                (32'b0),

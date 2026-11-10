@@ -161,8 +161,9 @@ The Arty A7-100T target was synthesized and taken through placement and routing 
 - Top module: `safety_riscv_soc_arty_a7`
 - FPGA part: `xc7a100tcsg324-1`
 - Clock constraint: 50 MHz (20 ns)
-- Implementation workspace: `vivado_arty_a7_50mhz`
-- Design state: Fully Routed
+- Standalone Vivado workspace: `vivado_arty_a7_50mhz`
+- Independent FuseSoC build root: `validation_stage6_50mhz/fusesoc_build/`
+- Both 50 MHz implementation runs reached routed completion.
 
 ### Synthesis utilization
 
@@ -198,7 +199,11 @@ The 50 MHz implementation reached the **Fully Routed** design state. All 11,123 
 | Worst pulse-width slack | +9.500 ns |
 | Pulse-width failing endpoints | 0 |
 
-The reported setup and hold checks meet the 50 MHz constraint. The setup margin is only **+0.013 ns**, so this result should not be interpreted as evidence of broad timing margin or a validated maximum operating frequency.
+The reported setup and hold checks meet the 50 MHz constraint in both implementation evidence sets. The setup margin is only **+0.013 ns**, so this result should not be interpreted as evidence of broad timing margin or a validated maximum operating frequency.
+
+### Independent FuseSoC route-only implementation
+
+The separate FuseSoC target `synth_100t_50mhz` completed synthesis and implementation through `route_design` using a controlled Tcl driver. It produced a routed DCP with SHA-256 `fb491c64a43ae338a8e420750c764e93e6acb7b8efd0a264cf6c1f0b684d953c`. The run reports +0.013 ns WNS, +0.074 ns WHS, 11,123 of 11,123 routable nets fully routed, and zero routing errors. No bitstream was generated in this FuseSoC run. Its full evidence is documented in the Stage 6 FPGA Implementation Evidence document.
 
 ### Historical 100 MHz implementation attempt
 
@@ -223,7 +228,7 @@ The methodology report records 14 warning instances: one `LUTAR-1`, eight `SYNTH
 
 **Detailed evidence:** [Stage 6 FPGA Implementation Evidence](docs/stage6/STEP3_FPGA_IMPLEMENTATION_EVIDENCE.md)
 
-The generated bitstream is identified by SHA-256
+The separately generated standalone Vivado bitstream is identified by SHA-256
 `561714dd1adbaf8c41d69587a7383f4f9550603208a7f0084fe2269d0ea62e83`.
 Its identity has been verified, but it has not been validated on or programmed into the physical FPGA.
 
@@ -237,11 +242,11 @@ The following limitations remain:
 - The `CFGBVS-1` warning remains open until configuration-voltage properties are verified against the official board documentation.
 - The `LUTAR-1` reset warning remains a limitation: positive recovery/removal timing checks do not prove glitch-free asynchronous reset behaviour.
 - The `SYNTH-6` and `TIMING-18` methodology warnings remain documented.
-- The bitstream hash is verified, but physical FPGA programming and application execution have not been demonstrated.
+- The standalone Vivado bitstream hash is verified, but the fresh FuseSoC route-only run did not generate a bitstream. Physical FPGA programming and application execution have not been demonstrated.
 - Hardware-level fault-injection and containment testing remain pending.
 - No ISO 26262 certification or production-readiness claim is made.
 
-The current evidence supports a passing digital simulation baseline, successful FPGA synthesis and routing at a 50 MHz constraint, and a generated bitstream whose hash has been verified. It does not establish physical hardware operation or safety certification.
+The current evidence supports a passing digital simulation baseline, two completed 50 MHz synthesis and routed implementation evidence sets, and a separately generated standalone Vivado bitstream whose hash has been verified. The independent FuseSoC run stopped after routing and did not generate a bitstream. These results do not establish physical hardware operation or safety certification.
 
 ## 9. Technical Documentation and Evidence
 
@@ -266,8 +271,8 @@ The current evidence supports a passing digital simulation baseline, successful 
 | Safety mechanisms and containment RTL | Implemented |
 | Battery-monitoring firmware | Implemented |
 | Recorded simulation regression baseline | Passed |
-| FPGA synthesis | Completed |
-| FPGA placement and routing | Completed |
+| Standalone Vivado 50 MHz synthesis and routing | Completed |
+| FuseSoC 50 MHz synthesis and route-only implementation | Completed |
 | 50 MHz routed timing checks | Met; +0.013 ns setup slack |
 | Historical 100 MHz timing attempt | Not met |
 | Physical FPGA validation | Pending |

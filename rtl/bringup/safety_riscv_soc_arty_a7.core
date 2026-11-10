@@ -8,7 +8,10 @@ filesets:
     files:
       - safety_riscv_soc_stage1_mmio.v
       - safety_riscv_soc_stage4f.v
-      - safety_riscv_soc_arty_a7.v
+      - arty_a7_clock_50mhz.v:
+          file_type : verilogSource
+      - safety_riscv_soc_arty_a7.v:
+          file_type : verilogSource
       - ../safety/dcls_comparator.v
       - ../safety/dcls_paired_data_capture_stage.v
       - ../safety/dcls_response_error_monitor.v
@@ -35,10 +38,27 @@ filesets:
       - arty_a7_100t.xdc:
           file_type : xdc
 
+  constraints_50mhz:
+    files:
+      - ../../vivado_arty_a7_50mhz/constraints/arty_a7_100t_pins.xdc:
+          file_type : xdc
+      - ../../vivado_arty_a7_50mhz/constraints/clock_50mhz.xdc:
+          file_type : xdc
+
 targets:
   synth_100t:
     default_tool : vivado
     filesets : [rtl, data, constraints]
+    toplevel : safety_riscv_soc_arty_a7
+    tools:
+      vivado:
+        part : xc7a100tcsg324-1
+        synth : vivado
+        pnr : none
+
+  synth_100t_50mhz:
+    default_tool : vivado
+    filesets : [rtl, data, constraints_50mhz]
     toplevel : safety_riscv_soc_arty_a7
     tools:
       vivado:

@@ -172,7 +172,142 @@ The artifact SHA-256 was independently checked against both the implementation-r
 
 This records bitstream generation and artifact identity only. It does not establish that the bitstream has been validated for the board configuration, loaded onto the physical board, or used for successful hardware execution.
 
-## 8. Limitations and final status
+## 8. Independent FuseSoC 50 MHz Route-Only Implementation
+
+Date: 2026-11-09
+
+A separate implementation was generated through the FuseSoC target
+`synth_100t_50mhz`. This run is independent of the standalone Vivado
+implementation workspace documented in the preceding sections. Its
+results are recorded separately and must not be conflated with the
+standalone implementation's bitstream artifact.
+
+### 8.1 Build configuration and execution
+
+- FuseSoC target: `synth_100t_50mhz`
+- FPGA part: `xc7a100tcsg324-1`
+- Top module: `safety_riscv_soc_arty_a7`
+- Clock constraint: 50 MHz (20 ns)
+- Tool: Vivado 2026.1
+- Build root: `validation_stage6_50mhz/fusesoc_build/`
+- Controlled driver: `stage6_50mhz_synth_route_only.tcl`
+
+The controlled Tcl driver launched synthesis and waited for completion,
+then launched implementation with the explicit stopping point
+`route_design`. It checked the run status and progress before exiting.
+
+Recorded execution results:
+
+| Run | Status | Progress |
+|---|---|---:|
+| Synthesis (`synth_1`) | `synth_design Complete!` | 100% |
+| Implementation (`impl_1`) | `route_design Complete!` | 100% |
+
+The Vivado log records `route_design completed successfully`.
+
+The driver explicitly records that no `write_bitstream` command and no
+FPGA programming command were issued. No `.bit` or `.bin` artifact was
+found in this fresh FuseSoC build directory during the evidence check.
+
+### 8.2 Routed timing
+
+The authoritative report for this run is:
+
+`validation_stage6_50mhz/fusesoc_build/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/synth_100t_50mhz-vivado/local_safety_riscv_safety_riscv_soc_arty_a7_0.1.runs/impl_1/safety_riscv_soc_arty_a7_timing_summary_routed.rpt`
+
+| Metric | Routed result |
+|---|---:|
+| Clock period constraint | 20 ns |
+| WNS | +0.013 ns |
+| TNS | 0.000 ns |
+| Setup failing endpoints | 0 |
+| WHS | +0.074 ns |
+| THS | 0.000 ns |
+| Hold failing endpoints | 0 |
+| WPWS | +9.500 ns |
+| Pulse-width failing endpoints | 0 |
+
+The setup check meets the reported 50 MHz constraint, but the +0.013 ns
+worst setup slack is an extremely small margin. This must be described
+as timing met with minimal margin, not as robust timing closure or proof
+of a validated maximum operating frequency.
+
+### 8.3 Routed utilization and routing status
+
+| Resource | Used | Available | Utilization |
+|---|---:|---:|---:|
+| Slice LUTs | 7,452 | 63,400 | 11.75% |
+| Slice registers | 4,201 | 126,800 | 3.31% |
+| Block RAM tiles | 8 | 135 | 5.93% |
+| DSPs | 0 | 240 | 0% |
+| BUFGCTRL | 3 | 32 | 9.38% |
+
+Routing report:
+
+- Logical nets: 13,917.
+- Nets not needing routing: 2,794.
+- Routable nets: 11,123.
+- Fully routed routable nets: 11,123.
+- Nets with routing errors: 0.
+
+### 8.4 Routed DRC and methodology findings
+
+The fresh routed DRC report records:
+
+| Rule | Severity | Reported entries |
+|---|---|---:|
+| `CFGBVS-1` | Warning | 1 |
+| `CHECK-3` | Warning | 2 |
+| `REQP-1839` | Warning | 20 |
+
+The report states that the `REQP-1839` reporting limit was reached.
+Therefore, 20 is the number of entries displayed in this report and
+must not be interpreted as the exact total number of underlying
+findings.
+
+The fresh methodology report records 14 warning instances:
+
+| Rule | Count | Description |
+|---|---:|---|
+| `LUTAR-1` | 1 | LUT drives asynchronous reset |
+| `SYNTH-6` | 8 | RAM block timing may be sub-optimal |
+| `TIMING-18` | 5 | Missing input or output delay |
+
+These findings remain open and are not waived or suppressed by this
+route-only run. The existing BRAM asynchronous-control, reset-hazard,
+configuration-property and I/O-delay limitations documented above
+remain applicable.
+
+### 8.5 Routed checkpoint identity and evidence location
+
+Routed checkpoint:
+
+`validation_stage6_50mhz/fusesoc_build/local_safety_riscv_safety_riscv_soc_arty_a7_0.1/synth_100t_50mhz-vivado/local_safety_riscv_safety_riscv_soc_arty_a7_0.1.runs/impl_1/safety_riscv_soc_arty_a7_routed.dcp`
+
+SHA-256:
+
+`fb491c64a43ae338a8e420750c764e93e6acb7b8efd0a264cf6c1f0b684d953c`
+
+The associated timing, route-status, utilization, DRC, methodology,
+power and clock-utilization reports are retained in the same
+implementation run directory.
+
+This checkpoint and its reports identify the fresh FuseSoC route-only
+implementation. They do not identify or replace the separately
+generated standalone Vivado bitstream documented in Section 7.
+
+### 8.6 Scope of this result
+
+This independent run establishes successful FuseSoC-driven synthesis
+and routed implementation at the 50 MHz constraint, with zero reported
+routing errors and the timing results stated above.
+
+It does not establish bitstream generation, physical FPGA programming,
+application execution on the board, hardware fault-injection results,
+resolution of outstanding DRC or methodology findings, or safety
+certification.
+
+## 9. Limitations and final status
 
 The current evidence establishes:
 

@@ -192,6 +192,7 @@ module safety_riscv_soc_stage4e (
       .clk_i          (clk_i),
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
+      .paired_data_path_active_i (1'b0),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
       .memory_side_effect_inhibit_i (1'b0),
 
@@ -232,6 +233,7 @@ module safety_riscv_soc_stage4e (
       .clk_i          (clk_i),
       .rst_ni         (rst_ni),
       .safe_state_i   (safe_state_req),
+      .paired_data_path_active_i (1'b0),
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
       .memory_side_effect_inhibit_i (1'b0),
 

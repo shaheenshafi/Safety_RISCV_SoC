@@ -24,8 +24,8 @@ The work covers RTL development, simulation-based verification, FPGA synthesis a
 | MMIO and RAM fault containment | Implemented |
 | Battery-monitoring firmware | Implemented |
 | Simulation regression baseline | Passed |
-| Arty A7 synthesis | Completed |
-| FPGA placement and routing | Completed |
+| Standalone Vivado 50 MHz synthesis and routing | Completed |
+| FuseSoC 50 MHz synthesis and route-only implementation | Completed |
 | 50 MHz routed timing checks | Met; +0.013 ns setup slack |
 | Historical 100 MHz timing attempt | Not met |
 | Physical FPGA validation | Pending |
@@ -74,8 +74,12 @@ These are digital simulation results. They do not establish physical fault cover
 **Tool:** Xilinx Vivado 2026.1
 **Top module:** `safety_riscv_soc_arty_a7`
 **FPGA part:** `xc7a100tcsg324-1`
-**Current implementation workspace:** `vivado_arty_a7_50mhz`
-**Current clock constraint:** 50 MHz (20 ns)
+**Standalone Vivado implementation workspace:** `vivado_arty_a7_50mhz`
+**Independent FuseSoC build root:** `validation_stage6_50mhz/fusesoc_build/`
+**Clock constraint:** 50 MHz (20 ns)
+
+Two independent 50 MHz implementation evidence sets are retained. The standalone Vivado implementation has a separately generated bitstream whose hash is recorded below. The fresh FuseSoC target `synth_100t_50mhz` completed synthesis and routing using a controlled route-only Tcl driver. That run produced a routed DCP and reports, but no bitstream. Its checkpoint SHA-256 is `fb491c64a43ae338a8e420750c764e93e6acb7b8efd0a264cf6c1f0b684d953c`.
+Both runs report +0.013 ns WNS and +0.074 ns WHS. The setup margin is minimal; it must not be interpreted as robust timing closure.
 
 ### Synthesis utilization
 
@@ -186,7 +190,7 @@ The bitstream hash verification establishes artifact identity only. It does not 
 
 The project has established a dual-Ibex safety-oriented SoC implementation, a battery-monitoring firmware workload, a recorded passing digital simulation regression baseline, and a completed FPGA synthesis and routed implementation attempt for the Arty A7-100T.
 
-The current FPGA implementation is fully routed at a 50 MHz clock constraint, with setup and hold checks met and a worst setup slack of +0.013 ns. An earlier 100 MHz attempt did not meet timing. Outstanding DRC findings and physical validation activities remain open.
+The standalone Vivado 50 MHz implementation and the independent FuseSoC 50 MHz route-only implementation both completed routing, with setup and hold checks met and a worst setup slack of +0.013 ns. The FuseSoC run did not generate a bitstream. The separately generated standalone bitstream remains identified by its recorded SHA-256. An earlier 100 MHz attempt did not meet timing. Outstanding DRC findings and physical validation activities remain open.
 
 The current deliverable should therefore be regarded as a **simulation-verified and FPGA-implemented research prototype, with 50 MHz routed timing checks met, residual DRC/reset limitations, and physical hardware validation pending**.
 

@@ -221,6 +221,92 @@ module safety_riscv_soc_stage4f_tb;
     end
   endtask
 
+
+  // Testbench helper: perform one matched paired-RAM transaction.
+  task automatic paired_ram_transaction;
+    input         write_enable;
+    input [31:0]  address;
+    input [31:0]  write_data;
+    output [31:0] raw_a;
+    output [31:0] raw_b;
+    output [31:0] response_a;
+    output [31:0] response_b;
+
+    integer wait_cycles;
+    begin
+      @(negedge clk_i);
+
+      force dut.core_a.data_req   = 1'b1;
+      force dut.core_a.data_we    = write_enable;
+      force dut.core_a.data_be    = 4'hF;
+      force dut.core_a.data_addr  = address;
+      force dut.core_a.data_wdata = write_data;
+
+      force dut.core_b.data_req   = 1'b1;
+      force dut.core_b.data_we    = write_enable;
+      force dut.core_b.data_be    = 4'hF;
+      force dut.core_b.data_addr  = address;
+      force dut.core_b.data_wdata = write_data;
+
+      #1;
+      wait_cycles = 0;
+
+      while ((dut.core_a.data_gnt !== 1'b1 ||
+              dut.core_b.data_gnt !== 1'b1) &&
+             wait_cycles < 8) begin
+        @(negedge clk_i);
+        #1;
+        wait_cycles = wait_cycles + 1;
+      end
+
+      if (dut.paired_data_commit_valid !== 1'b1 ||
+          dut.core_a.data_gnt !== 1'b1 ||
+          dut.core_b.data_gnt !== 1'b1 ||
+          dut.core_a.ram_data_req !== 1'b1 ||
+          dut.core_b.ram_data_req !== 1'b1 ||
+          dut.core_a.u_ram.a_req_i !== 1'b1 ||
+          dut.core_b.u_ram.a_req_i !== 1'b1 ||
+          dut.core_a.u_ram.a_addr_i !== (address - 32'h0010_0000) ||
+          dut.core_b.u_ram.a_addr_i !== (address - 32'h0010_0000) ||
+          dut.core_a.u_ram.a_we_i !== write_enable ||
+          dut.core_b.u_ram.a_we_i !== write_enable ||
+          dut.core_a.u_ram.a_wdata_i !== write_data ||
+          dut.core_b.u_ram.a_wdata_i !== write_data)
+        $fatal(1,
+            "Paired RAM transaction failed: addr=%08h write=%b wait=%0d",
+            address, write_enable, wait_cycles);
+
+      // RAM accepts the transaction on this active clock edge.
+      @(posedge clk_i);
+      #1;
+
+      if (dut.core_a_data_rvalid !== 1'b1 ||
+          dut.core_b_data_rvalid !== 1'b1)
+        $fatal(1,
+            "Paired RAM response missing: addr=%08h A_valid=%b B_valid=%b",
+            address, dut.core_a_data_rvalid, dut.core_b_data_rvalid);
+
+      // Capture raw RAM data separately from post-injector responses.
+      raw_a      = dut.core_a.ram_data_rdata;
+      raw_b      = dut.core_b.ram_data_rdata;
+      response_a = dut.core_a_data_rdata;
+      response_b = dut.core_b_data_rdata;
+
+      // Release only after the RAM acceptance edge.
+      release dut.core_a.data_req;
+      release dut.core_a.data_we;
+      release dut.core_a.data_be;
+      release dut.core_a.data_addr;
+      release dut.core_a.data_wdata;
+
+      release dut.core_b.data_req;
+      release dut.core_b.data_we;
+      release dut.core_b.data_be;
+      release dut.core_b.data_addr;
+      release dut.core_b.data_wdata;
+    end
+  endtask
+
   initial begin
     repeat (4) @(posedge clk_i);
     #1;
@@ -479,6 +565,153 @@ module safety_riscv_soc_stage4f_tb;
       $display("Backpressure duration    : %0d clock cycles", hold_cycles);
       $display("Core A/B RAM write ports : matched request accepted");
       $display("===============================================");
+      $finish;
+
+    end else if ($test$plusargs("dcls_core_b_data_response_fault_test")) begin : run_core_b_data_response_fault
+      reg [31:0] raw_a;
+      reg [31:0] raw_b;
+      reg [31:0] response_a;
+      reg [31:0] response_b;
+
+      $display("");
+      $display("================================================");
+      $display("CORE B DATA-RESPONSE PAYLOAD FAULT TEST");
+      $display("================================================");
+
+      // Keep both Ibex processors quiescent while using the MMIO interface.
+      force dut.core_a.core_rst_ni = 1'b0;
+      force dut.core_b.core_rst_ni = 1'b0;
+      #1;
+
+      // Select Diagnostic profile and authorize fault injection.
+      profile_policy_mmio_write(32'h0020_0000, 32'h2, 4'hF);
+      profile_policy_mmio_write(32'h0020_0004, 32'h1, 4'h1);
+
+      if (selected_profile_o !== 2'b10 ||
+          dcls_enable_o !== 1'b1 ||
+          fault_injection_enable_o !== 1'b1)
+        $fatal(1, "Diagnostic profile or fault-injection authorization failed");
+
+      $display("PASS: Diagnostic profile and injection authorization");
+
+      // Select Core B data-response injection. Mask zero means no corruption.
+      core_b_response_fault_inject_target_i = 3'b001;
+      core_b_response_fault_inject_mask_i   = 32'h0000_0000;
+
+      // 1. Warm-up read: initialize both RAM read-data output registers.
+      paired_ram_transaction(
+          1'b0, 32'h0010_0000, 32'h0000_0000,
+          raw_a, raw_b, response_a, response_b);
+
+      if (raw_a !== 32'h0000_0013 ||
+          raw_b !== 32'h0000_0013 ||
+          response_a !== 32'h0000_0013 ||
+          response_b !== 32'h0000_0013)
+        $fatal(1,
+            "Warm-up read failed: raw A=%08h raw B=%08h response A=%08h response B=%08h",
+            raw_a, raw_b, response_a, response_b);
+
+      if (dcls_data_mismatch_o !== 1'b0 || fault_latched_o !== 1'b0)
+        $fatal(1, "Unexpected fault during warm-up read");
+
+      $display("PASS: Warm-up read returned 0x00000013 on both cores");
+
+      // 2. Write the known pattern to RAM word index 64.
+      paired_ram_transaction(
+          1'b1, 32'h0010_0100, 32'hA5C3_5A3C,
+          raw_a, raw_b, response_a, response_b);
+
+      // A write asserts response-valid but does not update the RAM
+      // read-data register. It retains the warm-up value.
+      if (raw_a !== 32'h0000_0013 ||
+          raw_b !== 32'h0000_0013 ||
+          response_a !== 32'h0000_0013 ||
+          response_b !== 32'h0000_0013 ||
+          dcls_data_mismatch_o !== 1'b0 ||
+          fault_latched_o !== 1'b0)
+        $fatal(1,
+            "Unexpected RAM write response: raw A=%08h raw B=%08h response A=%08h response B=%08h",
+            raw_a, raw_b, response_a, response_b);
+
+      $display("PASS: Matched RAM write accepted at 0x00100100");
+
+      // 3. Baseline read with injection disabled.
+      paired_ram_transaction(
+          1'b0, 32'h0010_0100, 32'h0000_0000,
+          raw_a, raw_b, response_a, response_b);
+
+      if (raw_a !== 32'hA5C3_5A3C ||
+          raw_b !== 32'hA5C3_5A3C ||
+          response_a !== 32'hA5C3_5A3C ||
+          response_b !== 32'hA5C3_5A3C)
+        $fatal(1,
+            "Baseline read failed: raw A=%08h raw B=%08h response A=%08h response B=%08h",
+            raw_a, raw_b, response_a, response_b);
+
+      if (dcls_data_mismatch_o !== 1'b0 ||
+          fault_latched_o !== 1'b0 ||
+          safe_state_req_o !== 1'b0)
+        $fatal(1, "Baseline read generated an unexpected safety fault");
+
+      $display("PASS: Baseline Core A/Core B responses match: 0xA5C35A3C");
+
+      // 4. Flip bit 0 of Core B's data read response.
+      core_b_response_fault_inject_mask_i = 32'h0000_0001;
+
+      paired_ram_transaction(
+          1'b0, 32'h0010_0100, 32'h0000_0000,
+          raw_a, raw_b, response_a, response_b);
+
+      if (raw_a !== 32'hA5C3_5A3C ||
+          raw_b !== 32'hA5C3_5A3C)
+        $fatal(1,
+            "Raw RAM divergence: A=%08h B=%08h", raw_a, raw_b);
+
+      if (response_a !== 32'hA5C3_5A3C ||
+          response_b !== 32'hA5C3_5A3D)
+        $fatal(1,
+            "Core B injection incorrect: A=%08h B=%08h",
+            response_a, response_b);
+
+      if (dcls_data_mismatch_o !== 1'b1 ||
+          dcls_mismatch_o !== 1'b1)
+        $fatal(1, "External DCLS failed to detect Core B response corruption");
+
+      if (dut.core_a.memory_side_effect_inhibit_i !== 1'b1 ||
+          dut.core_b.memory_side_effect_inhibit_i !== 1'b1)
+        $fatal(1, "DCLS mismatch did not inhibit both side-effect paths");
+
+      $display("PASS: Raw RAM data remains identical");
+      $display("PASS: Core A response = %08h", response_a);
+      $display("PASS: Core B response = %08h", response_b);
+      $display("PASS: External DCLS detected the payload mismatch");
+      $display("PASS: Both side-effect paths inhibited");
+
+      // 5. Check sticky fault classification and safe-state request.
+      @(posedge clk_i);
+      #1;
+
+      if (fault_latched_o !== 1'b1 ||
+          data_fault_seen_o !== 1'b1 ||
+          instr_fault_seen_o !== 1'b0 ||
+          fault_code_o !== 8'h02 ||
+          safe_state_req_o !== 1'b1)
+        $fatal(1,
+            "Expected sticky data fault 0x02: latched=%b data=%b instr=%b code=%02h safe=%b",
+            fault_latched_o, data_fault_seen_o,
+            instr_fault_seen_o, fault_code_o, safe_state_req_o);
+
+      $display("");
+      $display("================================================");
+      $display("CORE B DATA-RESPONSE PAYLOAD FAULT TEST: PASS");
+      $display("Raw RAM A/B data       : A5C35A3C / A5C35A3C");
+      $display("Core A response        : A5C35A3C");
+      $display("Core B response        : A5C35A3D");
+      $display("DCLS data mismatch     : DETECTED");
+      $display("Side-effect inhibition : BOTH CORES");
+      $display("Fault code             : 0x02");
+      $display("Safe state             : REQUESTED");
+      $display("================================================");
       $finish;
 
     end else if ($test$plusargs("dcls_data_response_error_integration_test")) begin
