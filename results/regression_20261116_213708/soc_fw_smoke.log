@@ -1,0 +1,32 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage5_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_smoke_bss_boot80.vmem'.
+Initializing memory safety_riscv_soc_stage5_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_smoke_bss_boot80.vmem'.
+Starting Stage 5 C firmware smoke test
+PASS: SoC reset and Basic profile defaults
+[625000] PASS: Core A wrote result 0000000c
+[625000] PASS: Core B wrote result 0000000c
+
+==========================================
+STAGE 5 C FIRMWARE SMOKE TEST: PASS
+==========================================
+Core A result       : 0x0000000C
+Core B result       : 0x0000000C
+CPU result address  : 0x00103FC0
+RAM offset          : 0x00003FC0
+Selected profile    : 00 (Basic)
+DCLS enabled        : 0
+Fault latched       : 0
+Safe state          : 0
+Cycles observed     : 59
+Core A illegal decodes     : 0
+Core B illegal decodes     : 0
+Core A illegal exceptions  : 0
+Core B illegal exceptions  : 0
+==========================================
+SVA configuration (safety_riscv_soc_stage5_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=57 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=0, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage5_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=57 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=0, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=0, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=0, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=1, faults recorded=0, clock cycles in reset=6
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=0, safe-state cycles=0, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 627 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage5_tb.sv" Line 320

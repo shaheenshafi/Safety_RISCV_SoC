@@ -122,8 +122,23 @@ add_files -norecurse -fileset constrs_1 [list \
 # 5. Simulation sets: one per test, selectable in the GUI
 #    (Sources window > Simulation Sources > right-click > Make Active)
 # ------------------------------------------------------------------------------
+# SystemVerilog assertion files (tb/sva). Each file holds one checker module
+# and the 'bind' statement that attaches it to a Verilog design module, so
+# the assertions are active in every simulation without editing the design.
+set sva_dir [file join $root tb sva]
+set sva_all [list \
+    [file join $sva_dir sva_fault_manager.sv] \
+    [file join $sva_dir sva_execution_supervisor.sv] \
+    [file join $sva_dir sva_mmio_config.sv] \
+    [file join $sva_dir sva_diagnostic_logger.sv] \
+    [file join $sva_dir sva_soc_safety.sv] \
+]
+foreach f $sva_all {
+    if {![file exists $f]} { error "Missing assertion file: $f" }
+}
+
 proc add_simset {name top tb_files unit_srcs plusarg} {
-    global inc_dirs
+    global inc_dirs sva_dir sva_all
     if {[llength [get_filesets -quiet $name]] == 0} {
         create_fileset -simset $name
     }
@@ -134,8 +149,19 @@ proc add_simset {name top tb_files unit_srcs plusarg} {
             puts "WARNING: $name keeps the full design as source set: $msg"
         }
         add_files -norecurse -fileset $fs $unit_srcs
+        # Attach the assertions that exist for the module under test.
+        foreach src $unit_srcs {
+            set m [file rootname [file tail $src]]
+            regsub {^safety_} $m {} short
+            set sva [file join $sva_dir "sva_${short}.sv"]
+            if {[file exists $sva]} {
+                add_files -norecurse -fileset $fs $sva
+            }
+        }
     } else {
         set_property source_set sources_1 $fs
+        # Full design: all assertions are active.
+        add_files -norecurse -fileset $fs $sva_all
     }
     add_files -norecurse -fileset $fs $tb_files
     set_property include_dirs   $inc_dirs $fs

@@ -1,0 +1,26 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4F configuration-integrity test
+PASS: single-bit profile corruption detected; DCLS forced on and safe state asserted
+PASS: external reset clears configuration-integrity evidence
+PASS: injection authorization automatically revoked on Diagnostic exit
+PASS: injection-authorization corruption detected and injection inhibited
+
+================================================
+STAGE 4F CONFIGURATION-INTEGRITY TEST: PASS
+Complementary profile storage : VERIFIED
+Complementary auth storage    : VERIFIED
+Fail-safe DCLS policy         : VERIFIED
+Configuration fault code     : 0x05
+Automatic auth revocation     : VERIFIED
+================================================
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=6 Safety=1 Diagnostic=3, injection enabled=1, profile changes=3, safe-state cycles=2, integrity-fault cycles=2
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=5 Safety=2 Diagnostic=3, injection enabled=1, profile changes=4, safe-state cycles=2, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=0, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=2, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=2, faults recorded=0, clock cycles in reset=9
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=0, safe-state cycles=2, injection-enabled cycles=1, stall cycles=0
+$finish called at time : 186 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1212

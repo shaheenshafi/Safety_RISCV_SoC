@@ -107,3 +107,23 @@ UART format:
 
 ENTRY 0 is the most recent fault. TIME is in clock cycles (hexadecimal).
 The log is cleared only when the FPGA is reconfigured or powered off.
+
+## SystemVerilog assertions added (16 Nov 2026)
+
+Verification-only files under `tb/sva/`. Each file contains one checker
+module and a `bind` statement, so the Verilog design files are unchanged.
+The assertions are compiled into every SoC and board simulation set, and
+into the unit tests of the supervisor and the logger.
+
+| File | Bound to | Properties |
+|---|---|---|
+| `sva_fault_manager.sv` | `safety_fault_manager_stage4f` | 10 (FM1 to FM8) |
+| `sva_execution_supervisor.sv` | `safety_execution_supervisor` | 8 (SUP1 to SUP6) |
+| `sva_mmio_config.sv` | `safety_mmio_config_stage4f` (both replicas) | 8 (MC1 to MC7) |
+| `sva_diagnostic_logger.sv` | `safety_diagnostic_logger` | 7 (LG1 to LG6) |
+| `sva_soc_safety.sv` | `safety_riscv_soc_stage4f` | 9 (SOC1 to SOC9) |
+
+A failing assertion prints a line starting with `Error: SVA <id>`, which the
+regression runner counts as a test failure. At the end of each simulation
+every checker prints one `SVA ...` line with activity counters that show how
+often its properties were exercised.

@@ -1,0 +1,30 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting supervisor-to-RAM containment test
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+
+Time: 2615 ns Started: 55 ns Scope: /safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor File: E:/Dissertation/Working_Model_RISCV/tb/sva/sva_execution_supervisor.sv Line:50
+Error: SVA SUP3: missing watchdog kick did not raise a timeout fault
+Time: 2615 ns  Iteration: 2  Process: /safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor//safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor  Scope: safety_riscv_soc_stage4f_tb.dut.u_execution_supervisor.u_sva_execution_supervisor  File: E:/Dissertation/Working_Model_RISCV/tb/sva/sva_execution_supervisor.sv Line: 52
+
+Time: 2615 ns Started: 55 ns Scope: /safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor File: E:/Dissertation/Working_Model_RISCV/tb/sva/sva_execution_supervisor.sv Line:59
+Error: SVA SUP5: missing progress event did not raise a timeout fault
+Time: 2615 ns  Iteration: 2  Process: /safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor//safety_riscv_soc_stage4f_tb/dut/u_execution_supervisor/u_sva_execution_supervisor  Scope: safety_riscv_soc_stage4f_tb.dut.u_execution_supervisor.u_sva_execution_supervisor  File: E:/Dissertation/Working_Model_RISCV/tb/sva/sva_execution_supervisor.sv Line: 62
+[2621000] Matched RAM writes blocked on both cores
+
+SUPERVISOR-TO-RAM CONTAINMENT PASS
+Core A RAM write           : BLOCKED
+Core B RAM write           : BLOCKED
+Supervisor fault code     : 0x03
+Sticky fault and safe state: CONFIRMED
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=10 Safety=247 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=1, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=10 Safety=247 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=1, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=0, early kicks=0, supervisor fault events=1
+SVA fault manager: 10 properties; fault-input cycles=1, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=1, faults recorded=0, clock cycles in reset=6
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=1, fault events=0, safe-state cycles=0, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 2626 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1751
