@@ -127,3 +127,18 @@ A failing assertion prints a line starting with `Error: SVA <id>`, which the
 regression runner counts as a test failure. At the end of each simulation
 every checker prints one `SVA ...` line with activity counters that show how
 often its properties were exercised.
+
+## UVM environment for the central safety manager (16 Nov 2026)
+
+Verification-only files under `tb/uvm/`, simulation set `uvm_safety_manager`
+(28th set). Uses the UVM 1.2 library shipped with Vivado (`-L uvm`).
+
+| File | Content |
+|---|---|
+| `safety_manager_if.sv` | Interface with a monitor clocking block |
+| `safety_manager_pkg.sv` | Sequence item, driver, monitor, agent, scoreboard with cycle-accurate reference model, functional coverage, five sequences, test |
+| `safety_manager_uvm_tb.sv` | Top: fault manager + execution supervisor + diagnostic logger connected as in the SoC |
+
+The assertions of `tb/sva/` for the three modules are active in this set as
+well. `run_regression.tcl` now also fails a test on any `UVM_ERROR` or
+`UVM_FATAL` message.

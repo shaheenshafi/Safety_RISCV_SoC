@@ -1,0 +1,8 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 21:57:52
+Vivado  : 2026.1
+Commit  : 9965f52ec36cd04359227d64365a51a479c967b1
+Pattern : uvm*
+Result  : 1 passed, 0 failed
+
+uvm_safety_manager                       PASS  

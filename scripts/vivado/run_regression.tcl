@@ -51,7 +51,8 @@ foreach name [lsort [get_property NAME [get_filesets -filter {FILESET_TYPE == Si
         set fh [open $log r]
         set text [read $fh]
         close $fh
-        if {[regexp -line {^(Fatal|FATAL|Error|ERROR):.*$} $text bad]} {
+        if {[regexp -line {^(Fatal|FATAL|Error|ERROR):.*$} $text bad] ||
+            [regexp -line {^UVM_(ERROR|FATAL) [^:].*$} $text bad]} {
             set result "FAIL"
             set detail [string range $bad 0 160]
         } elseif {$result eq "PASS" && ![regexp {\$finish called} $text]} {

@@ -189,6 +189,24 @@ foreach m {dcls_comparator dcls_fault_injector core_response_fault_injector \
         [list [file join $rtl_s "${m}.v"]] ""
 }
 
+# --- UVM environment for the central safety manager ------------------------
+# Fault manager + execution supervisor + diagnostic logger, driven by a UVM
+# environment with a reference-model scoreboard and functional coverage.
+# The UVM library shipped with Vivado is selected with -L uvm.
+set tb_uvm [file join $root tb uvm]
+add_simset uvm_safety_manager safety_manager_uvm_tb \
+    [list [file join $tb_uvm safety_manager_if.sv] \
+          [file join $tb_uvm safety_manager_pkg.sv] \
+          [file join $tb_uvm safety_manager_uvm_tb.sv] \
+          [file join $sva_dir sva_fault_manager.sv]] \
+    [list [file join $rtl_s safety_execution_supervisor.v] \
+          [file join $rtl_s safety_fault_manager_stage4f.v] \
+          [file join $rtl_s safety_diagnostic_logger.v]] ""
+set_property -name {xsim.compile.xvlog.more_options} -value {-L uvm} \
+    -objects [get_filesets uvm_safety_manager]
+set_property -name {xsim.elaborate.xelab.more_options} -value {-L uvm} \
+    -objects [get_filesets uvm_safety_manager]
+
 # --- SoC tests: safety mechanisms (one testbench, one scenario per set) ----
 set tb4f [list [file join $tb_soc safety_riscv_soc_stage4f_tb.sv]]
 add_simset soc_safety_heartbeat safety_riscv_soc_stage4f_tb $tb4f {} ""
