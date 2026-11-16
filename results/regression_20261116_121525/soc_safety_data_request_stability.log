@@ -1,0 +1,15 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting real-Ibex data request stability/backpressure test
+[225000] Heartbeat #1, sequence=00000000
+[281000] Matched real-Ibex RAM store captured: addr=00101000 data=0000600d be=f
+PASS: both Ibex request payloads remained stable for 3 stalled cycles
+PASS: no RAM request/grant occurred while backpressure was active
+[315000] Core A wrote Stage 4F success marker
+[315000] Core B wrote Stage 4F success marker
+Fatal: Normal matched store generated an unexpected safety fault
+Time: 316 ns  Iteration: 0  Process: /safety_riscv_soc_stage4f_tb/Initial314_332  Scope: safety_riscv_soc_stage4f_tb.run_ibex_data_stability  File: E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv Line: 561
+$finish called at time : 316 ns

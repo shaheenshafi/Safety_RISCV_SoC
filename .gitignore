@@ -1,0 +1,13 @@
+# Generated Vivado project, run directories and headers
+/build/
+# Vivado journals and temporary data
+*.jou
+*.log
+*.pb
+*.wdb
+.Xil/
+xsim.dir/
+# Results keep their own logs
+!/results/**/*.log
+# Firmware build outputs
+/fw/src/stage5/build/

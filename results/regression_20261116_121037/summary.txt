@@ -1,0 +1,13 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 12:11:16
+Vivado  : 2026.1
+Commit  : unknown
+Pattern : unit_*
+Result  : 6 passed, 0 failed
+
+unit_core_response_fault_injector        PASS  
+unit_dcls_comparator                     PASS  
+unit_dcls_fault_injector                 PASS  
+unit_dcls_paired_data_capture_stage      PASS  
+unit_dcls_response_error_monitor         PASS  
+unit_safety_execution_supervisor         PASS  

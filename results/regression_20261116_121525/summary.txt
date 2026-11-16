@@ -1,0 +1,26 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 12:24:47
+Vivado  : 2026.1
+Commit  : unknown
+Pattern : soc_*
+Result  : 17 passed, 2 failed
+
+soc_fw_battery                           PASS  
+soc_fw_hal                               FAIL  Error: 4745000: (E:/Dissertation/Working_Model_RISCV/ip/ibex/lowrisc_ibex_ibex_top_0.1/rtl/ibex_top.sv:1414) [safety_riscv_soc_stage5_hal_tb.dut.core_a.u_ibex] [
+soc_fw_smoke                             PASS  
+soc_native_double_fault                  PASS  
+soc_safety_config_integrity              PASS  
+soc_safety_data_error_mismatch           PASS  
+soc_safety_data_request_stability        FAIL  Fatal: Normal matched store generated an unexpected safety fault
+soc_safety_data_response_fault           PASS  
+soc_safety_double_fault_capture          PASS  
+soc_safety_heartbeat                     PASS  
+soc_safety_heartbeat_loss                PASS  
+soc_safety_instr_address_guard           PASS  
+soc_safety_instr_error_mismatch          PASS  
+soc_safety_mmio_replica_integrity        PASS  
+soc_safety_profile_policy                PASS  
+soc_safety_ram_address_guard             PASS  
+soc_safety_store_inhibit                 PASS  
+soc_safety_supervisor_mmio_contain       PASS  
+soc_safety_supervisor_ram_contain        PASS  

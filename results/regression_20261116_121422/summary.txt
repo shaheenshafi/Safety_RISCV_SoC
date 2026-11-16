@@ -1,0 +1,8 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 12:14:53
+Vivado  : 2026.1
+Commit  : unknown
+Pattern : soc_fw_smoke
+Result  : 1 passed, 0 failed
+
+soc_fw_smoke                             PASS  

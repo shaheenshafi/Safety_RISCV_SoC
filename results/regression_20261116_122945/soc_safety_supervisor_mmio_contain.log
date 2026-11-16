@@ -1,0 +1,15 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting supervisor-to-MMIO containment test
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+[2621000] Matched MMIO write presented during containment interval
+
+SUPERVISOR-TO-MMIO CONTAINMENT PASS
+MMIO injection authorisation : BLOCKED
+Supervisor fault code        : 0x03
+Sticky fault and safe state  : CONFIRMED
+$finish called at time : 2626 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1852

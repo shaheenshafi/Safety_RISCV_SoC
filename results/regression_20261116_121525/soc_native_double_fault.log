@@ -1,0 +1,17 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_native_double_fault_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_native_double_fault.vmem'.
+Initializing memory safety_riscv_soc_stage4f_native_double_fault_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_native_double_fault.vmem'.
+PASS: Native double-fault image and reset defaults
+PASS: Core A genuine Ibex double fault, sticky capture and safe state
+PASS: Core B genuine Ibex double fault, sticky capture and safe state
+
+====================================================
+NATIVE IBEX DOUBLE-FAULT GENERATION: PASS
+Core A real Ibex pulse       : OBSERVED
+Core B real Ibex pulse       : OBSERVED
+Independent sticky capture  : VERIFIED
+Fault code                   : 0x04
+Safe-state containment       : VERIFIED
+Stimulus                     : ECALL at reset PC, ECALL at reset mtvec
+====================================================
+$finish called at time : 2056 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_native_double_fault_tb.sv" Line 215

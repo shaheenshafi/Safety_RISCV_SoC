@@ -1,0 +1,13 @@
+Time resolution is 1 ps
+PASS: kick at minimum boundary accepted
+PASS: kick at maximum boundary accepted
+PASS: early-service fault is sticky
+PASS: watchdog timeout at maximum interval
+PASS: progress timeout independent of watchdog service
+PASS: progress event accepted on timeout boundary
+PASS: disabling supervision resets timer phase
+PASS: late watchdog kick cannot clear timeout
+PASS: sustained progress and valid watchdog service
+PASS: reset clears sticky faults
+STAGE 4F SUPERVISOR TEST PASS (10 checks)
+$finish called at time : 821 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/safety_execution_supervisor_tb.sv" Line 235
