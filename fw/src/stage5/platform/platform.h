@@ -9,6 +9,7 @@
 #define PLATFORM_REG_PROFILE_STATUS  0x00200008u
 #define PLATFORM_REG_FAULT_STATUS    0x0020000Cu
 #define PLATFORM_REG_HEARTBEAT       0x00200010u
+#define PLATFORM_REG_BOARD_CTRL      0x00200014u
 
 /* Profile encodings */
 typedef enum {

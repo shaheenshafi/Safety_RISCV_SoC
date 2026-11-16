@@ -6,20 +6,21 @@
 //   Clock: 100 MHz oscillator, 50 MHz SoC clock from the MMCM
 //
 // Firmware (default): fw/images/stage5_battery_monitor_demo.vmem
-//   The battery-monitoring application in the Diagnostic profile with fault
-//   injection authorised, so faults can be injected by hand on the board.
+//   The battery-monitoring application. It reads the requested runtime
+//   profile from SW1..SW0 and reconfigures the SoC whenever they change.
 //
 // Board controls
 //   RESET button : system reset (active low)
+//   SW1, SW0     : runtime profile request
+//                    00 Basic       (DCLS off, supervision on)
+//                    01 Safety      (DCLS on, fault injection not permitted)
+//                    10 Diagnostic  (DCLS on, fault injection permitted)
 //   SW3          : arm fault injection
-//   SW2          : mask, 0 = single bit, 1 = several bits
-//   SW1, SW0     : fault select
-//                    00 Tier 2, Core B instruction word
-//                    01 Tier 2, Core B read data
-//                    10 Tier 1, Core B instruction address at the comparator
-//                    11 Tier 1, Core B data address at the comparator
-//   BTN0         : inject the selected fault
-//   BTN1         : print a status line on the UART
+//   BTN0         : inject Tier 2 fault in the instruction word of Core B
+//   BTN1         : inject Tier 2 fault in the read data of Core B
+//   BTN2         : inject Tier 1 fault at the comparison logic
+//                    SW2 = 0 instruction address, SW2 = 1 data address
+//   BTN3         : inject execution stall (emulated processor hang)
 //
 // Board indicators
 //   LD4 (led[0]) : application heartbeat, blinks while the firmware runs
@@ -56,7 +57,7 @@ module safety_riscv_soc_arty_a7 #(
     input  wire       reset,
 
     input  wire [3:0] sw,
-    input  wire [1:0] btn,
+    input  wire [3:0] btn,
 
     output wire [3:0] led,
     output wire [3:0] led_r,
@@ -114,7 +115,7 @@ module safety_riscv_soc_arty_a7 #(
     // Board inputs: synchronize and debounce
     // -------------------------------------------------------------------------
     wire [3:0] sw_level;
-    wire [1:0] btn_rise;
+    wire [3:0] btn_rise;
 
     genvar gi;
     generate
@@ -129,7 +130,7 @@ module safety_riscv_soc_arty_a7 #(
                 .rise_o  ()
             );
         end
-        for (gi = 0; gi < 2; gi = gi + 1) begin : gen_btn
+        for (gi = 0; gi < 4; gi = gi + 1) begin : gen_btn
             board_input_debounce #(
                 .COUNTER_BITS (DEBOUNCE_BITS)
             ) u_btn (
@@ -150,6 +151,8 @@ module safety_riscv_soc_arty_a7 #(
     wire [2:0]  tier2_target;
     wire [31:0] tier2_mask;
 
+    wire        exec_stall;
+
     wire        inject_event;
     wire        inject_active;
     wire [2:0]  inject_select;
@@ -159,14 +162,15 @@ module safety_riscv_soc_arty_a7 #(
         .clk_i                 (clk_50mhz),
         .rst_ni                (soc_reset_n),
         .arm_i                 (sw_level[3]),
-        .select_i              (sw_level[2:0]),
-        .trigger_i             (btn_rise[0]),
+        .variant_i             (sw_level[2]),
+        .trigger_i             (btn_rise),
         .injection_permitted_i (fault_injection_enable),
         .fault_latched_i       (fault_latched),
         .tier1_target_o        (tier1_target),
         .tier1_mask_o          (tier1_mask),
         .tier2_target_o        (tier2_target),
         .tier2_mask_o          (tier2_mask),
+        .exec_stall_o          (exec_stall),
         .inject_event_o        (inject_event),
         .inject_active_o       (inject_active),
         .inject_select_o       (inject_select),
@@ -186,6 +190,8 @@ module safety_riscv_soc_arty_a7 #(
         .fault_inject_mask_i                (tier1_mask),
         .core_b_response_fault_inject_target_i (tier2_target),
         .core_b_response_fault_inject_mask_i   (tier2_mask),
+        .exec_stall_inject_i                (exec_stall),
+        .board_ctrl_i                       ({6'b000000, sw_level[1:0]}),
 
         .selected_profile_o                 (selected_profile),
         .profile_valid_o                    (profile_valid),
@@ -230,7 +236,7 @@ module safety_riscv_soc_arty_a7 #(
     ) u_status_reporter (
         .clk_i              (clk_50mhz),
         .rst_ni             (soc_reset_n),
-        .status_request_i   (btn_rise[1]),
+        .status_request_i   (1'b0),
         .inject_event_i     (inject_event),
         .profile_i          (selected_profile),
         .dcls_enable_i      (dcls_enable),

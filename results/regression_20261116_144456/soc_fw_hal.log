@@ -1,0 +1,16 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage5_hal_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_hal_test.vmem'.
+Initializing memory safety_riscv_soc_stage5_hal_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_hal_test.vmem'.
+Starting Stage5 HAL dual-core integration test
+
+STAGE5 HAL DUAL-CORE INTEGRATION: PASS
+Safety profile              : CONFIRMED
+Core A firmware marker      : CONFIRMED
+Core B firmware marker      : CONFIRMED
+Accepted heartbeat updates  : 5
+Final heartbeat sequence   : 00000005
+Cycles observed             : 1200
+DCLS enabled                : 1
+Safety fault                : NONE
+========================================
+$finish called at time : 12036 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage5_hal_tb.sv" Line 195

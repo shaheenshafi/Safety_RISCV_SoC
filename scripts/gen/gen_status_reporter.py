@@ -17,7 +17,7 @@ MESSAGES = [
     ("MSG_BOOT",   "\r\n[BOOT] SAFETY RISC-V SOC / ARTY A7-100T\r\n"),
     ("MSG_STATUS", "[STAT] PROFILE={profile:1} DCLS={dcls:1} INJ_EN={injen:1} "
                    "HB={hb:8} FAULT={code:2} SAFE={safe:1}\r\n"),
-    ("MSG_INJECT", "[INJ ] SELECT={sel:1} APPLIED={active:1}\r\n"),
+    ("MSG_INJECT", "[INJ ] FAULT_ID={sel:1} APPLIED={active:1}\r\n"),
     ("MSG_FAULT",  "[FLT ] CODE={code:2} LATENCY={lat:4} CYCLES SAFE_STATE={safe:1}\r\n"),
 ]
 

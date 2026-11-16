@@ -11,6 +11,15 @@ module safety_riscv_soc_stage4f #(
     input  wire [2:0]  core_b_response_fault_inject_target_i,
     input  wire [31:0] core_b_response_fault_inject_mask_i,
 
+    // Execution-stall injection: withholds instruction grants from both
+    // cores so they stop executing, emulating a processor hang. Like the
+    // other injectors it is effective only when the active profile permits
+    // fault injection. The expected reaction is a watchdog timeout.
+    input  wire        exec_stall_inject_i,
+
+    // Board control inputs, readable by firmware at 0x0020_0014.
+    input  wire [7:0]  board_ctrl_i,
+
     // Runtime configuration status.
     output wire [1:0]  selected_profile_o,
     output wire        profile_valid_o,
@@ -80,6 +89,11 @@ module safety_riscv_soc_stage4f #(
   wire [68:0] paired_data_commit_payload_b;
 
   assign safe_state_active = safe_state_req | profile_integrity_fault;
+
+  // Execution-stall injection is subject to the same profile policy as the
+  // other fault injectors.
+  wire exec_stall;
+  assign exec_stall = exec_stall_inject_i & fault_injection_enable_o;
 
   // --------------------------------------------------------------------------
   // Common SoC reset conditioning
@@ -184,7 +198,7 @@ module safety_riscv_soc_stage4f #(
   // MMIO region and request matching
   //
   // The wrapper reserves the complete 0x0020_xxxx region for MMIO.
-  // Only the five implemented registers are accepted by this top-level.
+  // Only the six implemented registers are accepted by this top-level.
   // --------------------------------------------------------------------------
 
   wire core_a_mmio_region_req;
@@ -207,7 +221,8 @@ module safety_riscv_soc_stage4f #(
       (core_a_data_addr == 32'h0020_0004) ||
       (core_a_data_addr == 32'h0020_0008) ||
       (core_a_data_addr == 32'h0020_000C) ||
-      (core_a_data_addr == 32'h0020_0010);
+      (core_a_data_addr == 32'h0020_0010) ||
+      (core_a_data_addr == 32'h0020_0014);
 
   assign mmio_address_match =
       (core_a_data_addr == core_b_data_addr);
@@ -277,6 +292,7 @@ module safety_riscv_soc_stage4f #(
       .supervisor_fault_seen_i  (supervisor_fault_seen_o),
       .config_integrity_fault_seen_i (config_integrity_fault_seen),
       .fault_code_i             (fault_code_o),
+      .board_ctrl_i             (board_ctrl_i),
 
       .profile_o                (mmio_profile_a),
       .injection_authorize_o    (mmio_injection_authorize_a),
@@ -312,6 +328,7 @@ module safety_riscv_soc_stage4f #(
       .supervisor_fault_seen_i  (supervisor_fault_seen_o),
       .config_integrity_fault_seen_i (config_integrity_fault_seen),
       .fault_code_i             (fault_code_o),
+      .board_ctrl_i             (board_ctrl_i),
 
       .profile_o                (mmio_profile_b),
       .injection_authorize_o    (mmio_injection_authorize_b),
@@ -387,6 +404,7 @@ module safety_riscv_soc_stage4f #(
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
       .memory_side_effect_inhibit_i (safe_state_active | supervisor_fault_o |
                                     dcls_mismatch_o | mmio_replica_integrity_fault),
+      .exec_stall_i   (exec_stall),
       .paired_data_path_active_i (paired_data_path_active),
       .paired_data_gnt_i (paired_data_gnt_a),
       .paired_data_commit_valid_i (paired_data_commit_valid),
@@ -435,6 +453,7 @@ module safety_riscv_soc_stage4f #(
       .mmio_interlock_hold_i (mmio_interlock_hold_o),
       .memory_side_effect_inhibit_i (safe_state_active | supervisor_fault_o |
                                     dcls_mismatch_o | mmio_replica_integrity_fault),
+      .exec_stall_i   (exec_stall),
       .paired_data_path_active_i (paired_data_path_active),
       .paired_data_gnt_i (paired_data_gnt_b),
       .paired_data_commit_valid_i (paired_data_commit_valid),

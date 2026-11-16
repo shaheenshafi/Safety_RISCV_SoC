@@ -1,0 +1,13 @@
+Time resolution is 1 ps
+PASS: injection disabled
+PASS: DATA_WDATA single-bit injection
+PASS: DATA_ADDR single-bit injection
+PASS: INSTR_ADDR single-bit injection
+PASS: DATA_WDATA multi-bit injection
+PASS: reserved target
+PASS: disabled after injection
+
+==============================================
+DCLS FAULT INJECTOR PASS
+==============================================
+$finish called at time : 7 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/dcls_fault_injector_tb.sv" Line 178

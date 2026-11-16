@@ -1,0 +1,14 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4G DCLS store-inhibit test
+[225000] Heartbeat #1, sequence=00000000
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+PASS: Latched fault reset and synchronized core recovery
+STAGE 4G DCLS STORE-INHIBIT PASS
+Both RAM requests were inhibited before the clock edge
+Sticky data fault and safe state confirmed
+$finish called at time : 366 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1586

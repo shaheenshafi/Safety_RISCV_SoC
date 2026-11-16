@@ -1,0 +1,18 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting native Ibex double-fault integration test
+PASS: Core A event, sticky capture and safe-state containment
+PASS: Core B event, sticky capture and safe-state containment
+
+===============================================
+IBEX DOUBLE-FAULT INTEGRATION: PASS
+Core A sticky event      : VERIFIED
+Core B sticky event      : VERIFIED
+Fault code               : 0x04
+Safe-state containment   : VERIFIED
+Capture test boundary    : Wrapper output (forced)
+===============================================
+$finish called at time : 157 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 893

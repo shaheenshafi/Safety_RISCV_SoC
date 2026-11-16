@@ -15,6 +15,10 @@ module safety_riscv_soc_stage1_mmio #(
     // a registered bus-error response, but are never forwarded to RAM.
     input  wire       memory_side_effect_inhibit_i,
 
+    // Fault-injection hook: withhold instruction grants so the core stops
+    // executing (emulated processor hang). Tie low for normal operation.
+    input  wire       exec_stall_i,
+
     // Optional Stage 4F paired capture-stage interface. Disabled by default
     // so existing Stage 1/2/3 wrapper users retain the direct RAM path.
     input  wire        paired_data_path_active_i,
@@ -212,6 +216,7 @@ module safety_riscv_soc_stage1_mmio #(
 
   assign ram_instr_req =
       instr_req &&
+      !exec_stall_i &&
       !memory_side_effect_inhibit_i &&
       (!EnableAddressGuard || instr_addr_in_ram);
 
@@ -477,6 +482,7 @@ module safety_riscv_soc_stage1_mmio #(
   // response can complete. Other requests are stalled during fault inhibition.
   assign instr_gnt =
       instr_req &&
+      !exec_stall_i &&
       (!memory_side_effect_inhibit_i ||
        (EnableAddressGuard && !instr_addr_in_ram));
 

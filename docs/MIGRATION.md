@@ -49,3 +49,19 @@ Created 16 Nov 2026 from `E:\Dissertation\Safety_RISCV_SoC_Stage5` at commit
 | `scripts/gen/gen_status_reporter.py` | Generates the reporter's character table |
 
 No file under `rtl/soc/` or `rtl/safety/` was changed.
+
+## Board demonstration layer, revision 2 (16 Nov 2026)
+
+Changes made after the first successful board run (commit f8b3cce):
+
+| Change | Files | Reason |
+|---|---|---|
+| Read-only `BOARD_CTRL` register at `0x0020_0014` (bits 1:0 = SW1:SW0) | `rtl/safety/safety_mmio_config_stage4f.v`, `rtl/soc/safety_riscv_soc_stage4f.v` | Lets the firmware read the profile requested on the board switches |
+| Run-time profile selection in the demo firmware (`-DBATTERY_BOARD_DEMO`) | `fw/src/stage5/apps/battery_monitor/main.c`, `fw/src/stage5/platform/platform.h`, `fw/build_demo.sh` | Basic, Safety and Diagnostic can be shown live; the default firmware build is unchanged |
+| Execution-stall injection (`exec_stall_inject_i`), gated by the same Diagnostic-profile authorisation as the other injectors | `rtl/soc/safety_riscv_soc_stage4f.v`, `rtl/soc/safety_riscv_soc_stage1_mmio.v` | Emulates a processor hang so the watchdog path (fault code `03`) can be demonstrated on hardware |
+| Four buttons instead of two; one button per fault | `rtl/board/demo_fault_injection_ctrl.v`, `rtl/board/safety_riscv_soc_arty_a7.v`, `constraints/arty_a7_100t_pins.xdc` | Simpler operation during the viva |
+| Board testbench rewritten for the new controls | `tb/board/safety_riscv_soc_arty_a7_tb.sv` | Checks 3 profiles, 2 refused injections, 5 faults, reset recovery |
+
+Board controls: SW1:SW0 profile (00 Basic, 01 Safety, 10 Diagnostic), SW3 arm,
+BTN0 instruction-word fault, BTN1 read-data fault, BTN2 comparator fault
+(SW2 = 0 instruction address, SW2 = 1 data address), BTN3 execution stall.

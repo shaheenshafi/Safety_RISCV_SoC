@@ -6,7 +6,7 @@
 // Observes the SoC status outputs and prints one text line per event:
 //   <CR><LF>[BOOT] SAFETY RISC-V SOC / ARTY A7-100T<CR><LF>
 //   [STAT] PROFILE={profile:1} DCLS={dcls:1} INJ_EN={injen:1} HB={hb:8} FAULT={code:2} SAFE={safe:1}<CR><LF>
-//   [INJ ] SELECT={sel:1} APPLIED={active:1}<CR><LF>
+//   [INJ ] FAULT_ID={sel:1} APPLIED={active:1}<CR><LF>
 //   [FLT ] CODE={code:2} LATENCY={lat:4} CYCLES SAFE_STATE={safe:1}<CR><LF>
 // Fields are hexadecimal. The reporter only observes; it drives nothing back
 // into the SoC, so it cannot affect the safety mechanisms.
@@ -205,26 +205,28 @@ module demo_status_reporter #(
       {2'd2, 6'd4}: char_c = 8'h20;
       {2'd2, 6'd5}: char_c = 8'h5D;
       {2'd2, 6'd6}: char_c = 8'h20;
-      {2'd2, 6'd7}: char_c = 8'h53;
-      {2'd2, 6'd8}: char_c = 8'h45;
-      {2'd2, 6'd9}: char_c = 8'h4C;
-      {2'd2, 6'd10}: char_c = 8'h45;
-      {2'd2, 6'd11}: char_c = 8'h43;
-      {2'd2, 6'd12}: char_c = 8'h54;
-      {2'd2, 6'd13}: char_c = 8'h3D;
-      {2'd2, 6'd14}: char_c = hex_ascii({1'b0, snap_sel_q[2:0]});
-      {2'd2, 6'd15}: char_c = 8'h20;
-      {2'd2, 6'd16}: char_c = 8'h41;
-      {2'd2, 6'd17}: char_c = 8'h50;
-      {2'd2, 6'd18}: char_c = 8'h50;
-      {2'd2, 6'd19}: char_c = 8'h4C;
-      {2'd2, 6'd20}: char_c = 8'h49;
-      {2'd2, 6'd21}: char_c = 8'h45;
-      {2'd2, 6'd22}: char_c = 8'h44;
-      {2'd2, 6'd23}: char_c = 8'h3D;
-      {2'd2, 6'd24}: char_c = hex_ascii({3'b000, snap_active_q});
-      {2'd2, 6'd25}: char_c = 8'h0D;
-      {2'd2, 6'd26}: begin char_c = 8'h0A; last_c = 1'b1; end
+      {2'd2, 6'd7}: char_c = 8'h46;
+      {2'd2, 6'd8}: char_c = 8'h41;
+      {2'd2, 6'd9}: char_c = 8'h55;
+      {2'd2, 6'd10}: char_c = 8'h4C;
+      {2'd2, 6'd11}: char_c = 8'h54;
+      {2'd2, 6'd12}: char_c = 8'h5F;
+      {2'd2, 6'd13}: char_c = 8'h49;
+      {2'd2, 6'd14}: char_c = 8'h44;
+      {2'd2, 6'd15}: char_c = 8'h3D;
+      {2'd2, 6'd16}: char_c = hex_ascii({1'b0, snap_sel_q[2:0]});
+      {2'd2, 6'd17}: char_c = 8'h20;
+      {2'd2, 6'd18}: char_c = 8'h41;
+      {2'd2, 6'd19}: char_c = 8'h50;
+      {2'd2, 6'd20}: char_c = 8'h50;
+      {2'd2, 6'd21}: char_c = 8'h4C;
+      {2'd2, 6'd22}: char_c = 8'h49;
+      {2'd2, 6'd23}: char_c = 8'h45;
+      {2'd2, 6'd24}: char_c = 8'h44;
+      {2'd2, 6'd25}: char_c = 8'h3D;
+      {2'd2, 6'd26}: char_c = hex_ascii({3'b000, snap_active_q});
+      {2'd2, 6'd27}: char_c = 8'h0D;
+      {2'd2, 6'd28}: begin char_c = 8'h0A; last_c = 1'b1; end
       // MSG_FAULT
       {2'd3, 6'd0}: char_c = 8'h5B;
       {2'd3, 6'd1}: char_c = 8'h46;

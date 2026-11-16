@@ -45,6 +45,8 @@ module safety_riscv_soc_stage5_hal_tb;
   ) dut (
       .clk_i(clk_i),
       .rst_ni(rst_ni),
+      .exec_stall_inject_i (1'b0),
+      .board_ctrl_i (8'h00),
       .fault_inject_target_i(fault_inject_target_i),
       .fault_inject_mask_i(fault_inject_mask_i),
       .core_b_response_fault_inject_target_i(

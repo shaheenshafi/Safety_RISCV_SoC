@@ -1,0 +1,17 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting controlled Stage 4F heartbeat-loss test
+[156000] Heartbeat observation suppressed by testbench
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+
+==============================================
+STAGE 4F CONTROLLED HEARTBEAT-LOSS PASS
+Supervisor fault code      : 0x03
+Timeout detection          : CONFIRMED
+Sticky fault and safe state: CONFIRMED
+==============================================
+$finish called at time : 2656 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1921

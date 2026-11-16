@@ -17,15 +17,43 @@
 #define BATTERY_FAIL_HW_FAULT      5u
 
 /*
- * Board demonstration build (-DBATTERY_DEMO_DIAGNOSTIC):
- * run the same workload in the Diagnostic profile and authorise fault
- * injection, so that faults can be injected by hand on the FPGA board.
- * The default build is unchanged and uses the Safety profile.
+ * Board demonstration build (-DBATTERY_BOARD_DEMO):
+ * the runtime profile is requested by two board switches, read through the
+ * read-only BOARD_CTRL register, and is re-applied whenever they change.
+ * The default build is unchanged and always uses the Safety profile.
  */
-#ifdef BATTERY_DEMO_DIAGNOSTIC
-#define BATTERY_PROFILE            PLATFORM_PROFILE_DIAGNOSTIC
-#else
-#define BATTERY_PROFILE            PLATFORM_PROFILE_SAFETY
+#ifdef BATTERY_BOARD_DEMO
+#define BOARD_PROFILE_REQUEST_MASK 0x3u
+
+static void battery_application_fail(uint32_t code, uint32_t detail);
+
+/* 0 = Basic, 1 = Safety, 2 or 3 = Diagnostic. */
+static platform_profile_t board_requested_profile(void)
+{
+    uint32_t request =
+        *(volatile uint32_t *)(uintptr_t)PLATFORM_REG_BOARD_CTRL &
+        BOARD_PROFILE_REQUEST_MASK;
+
+    if (request == 0u)
+        return PLATFORM_PROFILE_BASIC;
+
+    if (request == 1u)
+        return PLATFORM_PROFILE_SAFETY;
+
+    return PLATFORM_PROFILE_DIAGNOSTIC;
+}
+
+static void board_apply_profile(platform_profile_t profile)
+{
+    int status = platform_profile_select(profile);
+
+    if (status != 0)
+        battery_application_fail(BATTERY_FAIL_PROFILE, (uint32_t)status);
+
+    /* Fault injection may be authorised only in the Diagnostic profile. */
+    if (profile == PLATFORM_PROFILE_DIAGNOSTIC)
+        *(volatile uint32_t *)(uintptr_t)PLATFORM_REG_INJECTION_AUTH = 1u;
+}
 #endif
 
 /*
@@ -64,6 +92,9 @@ int main(void)
     uint32_t hardware_fault_status;
     unsigned int i;
     int status;
+#ifdef BATTERY_BOARD_DEMO
+    platform_profile_t active_profile;
+#endif
 
     _Static_assert(sizeof(battery_result_t) == 8u,
                    "Unexpected battery result structure size");
@@ -77,17 +108,19 @@ int main(void)
     battery_summary[0] = BATTERY_MARKER_RUNNING;
     BATTERY_MEMORY_FENCE();
 
-    /* Select and verify the runtime profile. */
-    status = platform_profile_select(BATTERY_PROFILE);
+#ifdef BATTERY_BOARD_DEMO
+    /* Apply the profile requested by the board switches. */
+    active_profile = board_requested_profile();
+    board_apply_profile(active_profile);
+    status = 0;
+#else
+    /* Select and verify the Safety profile. */
+    status = platform_profile_select(PLATFORM_PROFILE_SAFETY);
+#endif
 
     if (status != 0)
         battery_application_fail(BATTERY_FAIL_PROFILE,
                                  (uint32_t)status);
-
-#ifdef BATTERY_DEMO_DIAGNOSTIC
-    /* Authorise the hardware fault injectors (Diagnostic profile only). */
-    *(volatile uint32_t *)(uintptr_t)PLATFORM_REG_INJECTION_AUTH = 1u;
-#endif
 
     profile_status = platform_profile_status_read();
 
@@ -184,5 +217,17 @@ int main(void)
         }
 
         platform_heartbeat_kick();
+
+#ifdef BATTERY_BOARD_DEMO
+        /* Follow the board switches: reconfigure the profile at run time. */
+        {
+            platform_profile_t requested = board_requested_profile();
+
+            if (requested != active_profile) {
+                board_apply_profile(requested);
+                active_profile = requested;
+            }
+        }
+#endif
     }
 }

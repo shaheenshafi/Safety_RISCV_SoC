@@ -1,0 +1,52 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_arty_a7_tb.dut.u_safety_riscv_soc.core_a.u_ram.u_ram.Block57_289.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+Initializing memory safety_riscv_soc_arty_a7_tb.dut.u_safety_riscv_soc.core_b.u_ram.u_ram.Block57_289.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+
+---- Case: Tier 2 instruction-word fault on Core B (SW2..SW0 = 000) ----
+[70515000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[170955000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[271395000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000038 FAULT=00 SAFE=0
+[315135000] UART: [INJ ] SELECT=0 APPLIED=1
+[394515000] UART: [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+PASS: Tier 2 instruction-word fault on Core B -> [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+
+---- Case: Tier 2 read-data fault on Core B (SW2..SW0 = 001) ----
+[465035000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[565475000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[665915000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000038 FAULT=00 SAFE=0
+[709655000] UART: [INJ ] SELECT=1 APPLIED=1
+[789035000] UART: [FLT ] CODE=02 LATENCY=0006 CYCLES SAFE_STATE=1
+PASS: Tier 2 read-data fault on Core B -> [FLT ] CODE=02 LATENCY=0006 CYCLES SAFE_STATE=1
+
+---- Case: Tier 1 instruction-address fault at the comparator (SW2..SW0 = 010) ----
+[859555000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[959995000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[1060435000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000038 FAULT=00 SAFE=0
+[1104175000] UART: [INJ ] SELECT=2 APPLIED=1
+[1183555000] UART: [FLT ] CODE=01 LATENCY=0001 CYCLES SAFE_STATE=1
+PASS: Tier 1 instruction-address fault at the comparator -> [FLT ] CODE=01 LATENCY=0001 CYCLES SAFE_STATE=1
+
+---- Case: Tier 1 data-address fault at the comparator (SW2..SW0 = 011) ----
+[1254075000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[1354515000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[1454955000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000038 FAULT=00 SAFE=0
+[1498695000] UART: [INJ ] SELECT=3 APPLIED=1
+[1578075000] UART: [FLT ] CODE=02 LATENCY=0005 CYCLES SAFE_STATE=1
+PASS: Tier 1 data-address fault at the comparator -> [FLT ] CODE=02 LATENCY=0005 CYCLES SAFE_STATE=1
+
+---- Case: Tier 2 instruction-word fault, multi-bit mask (SW2..SW0 = 100) ----
+[1648595000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[1749035000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[1849475000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000038 FAULT=00 SAFE=0
+[1893215000] UART: [INJ ] SELECT=4 APPLIED=1
+[1972595000] UART: [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+PASS: Tier 2 instruction-word fault, multi-bit mask -> [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+
+==============================================
+BOARD DEMONSTRATION TEST: PASS
+Faults injected by switch and button : 5
+Faults detected and reported on UART : 5
+Recovery by RESET button             : VERIFIED
+==============================================
+$finish called at time : 1972595 ns : File "E:/Dissertation/Working_Model_RISCV/tb/board/safety_riscv_soc_arty_a7_tb.sv" Line 208
+INFO: xsimkernel Simulation Memory Usage: 34712 KB (Peak: 34712 KB), Simulation CPU Usage: 26593 ms

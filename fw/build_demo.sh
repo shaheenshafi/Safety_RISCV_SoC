@@ -4,8 +4,7 @@
 #   fw/images/stage5_battery_monitor_demo.vmem
 #
 # Same battery-monitoring application as the verified Safety-profile image,
-# compiled with -DBATTERY_DEMO_DIAGNOSTIC (Diagnostic profile, fault injection
-# authorised). Optimisation is -O2, as for the verified image.
+# compiled with -DBATTERY_BOARD_DEMO (profile requested by the board switches). Optimisation is -O2, as for the verified image.
 #
 # Run in WSL:   bash /mnt/e/Dissertation/Working_Model_RISCV/fw/build_demo.sh
 # ------------------------------------------------------------------------------
@@ -41,7 +40,7 @@ BIN="$BUILD/battery_monitor_demo.bin"
 MAP="$BUILD/battery_monitor_demo.map"
 
 riscv32-unknown-elf-gcc \
-    -O2 -DBATTERY_DEMO_DIAGNOSTIC \
+    -O2 -DBATTERY_BOARD_DEMO \
     -std=c11 -Wall -Wextra -Werror \
     -march=rv32im -mabi=ilp32 -mcmodel=medany \
     -msmall-data-limit=0 -ffreestanding -fno-builtin \

@@ -1,0 +1,26 @@
+Time resolution is 1 ps
+PASS: both channels inactive
+PASS: identical instruction request
+PASS: instruction address mismatch
+PASS: instruction request mismatch
+PASS: identical instruction response
+PASS: instruction response-valid mismatch
+PASS: instruction response-data mismatch
+PASS: instruction response data ignored when invalid
+PASS: identical data write
+PASS: data request mismatch
+PASS: data write-enable mismatch
+PASS: data byte-enable mismatch
+PASS: data address mismatch
+PASS: data write-data mismatch
+PASS: identical data read response
+PASS: data response-valid mismatch
+PASS: data response-data mismatch
+PASS: identical read response with irrelevant write data
+PASS: data response data ignored when invalid
+PASS: comparison disabled
+
+==============================================
+DCLS COMPARATOR STAGE-3D PASS
+==============================================
+$finish called at time : 20 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/dcls_comparator_tb.sv" Line 394

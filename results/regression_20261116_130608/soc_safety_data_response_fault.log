@@ -1,0 +1,30 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+
+================================================
+CORE B DATA-RESPONSE PAYLOAD FAULT TEST
+================================================
+PASS: Diagnostic profile and injection authorization
+PASS: Warm-up read returned 0x00000013 on both cores
+PASS: Matched RAM write accepted at 0x00100100
+PASS: Baseline Core A/Core B responses match: 0xA5C35A3C
+PASS: Raw RAM data remains identical
+PASS: Core A response = a5c35a3c
+PASS: Core B response = a5c35a3d
+PASS: External DCLS detected the payload mismatch
+PASS: Both side-effect paths inhibited
+
+================================================
+CORE B DATA-RESPONSE PAYLOAD FAULT TEST: PASS
+Raw RAM A/B data       : A5C35A3C / A5C35A3C
+Core A response        : A5C35A3C
+Core B response        : A5C35A3D
+DCLS data mismatch     : DETECTED
+Side-effect inhibition : BOTH CORES
+Fault code             : 0x02
+Safe state             : REQUESTED
+================================================
+$finish called at time : 196 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 728

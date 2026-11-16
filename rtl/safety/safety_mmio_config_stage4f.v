@@ -29,6 +29,12 @@ module safety_mmio_config_stage4f (
     input  wire        config_integrity_fault_seen_i,
     input  wire [7:0]  fault_code_i,
 
+    // Board control inputs (read-only register 0x0020_0014). On the FPGA
+    // board these are the synchronized slide switches that request a runtime
+    // profile. The value is information for the firmware only: it cannot
+    // change any safety configuration by itself.
+    input  wire [7:0]  board_ctrl_i,
+
     // Configuration outputs
     output reg  [1:0]  profile_o,
     output reg         injection_authorize_o,
@@ -49,6 +55,7 @@ module safety_mmio_config_stage4f (
   localparam [31:0] REG_PROFILE_STATUS = 32'h0020_0008;
   localparam [31:0] REG_FAULT_STATUS = 32'h0020_000C;
   localparam [31:0] REG_HEARTBEAT = 32'h0020_0010;
+  localparam [31:0] REG_BOARD_CTRL = 32'h0020_0014;
 
   localparam [1:0] PROFILE_BASIC = 2'b00;
   localparam [1:0] PROFILE_SAFETY = 2'b01;
@@ -73,14 +80,15 @@ module safety_mmio_config_stage4f (
       !(profile_integrity_ok && injection_authorize_integrity_ok) ||
       (profile_o == PROFILE_RESERVED);
 
-  // Accept only accesses to the five defined registers.
+  // Accept only accesses to the six defined registers.
   wire address_valid;
   assign address_valid =
       (addr_i == REG_PROFILE_CTRL) ||
       (addr_i == REG_INJECTION_AUTH) ||
       (addr_i == REG_PROFILE_STATUS) ||
       (addr_i == REG_FAULT_STATUS) ||
-      (addr_i == REG_HEARTBEAT);
+      (addr_i == REG_HEARTBEAT) ||
+      (addr_i == REG_BOARD_CTRL);
 
   assign gnt_o = req_i && address_valid;
 
@@ -189,6 +197,9 @@ module safety_mmio_config_stage4f (
 
             REG_HEARTBEAT:
               rdata_o <= heartbeat_value_o;
+
+            REG_BOARD_CTRL:
+              rdata_o <= {24'b0, board_ctrl_i};
 
             default:
               rdata_o <= 32'b0;

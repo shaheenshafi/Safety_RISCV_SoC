@@ -1,0 +1,26 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage5_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_smoke_bss_boot80.vmem'.
+Initializing memory safety_riscv_soc_stage5_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_smoke_bss_boot80.vmem'.
+Starting Stage 5 C firmware smoke test
+PASS: SoC reset and Basic profile defaults
+[625000] PASS: Core A wrote result 0000000c
+[625000] PASS: Core B wrote result 0000000c
+
+==========================================
+STAGE 5 C FIRMWARE SMOKE TEST: PASS
+==========================================
+Core A result       : 0x0000000C
+Core B result       : 0x0000000C
+CPU result address  : 0x00103FC0
+RAM offset          : 0x00003FC0
+Selected profile    : 00 (Basic)
+DCLS enabled        : 0
+Fault latched       : 0
+Safe state          : 0
+Cycles observed     : 59
+Core A illegal decodes     : 0
+Core B illegal decodes     : 0
+Core A illegal exceptions  : 0
+Core B illegal exceptions  : 0
+==========================================
+$finish called at time : 627 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage5_tb.sv" Line 317
