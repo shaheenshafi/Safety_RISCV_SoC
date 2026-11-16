@@ -18,8 +18,8 @@
 module safety_riscv_soc_arty_a7_tb;
 
   localparam int  UART_CLKS_PER_BIT = 8;
-  // One UART bit = 8 cycles of the 50 MHz SoC clock.
-  localparam time BIT_TIME = 160ns;
+  // One UART bit = 8 cycles of the 40 MHz SoC clock.
+  localparam time BIT_TIME = 200ns;
 
   logic       clk   = 1'b0;   // 100 MHz board oscillator
   logic       reset = 1'b0;   // active low

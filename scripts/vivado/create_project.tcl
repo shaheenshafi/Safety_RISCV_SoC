@@ -80,7 +80,7 @@ set design_files [list \
     [file join $root rtl safety safety_execution_supervisor.v] \
     [file join $root rtl soc safety_riscv_soc_stage1_mmio.v] \
     [file join $root rtl soc safety_riscv_soc_stage4f.v] \
-    [file join $root rtl board arty_a7_clock_50mhz.v] \
+    [file join $root rtl board arty_a7_clock_gen.v] \
     [file join $root rtl board uart_tx.v] \
     [file join $root rtl board board_input_debounce.v] \
     [file join $root rtl board demo_fault_injection_ctrl.v] \
@@ -114,7 +114,7 @@ set_property top            $fpga_top       [get_filesets sources_1]
 # ------------------------------------------------------------------------------
 add_files -norecurse -fileset constrs_1 [list \
     [file join $root constraints arty_a7_100t_pins.xdc] \
-    [file join $root constraints clock_50mhz.xdc] \
+    [file join $root constraints clock.xdc] \
 ]
 
 # ------------------------------------------------------------------------------

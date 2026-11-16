@@ -65,3 +65,23 @@ Changes made after the first successful board run (commit f8b3cce):
 Board controls: SW1:SW0 profile (00 Basic, 01 Safety, 10 Diagnostic), SW3 arm,
 BTN0 instruction-word fault, BTN1 read-data fault, BTN2 comparator fault
 (SW2 = 0 instruction address, SW2 = 1 data address), BTN3 execution stall.
+
+## System clock changed from 50 MHz to 40 MHz (16 Nov 2026)
+
+The longest path of the dual-core design (instruction decode -> ALU -> branch
+-> cross-core comparison -> data grant, 32 logic levels) needs about 20 ns.
+At 50 MHz the builds closed timing by +0.079 ns, +0.249 ns, then failed at
+-0.619 ns after a small change, and passed again at +0.030 ns only with the
+`Performance_ExplorePostRoutePhysOpt` strategy. The system clock is therefore
+40 MHz from this point; the 50 MHz reports are kept under `results/` as
+evidence of the achieved maximum.
+
+| Change | Files |
+|---|---|
+| MMCM `CLKOUT0_DIVIDE_F` 20 -> 25; module and file renamed to a frequency-neutral name | `rtl/board/arty_a7_clock_gen.v` (was `arty_a7_clock_50mhz.v`) |
+| Constraint file renamed (content unchanged: 100 MHz board oscillator) | `constraints/clock.xdc` (was `clock_50mhz.xdc`) |
+| UART divider 434 -> 347 (115200 baud); status period 2^27 -> 2^26 cycles (1.7 s) | `rtl/board/safety_riscv_soc_arty_a7.v`, `rtl/board/uart_tx.v` |
+| UART bit time in the board testbench 160 ns -> 200 ns | `tb/board/safety_riscv_soc_arty_a7_tb.sv` |
+
+The SoC, safety logic and firmware are unchanged: all their timing is counted
+in clock cycles.

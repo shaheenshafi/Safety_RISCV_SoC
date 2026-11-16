@@ -1,7 +1,7 @@
 ## Digilent Arty A7-100T
 ## FPGA: xc7a100tcsg324-1
 ## Pin names follow the Digilent Arty A7 master constraints file.
-## The clock is defined separately in clock_50mhz.xdc.
+## The clock is defined separately in clock.xdc.
 
 ## System clock, 100 MHz oscillator
 set_property -dict { PACKAGE_PIN E3  IOSTANDARD LVCMOS33 } [get_ports { clk }]

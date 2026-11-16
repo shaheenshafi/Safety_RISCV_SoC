@@ -1,0 +1,20 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4F configuration-integrity test
+PASS: single-bit profile corruption detected; DCLS forced on and safe state asserted
+PASS: external reset clears configuration-integrity evidence
+PASS: injection authorization automatically revoked on Diagnostic exit
+PASS: injection-authorization corruption detected and injection inhibited
+
+================================================
+STAGE 4F CONFIGURATION-INTEGRITY TEST: PASS
+Complementary profile storage : VERIFIED
+Complementary auth storage    : VERIFIED
+Fail-safe DCLS policy         : VERIFIED
+Configuration fault code     : 0x05
+Automatic auth revocation     : VERIFIED
+================================================
+$finish called at time : 186 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1211

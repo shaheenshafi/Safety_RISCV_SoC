@@ -1,0 +1,73 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_arty_a7_tb.dut.u_safety_riscv_soc.core_a.u_ram.u_ram.Block57_292.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+Initializing memory safety_riscv_soc_arty_a7_tb.dut.u_safety_riscv_soc.core_b.u_ram.u_ram.Block57_292.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+
+---- Runtime profile selection from SW1..SW0 ----
+[87930000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[213480000] UART: [STAT] PROFILE=0 DCLS=0 INJ_EN=0 HB=00000020 FAULT=00 SAFE=0
+PASS: Basic profile -> [STAT] PROFILE=0 DCLS=0 INJ_EN=0 HB=00000020 FAULT=00 SAFE=0
+[339030000] UART: [STAT] PROFILE=0 DCLS=0 INJ_EN=0 HB=00000043 FAULT=00 SAFE=0
+[397755000] UART: [INJ ] FAULT_ID=0 APPLIED=0
+[536005000] UART: [STAT] PROFILE=0 DCLS=0 INJ_EN=0 HB=0000007A FAULT=00 SAFE=0
+PASS: Injection request in Basic profile -> [INJ ] FAULT_ID=0 APPLIED=0
+[740805000] UART: [STAT] PROFILE=1 DCLS=1 INJ_EN=0 HB=000000AD FAULT=00 SAFE=0
+PASS: Safety profile -> [STAT] PROFILE=1 DCLS=1 INJ_EN=0 HB=000000AD FAULT=00 SAFE=0
+[801955000] UART: [INJ ] FAULT_ID=0 APPLIED=0
+[945605000] UART: [STAT] PROFILE=1 DCLS=1 INJ_EN=0 HB=000000D9 FAULT=00 SAFE=0
+PASS: Injection request in Safety profile -> [INJ ] FAULT_ID=0 APPLIED=0
+[1150405000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000105 FAULT=00 SAFE=0
+[1355205000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000131 FAULT=00 SAFE=0
+PASS: Diagnostic profile -> [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000131 FAULT=00 SAFE=0
+
+---- Fault: Tier 2 instruction-word fault on Core B (BTN0, SW2 = 0) ----
+[1443140000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[1568690000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[1694240000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000037 FAULT=00 SAFE=0
+[1752965000] UART: [INJ ] FAULT_ID=0 APPLIED=1
+[1852190000] UART: [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+PASS: Tier 2 instruction-word fault on Core B -> [FLT ] CODE=01 LATENCY=0002 CYCLES SAFE_STATE=1
+
+---- Fault: Tier 2 read-data fault on Core B (BTN1, SW2 = 0) ----
+[1940130000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[2065680000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[2191230000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000037 FAULT=00 SAFE=0
+[2249955000] UART: [INJ ] FAULT_ID=1 APPLIED=1
+[2349180000] UART: [FLT ] CODE=02 LATENCY=0005 CYCLES SAFE_STATE=1
+PASS: Tier 2 read-data fault on Core B -> [FLT ] CODE=02 LATENCY=0005 CYCLES SAFE_STATE=1
+
+---- Fault: Tier 1 instruction-address fault at the comparator (BTN2, SW2 = 0) ----
+[2437120000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[2562670000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[2688220000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000037 FAULT=00 SAFE=0
+[2746945000] UART: [INJ ] FAULT_ID=2 APPLIED=1
+[2846170000] UART: [FLT ] CODE=01 LATENCY=0001 CYCLES SAFE_STATE=1
+PASS: Tier 1 instruction-address fault at the comparator -> [FLT ] CODE=01 LATENCY=0001 CYCLES SAFE_STATE=1
+
+---- Fault: Tier 1 data-address fault at the comparator (BTN2, SW2 = 1) ----
+[2934110000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[3059660000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[3185210000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000037 FAULT=00 SAFE=0
+[3243935000] UART: [INJ ] FAULT_ID=3 APPLIED=1
+[3343160000] UART: [FLT ] CODE=02 LATENCY=0004 CYCLES SAFE_STATE=1
+PASS: Tier 1 data-address fault at the comparator -> [FLT ] CODE=02 LATENCY=0004 CYCLES SAFE_STATE=1
+
+---- Fault: Execution stall (processor hang) caught by the watchdog (BTN3, SW2 = 0) ----
+[3431100000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[3556650000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=0000001C FAULT=00 SAFE=0
+[3682200000] UART: [STAT] PROFILE=2 DCLS=1 INJ_EN=1 HB=00000037 FAULT=00 SAFE=0
+[3740925000] UART: [INJ ] FAULT_ID=4 APPLIED=1
+[3840150000] UART: [FLT ] CODE=03 LATENCY=00F0 CYCLES SAFE_STATE=1
+PASS: Execution stall (processor hang) caught by the watchdog -> [FLT ] CODE=03 LATENCY=00F0 CYCLES SAFE_STATE=1
+[3928090000] UART: [BOOT] SAFETY RISC-V SOC / ARTY A7-100T
+[4053640000] UART: [STAT] PROFILE=1 DCLS=1 INJ_EN=0 HB=0000001C FAULT=00 SAFE=0
+
+==============================================
+BOARD DEMONSTRATION TEST: PASS
+Runtime profiles selected by switch  : 3
+Injection refused outside Diagnostic : 2
+Faults injected by button            : 5
+Faults detected and reported on UART : 5
+Recovery by RESET button             : VERIFIED
+==============================================
+$finish called at time : 4053645 ns : File "E:/Dissertation/Working_Model_RISCV/tb/board/safety_riscv_soc_arty_a7_tb.sv" Line 290
+INFO: xsimkernel Simulation Memory Usage: 35076 KB (Peak: 35076 KB), Simulation CPU Usage: 57546 ms

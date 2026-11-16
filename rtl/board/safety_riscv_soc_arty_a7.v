@@ -3,7 +3,7 @@
 //
 // Target:
 //   FPGA : XC7A100T-1CSG324 (Digilent Arty A7-100T)
-//   Clock: 100 MHz oscillator, 50 MHz SoC clock from the MMCM
+//   Clock: 100 MHz oscillator, 40 MHz SoC clock from the MMCM
 //
 // Firmware (default): fw/images/stage5_battery_monitor_demo.vmem
 //   The battery-monitoring application. It reads the requested runtime
@@ -44,12 +44,12 @@
 
 module safety_riscv_soc_arty_a7 #(
     parameter         MemInitFile        = `FW_STAGE5_BATTERY_MONITOR_DEMO,
-    // 50 MHz / 115200 baud
-    parameter integer UART_CLKS_PER_BIT  = 434,
-    // 2^19 cycles at 50 MHz = 10.5 ms
+    // 40 MHz / 115200 baud = 347.2
+    parameter integer UART_CLKS_PER_BIT  = 347,
+    // 2^19 cycles at 40 MHz = 13.1 ms
     parameter integer DEBOUNCE_BITS      = 19,
-    // 2^27 cycles at 50 MHz = 2.7 s
-    parameter integer STATUS_PERIOD_BITS = 27,
+    // 2^26 cycles at 40 MHz = 1.7 s
+    parameter integer STATUS_PERIOD_BITS = 26,
     // Heartbeat sequence bit shown on LD4
     parameter integer HEARTBEAT_LED_BIT  = 18
 ) (
@@ -67,7 +67,7 @@ module safety_riscv_soc_arty_a7 #(
     output wire       uart_tx
 );
 
-    wire clk_50mhz;
+    wire clk_sys;
     wire soc_reset_n;
 
     wire [1:0]  selected_profile;
@@ -102,13 +102,13 @@ module safety_riscv_soc_arty_a7 #(
     // Clock and reset
     //
     // The SoC stays in reset until the MMCM locks; reset release is
-    // synchronized to the generated 50 MHz clock.
+    // synchronized to the generated system clock.
     // -------------------------------------------------------------------------
-    arty_a7_clock_50mhz u_board_clock (
+    arty_a7_clock_gen u_board_clock (
         .clk_100mhz    (clk),
         .reset_n       (reset),
-        .clk_50mhz     (clk_50mhz),
-        .reset_50mhz_n (soc_reset_n)
+        .clk_sys       (clk_sys),
+        .reset_sys_n   (soc_reset_n)
     );
 
     // -------------------------------------------------------------------------
@@ -123,7 +123,7 @@ module safety_riscv_soc_arty_a7 #(
             board_input_debounce #(
                 .COUNTER_BITS (DEBOUNCE_BITS)
             ) u_sw (
-                .clk_i   (clk_50mhz),
+                .clk_i   (clk_sys),
                 .rst_ni  (soc_reset_n),
                 .raw_i   (sw[gi]),
                 .level_o (sw_level[gi]),
@@ -134,7 +134,7 @@ module safety_riscv_soc_arty_a7 #(
             board_input_debounce #(
                 .COUNTER_BITS (DEBOUNCE_BITS)
             ) u_btn (
-                .clk_i   (clk_50mhz),
+                .clk_i   (clk_sys),
                 .rst_ni  (soc_reset_n),
                 .raw_i   (btn[gi]),
                 .level_o (),
@@ -159,7 +159,7 @@ module safety_riscv_soc_arty_a7 #(
     wire [15:0] inject_latency;
 
     demo_fault_injection_ctrl u_fault_injection_ctrl (
-        .clk_i                 (clk_50mhz),
+        .clk_i                 (clk_sys),
         .rst_ni                (soc_reset_n),
         .arm_i                 (sw_level[3]),
         .variant_i             (sw_level[2]),
@@ -183,7 +183,7 @@ module safety_riscv_soc_arty_a7 #(
     safety_riscv_soc_stage4f #(
         .MemInitFile(MemInitFile)
     ) u_safety_riscv_soc (
-        .clk_i                              (clk_50mhz),
+        .clk_i                              (clk_sys),
         .rst_ni                             (soc_reset_n),
 
         .fault_inject_target_i              (tier1_target),
@@ -234,7 +234,7 @@ module safety_riscv_soc_arty_a7 #(
     demo_status_reporter #(
         .STATUS_PERIOD_BITS (STATUS_PERIOD_BITS)
     ) u_status_reporter (
-        .clk_i              (clk_50mhz),
+        .clk_i              (clk_sys),
         .rst_ni             (soc_reset_n),
         .status_request_i   (1'b0),
         .inject_event_i     (inject_event),
@@ -256,7 +256,7 @@ module safety_riscv_soc_arty_a7 #(
     uart_tx #(
         .CLKS_PER_BIT (UART_CLKS_PER_BIT)
     ) u_uart_tx (
-        .clk_i   (clk_50mhz),
+        .clk_i   (clk_sys),
         .rst_ni  (soc_reset_n),
         .data_i  (tx_data),
         .valid_i (tx_valid),
@@ -279,7 +279,7 @@ module safety_riscv_soc_arty_a7 #(
     reg [15:0] dim_count_q;
     wire       dim;
 
-    always @(posedge clk_50mhz or negedge soc_reset_n) begin
+    always @(posedge clk_sys or negedge soc_reset_n) begin
         if (!soc_reset_n)
             dim_count_q <= 16'd0;
         else
