@@ -202,6 +202,17 @@ add_simset board_demo safety_riscv_soc_arty_a7_tb \
 current_fileset -simset [get_filesets soc_fw_battery]
 catch {delete_fileset sim_1}
 
+# -----------------------------------------------------------------------------
+# Implementation strategy
+#
+# The longest path (instruction decode -> ALU -> branch -> cross-core
+# comparison -> data grant, 32 logic levels) uses almost the whole 20 ns
+# period, so the default strategy closes timing only by a small margin and
+# not on every placement. This strategy adds physical optimisation before
+# and after routing.
+# -----------------------------------------------------------------------------
+set_property strategy Performance_ExplorePostRoutePhysOpt [get_runs impl_1]
+
 puts ""
 puts "=============================================================="
 puts " Project created: [file join $proj_dir ${proj_name}.xpr]"
