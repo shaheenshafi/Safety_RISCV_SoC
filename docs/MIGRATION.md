@@ -85,3 +85,25 @@ evidence of the achieved maximum.
 
 The SoC, safety logic and firmware are unchanged: all their timing is counted
 in clock cycles.
+
+## Diagnostic logger added (16 Nov 2026)
+
+The original architecture (Central Safety Manager) includes a diagnostic
+logger; the migrated design did not have one.
+
+| Item | Files |
+|---|---|
+| Logger: last four fault records (boot number, fault code, profile, cycles from reset release to detection), boot and fault counters; records are retained through the system reset | `rtl/safety/safety_diagnostic_logger.v` (new, Verilog) |
+| Instantiated in the SoC; observes the fault manager and profile register only | `rtl/soc/safety_riscv_soc_stage4f.v` |
+| Log printed on the UART after every boot (`[LOG ]` lines) | `scripts/gen/gen_status_reporter.py`, `rtl/board/demo_status_reporter.v` (generated), `rtl/board/safety_riscv_soc_arty_a7.v` |
+| Unit test (27th simulation set, `unit_safety_diagnostic_logger`) | `tb/unit/safety_diagnostic_logger_tb.sv`, `scripts/vivado/create_project.tcl` |
+| Board test extended: log retained through reset, newest and oldest record checked | `tb/board/safety_riscv_soc_arty_a7_tb.sv` |
+| SoC testbenches: new read-index input tied off | `tb/soc/*.sv` |
+
+UART format:
+
+    [LOG ] BOOTS=xx FAULTS=xx
+    [LOG ] ENTRY=n BOOT=xx CODE=xx PROFILE=x TIME=xxxxxxxxxx
+
+ENTRY 0 is the most recent fault. TIME is in clock cycles (hexadecimal).
+The log is cleared only when the FPGA is reconfigured or powered off.

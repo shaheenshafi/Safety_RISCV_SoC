@@ -42,6 +42,7 @@ module safety_riscv_soc_stage4f_native_double_fault_tb;
       .rst_ni (rst_ni),
       .exec_stall_inject_i (1'b0),
       .board_ctrl_i (8'h00),
+      .log_rd_index_i (2'b00),
 
       .fault_inject_target_i (2'b00),
       .fault_inject_mask_i (32'b0),

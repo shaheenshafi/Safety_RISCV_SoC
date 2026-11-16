@@ -1,0 +1,3 @@
+Time resolution is 1 ps
+PASS: safety_diagnostic_logger_tb (35 checks)
+$finish called at time : 1614 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/safety_diagnostic_logger_tb.sv" Line 126

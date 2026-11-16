@@ -1,0 +1,23 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage5_battery_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_stale_pass.vmem'.
+Initializing memory safety_riscv_soc_stage5_battery_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_stale_pass.vmem'.
+Starting Stage5 battery dual-core integration test
+Initial RAM image: stale PASS marker and retained result records preloaded
+
+STAGE5 BATTERY DUAL-CORE INTEGRATION: PASS
+Safety profile                 : CONFIRMED
+Core A sample records           : 14/14
+Core B sample records           : 14/14
+Core A result words             : 28
+Core B result words             : 28
+Aggregate diagnostic mask      : 0000003f
+Core A/B checksums              : MATCH
+Independent golden checksum    : f7152312
+Stale PASS invalidation         : VERIFIED
+Accepted heartbeat updates     : 42
+Final heartbeat sequence      : 0000002a
+Cycles observed                : 6000
+DCLS enabled                   : 1
+Safety fault                   : NONE
+==============================================
+$finish called at time : 60036 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage5_battery_tb.sv" Line 467

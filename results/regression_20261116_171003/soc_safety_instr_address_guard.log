@@ -1,0 +1,13 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_170.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4G instruction address-guard test
+[225000] Heartbeat #1, sequence=00000000
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+[1035000] Heartbeat #2, sequence=00000001
+STAGE 4G INSTRUCTION ADDRESS-GUARD PASS
+Blocked fetch, bus-error response and safe state confirmed
+$finish called at time : 1046 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1636

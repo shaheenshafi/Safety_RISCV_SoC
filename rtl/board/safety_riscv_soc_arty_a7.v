@@ -177,6 +177,16 @@ module safety_riscv_soc_arty_a7 #(
         .latency_o             (inject_latency)
     );
 
+    // Diagnostic log read port, driven by the status reporter.
+    wire [1:0]  log_rd_index;
+    wire [7:0]  log_boot_count;
+    wire [7:0]  log_fault_count;
+    wire        log_rd_valid;
+    wire [7:0]  log_rd_boot;
+    wire [7:0]  log_rd_code;
+    wire [1:0]  log_rd_profile;
+    wire [39:0] log_rd_time;
+
     // -------------------------------------------------------------------------
     // Safety-oriented SoC
     // -------------------------------------------------------------------------
@@ -221,7 +231,16 @@ module safety_riscv_soc_arty_a7 #(
         .supervisor_fault_o                 (supervisor_fault),
 
         .heartbeat_value_o                 (heartbeat_value),
-        .heartbeat_update_o                 (heartbeat_update)
+        .heartbeat_update_o                 (heartbeat_update),
+
+        .log_rd_index_i                     (log_rd_index),
+        .log_boot_count_o                   (log_boot_count),
+        .log_fault_count_o                  (log_fault_count),
+        .log_rd_valid_o                     (log_rd_valid),
+        .log_rd_boot_o                      (log_rd_boot),
+        .log_rd_code_o                      (log_rd_code),
+        .log_rd_profile_o                   (log_rd_profile),
+        .log_rd_time_o                      (log_rd_time)
     );
 
     // -------------------------------------------------------------------------
@@ -248,6 +267,14 @@ module safety_riscv_soc_arty_a7 #(
         .inject_select_i    (inject_select),
         .inject_active_i    (inject_active),
         .latency_i          (inject_latency),
+        .log_rd_index_o     (log_rd_index),
+        .log_boot_count_i   (log_boot_count),
+        .log_fault_count_i  (log_fault_count),
+        .log_rd_valid_i     (log_rd_valid),
+        .log_rd_boot_i      (log_rd_boot),
+        .log_rd_code_i      (log_rd_code),
+        .log_rd_profile_i   (log_rd_profile),
+        .log_rd_time_i      (log_rd_time),
         .tx_data_o          (tx_data),
         .tx_valid_o         (tx_valid),
         .tx_ready_i         (tx_ready)

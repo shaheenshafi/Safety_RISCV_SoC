@@ -50,7 +50,17 @@ module safety_riscv_soc_stage4f #(
     output wire        progress_timeout_fault_o,
     output wire        supervisor_fault_o,
     output wire [31:0] heartbeat_value_o,
-    output wire        heartbeat_update_o
+    output wire        heartbeat_update_o,
+
+    // Diagnostic log: retained through reset. Record 0 is the most recent.
+    input  wire [1:0]  log_rd_index_i,
+    output wire [7:0]  log_boot_count_o,
+    output wire [7:0]  log_fault_count_o,
+    output wire        log_rd_valid_o,
+    output wire [7:0]  log_rd_boot_o,
+    output wire [7:0]  log_rd_code_o,
+    output wire [1:0]  log_rd_profile_o,
+    output wire [39:0] log_rd_time_o
 );
 
   // --------------------------------------------------------------------------
@@ -704,5 +714,31 @@ module safety_riscv_soc_stage4f #(
   );
 
   assign safe_state_req_o = safe_state_active;
+
+  // --------------------------------------------------------------------------
+  // Diagnostic logger
+  //
+  // Records every latched fault. The records are retained through the system
+  // reset so the cause of a safe-state entry can be read after restart.
+  // The logger only observes the fault manager and the profile register.
+  // --------------------------------------------------------------------------
+  safety_diagnostic_logger #(
+      .DEPTH_LOG2 (2),
+      .TIME_WIDTH (40)
+  ) u_diagnostic_logger (
+      .clk_i           (clk_i),
+      .rst_ni          (soc_rst_ni),
+      .fault_latched_i (fault_latched_o),
+      .fault_code_i    (fault_code_o),
+      .profile_i       (selected_profile_o),
+      .boot_count_o    (log_boot_count_o),
+      .fault_count_o   (log_fault_count_o),
+      .rd_index_i      (log_rd_index_i),
+      .rd_valid_o      (log_rd_valid_o),
+      .rd_boot_o       (log_rd_boot_o),
+      .rd_code_o       (log_rd_code_o),
+      .rd_profile_o    (log_rd_profile_o),
+      .rd_time_o       (log_rd_time_o)
+  );
 
 endmodule

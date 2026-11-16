@@ -67,6 +67,10 @@ module safety_riscv_soc_arty_a7_tb;
   string last_stat = "";
   string last_inj  = "";
   string last_flt  = "";
+  string last_log_summary = "";
+  string last_log_entry0  = "";
+  string last_log_entry3  = "";
+  int    n_log = 0;
   int    n_boot = 0;
   int    n_stat = 0;
   int    n_inj  = 0;
@@ -90,6 +94,12 @@ module safety_riscv_soc_arty_a7_tb;
     if (contains(s, "[STAT]")) begin last_stat = s; n_stat++; end
     if (contains(s, "[INJ ]")) begin last_inj  = s; n_inj++;  end
     if (contains(s, "[FLT ]")) begin last_flt  = s; n_flt++;  end
+    if (contains(s, "[LOG ]")) begin
+      n_log++;
+      if (contains(s, "BOOTS="))  last_log_summary = s;
+      if (contains(s, "ENTRY=0")) last_log_entry0  = s;
+      if (contains(s, "ENTRY=3")) last_log_entry3  = s;
+    end
   endtask
 
   initial begin : uart_receiver
@@ -278,6 +288,20 @@ module safety_riscv_soc_arty_a7_tb;
     wait_boot("Final recovery");
     wait_status("PROFILE=1", "FAULT=00", "SAFE=0", "Final recovery");
 
+    // Diagnostic log printed after the last reset: five faults were
+    // recorded and retained through the resets. The most recent record is
+    // the watchdog fault; the oldest of the four kept is the read-data
+    // fault (the first instruction-word fault has been overwritten).
+    if (!contains(last_log_summary, "FAULTS=05"))
+      $fatal(1, "Diagnostic log summary wrong: %s", last_log_summary);
+    if (!contains(last_log_entry0, "CODE=03") ||
+        !contains(last_log_entry0, "PROFILE=2"))
+      $fatal(1, "Diagnostic log record 0 wrong: %s", last_log_entry0);
+    if (!contains(last_log_entry3, "CODE=02"))
+      $fatal(1, "Diagnostic log record 3 wrong: %s", last_log_entry3);
+    $display("PASS: diagnostic log retained through reset -> %s", last_log_summary);
+    $display("      %s", last_log_entry0);
+
     $display("");
     $display("==============================================");
     $display("BOARD DEMONSTRATION TEST: PASS");
@@ -286,6 +310,7 @@ module safety_riscv_soc_arty_a7_tb;
     $display("Faults injected by button            : 5");
     $display("Faults detected and reported on UART : 5");
     $display("Recovery by RESET button             : VERIFIED");
+    $display("Diagnostic log retained through reset: VERIFIED");
     $display("==============================================");
     $finish;
   end

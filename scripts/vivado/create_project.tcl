@@ -78,6 +78,7 @@ set design_files [list \
     [file join $root rtl safety safety_fault_manager_stage4f.v] \
     [file join $root rtl safety safety_mmio_config_stage4f.v] \
     [file join $root rtl safety safety_execution_supervisor.v] \
+    [file join $root rtl safety safety_diagnostic_logger.v] \
     [file join $root rtl soc safety_riscv_soc_stage1_mmio.v] \
     [file join $root rtl soc safety_riscv_soc_stage4f.v] \
     [file join $root rtl board arty_a7_clock_gen.v] \
@@ -156,7 +157,7 @@ set rtl_s   [file join $root rtl safety]
 # --- Unit tests -----------------------------------------------------------
 foreach m {dcls_comparator dcls_fault_injector core_response_fault_injector \
            dcls_response_error_monitor safety_execution_supervisor \
-           dcls_paired_data_capture_stage} {
+           dcls_paired_data_capture_stage safety_diagnostic_logger} {
     add_simset "unit_${m}" "${m}_tb" \
         [list [file join $tb_unit "${m}_tb.sv"]] \
         [list [file join $rtl_s "${m}.v"]] ""
