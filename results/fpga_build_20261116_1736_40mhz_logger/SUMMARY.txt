@@ -1,0 +1,15 @@
+FPGA build, 40 MHz system clock, with diagnostic logger
+Date            : 2026-11-16 17:36 IST
+Commit          : 79e3f3e
+Tool / part     : Vivado 2026.1, xc7a100tcsg324-1 (Arty A7-100T)
+Impl strategy   : Performance_ExplorePostRoutePhysOpt
+System clock    : 40 MHz (25 ns) from 100 MHz oscillator via MMCM
+Setup slack WNS : +2.137 ns   (0 failing endpoints)
+Hold slack WHS  : +0.035 ns   (0 failing endpoints)
+Slice LUTs      : 7,978 / 63,400 (12.58 %), of which 38 distributed RAM (logger)
+Slice registers : 4,689 / 126,800 (3.70 %)
+Block RAM tiles : 8 / 135
+Total power     : 0.243 W (dynamic 0.145 W, static 0.098 W), vectorless estimate
+DRC             : REQP-1839 x20 (report limit), LUTAR-1 x2, SYNTH-6 x8 warnings; no errors
+Critical warnings: 0
+Bitstream SHA-256: 212e3a191d0c4c6b926612b821e46d74ed43e787bda3f7c432b3e82055efc8b9
