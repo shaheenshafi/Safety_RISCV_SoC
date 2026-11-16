@@ -116,7 +116,11 @@ set_property top            $fpga_top       [get_filesets sources_1]
 add_files -norecurse -fileset constrs_1 [list \
     [file join $root constraints arty_a7_100t_pins.xdc] \
     [file join $root constraints clock.xdc] \
+    [file join $root constraints timing_guard_band.xdc] \
 ]
+# The guard band applies to place and route only.
+set_property USED_IN {implementation} \
+    [get_files [file join $root constraints timing_guard_band.xdc]]
 
 # ------------------------------------------------------------------------------
 # 5. Simulation sets: one per test, selectable in the GUI
