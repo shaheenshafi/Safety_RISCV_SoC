@@ -1,0 +1,23 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_profile_perf_tb.dut.core_a.u_ram.u_ram.Block57_196.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+Initializing memory safety_riscv_soc_profile_perf_tb.dut.core_b.u_ram.u_ram.Block57_196.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_demo.vmem'.
+PROFILE PERFORMANCE:      Basic workload = 1284 cycles (18 heartbeats), idle heartbeat period = 145.00 cycles
+PROFILE PERFORMANCE:     Safety workload = 1522 cycles (18 heartbeats), idle heartbeat period = 186.00 cycles
+PROFILE PERFORMANCE: Diagnostic workload = 1523 cycles (18 heartbeats), idle heartbeat period = 186.00 cycles
+
+==============================================================
+PROFILE PERFORMANCE COMPARISON (same workload, same SoC)
+  Basic      : 1284 cycles
+  Safety     : 1522 cycles  (+18.54 % vs Basic)
+  Diagnostic : 1523 cycles
+  Idle heartbeat loop, Safety vs Basic: +28.28 %
+  At 40 MHz: Basic 32.1 us, Safety 38.1 us
+PROFILE PERFORMANCE TEST: PASS
+==============================================================
+SVA configuration (safety_riscv_soc_profile_perf_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=3877 Safety=4608 Diagnostic=4609, injection enabled=4590, profile changes=2, safe-state cycles=0, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_profile_perf_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=3877 Safety=4608 Diagnostic=4609, injection enabled=4590, profile changes=2, safe-state cycles=0, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=104, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=0, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=3, faults recorded=0, clock cycles in reset=30
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=0, safe-state cycles=0, injection-enabled cycles=4590, stall cycles=0
+$finish called at time : 131245 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_profile_perf_tb.sv" Line 180

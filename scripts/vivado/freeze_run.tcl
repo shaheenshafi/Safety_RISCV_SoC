@@ -50,6 +50,8 @@ foreach fr_guard {1.500 0.800 0.000} {
     regsub {set_clock_uncertainty -setup [0-9.]+} $text \
         "set_clock_uncertainty -setup $fr_guard" text
     set fh [open $fr_xdc w]
+    # Keep Unix line endings so the file does not show as changed in git.
+    fconfigure $fh -translation lf
     puts -nonewline $fh $text
     close $fh
 

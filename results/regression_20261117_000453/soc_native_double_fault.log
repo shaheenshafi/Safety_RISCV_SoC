@@ -1,0 +1,23 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_native_double_fault_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_native_double_fault.vmem'.
+Initializing memory safety_riscv_soc_stage4f_native_double_fault_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_native_double_fault.vmem'.
+PASS: Native double-fault image and reset defaults
+PASS: Core A genuine Ibex double fault, sticky capture and safe state
+PASS: Core B genuine Ibex double fault, sticky capture and safe state
+
+====================================================
+NATIVE IBEX DOUBLE-FAULT GENERATION: PASS
+Core A real Ibex pulse       : OBSERVED
+Core B real Ibex pulse       : OBSERVED
+Independent sticky capture  : VERIFIED
+Fault code                   : 0x04
+Safe-state containment       : VERIFIED
+Stimulus                     : ECALL at reset PC, ECALL at reset mtvec
+====================================================
+SVA configuration (safety_riscv_soc_stage4f_native_double_fault_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=197 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=174, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage4f_native_double_fault_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=197 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=174, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=0, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=2, latch events=2, latched cycles=174
+SVA diagnostic logger: 7 properties; reset releases=2, faults recorded=2, clock cycles in reset=9
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=2, safe-state cycles=174, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 2056 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_native_double_fault_tb.sv" Line 218

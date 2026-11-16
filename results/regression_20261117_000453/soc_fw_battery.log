@@ -1,0 +1,29 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage5_battery_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_stale_pass.vmem'.
+Initializing memory safety_riscv_soc_stage5_battery_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage5_battery_monitor_stale_pass.vmem'.
+Starting Stage5 battery dual-core integration test
+Initial RAM image: stale PASS marker and retained result records preloaded
+
+STAGE5 BATTERY DUAL-CORE INTEGRATION: PASS
+Safety profile                 : CONFIRMED
+Core A sample records           : 14/14
+Core B sample records           : 14/14
+Core A result words             : 28
+Core B result words             : 28
+Aggregate diagnostic mask      : 0000003f
+Core A/B checksums              : MATCH
+Independent golden checksum    : f7152312
+Stale PASS invalidation         : VERIFIED
+Accepted heartbeat updates     : 42
+Final heartbeat sequence      : 0000002a
+Cycles observed                : 6000
+DCLS enabled                   : 1
+Safety fault                   : NONE
+==============================================
+SVA configuration (safety_riscv_soc_stage5_battery_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=59 Safety=5939 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=0, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage5_battery_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=59 Safety=5939 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=0, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=42, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=0, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=1, faults recorded=0, clock cycles in reset=6
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=0, safe-state cycles=0, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 60036 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage5_battery_tb.sv" Line 467
