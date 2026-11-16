@@ -17,6 +17,18 @@
 #define BATTERY_FAIL_HW_FAULT      5u
 
 /*
+ * Board demonstration build (-DBATTERY_DEMO_DIAGNOSTIC):
+ * run the same workload in the Diagnostic profile and authorise fault
+ * injection, so that faults can be injected by hand on the FPGA board.
+ * The default build is unchanged and uses the Safety profile.
+ */
+#ifdef BATTERY_DEMO_DIAGNOSTIC
+#define BATTERY_PROFILE            PLATFORM_PROFILE_DIAGNOSTIC
+#else
+#define BATTERY_PROFILE            PLATFORM_PROFILE_SAFETY
+#endif
+
+/*
  * Individual records reside in each core's application RAM (.noinit).
  * This buffer is intentionally separate from the 64-byte summary region.
  */
@@ -65,12 +77,17 @@ int main(void)
     battery_summary[0] = BATTERY_MARKER_RUNNING;
     BATTERY_MEMORY_FENCE();
 
-    /* Select and verify the Safety profile. */
-    status = platform_profile_select(PLATFORM_PROFILE_SAFETY);
+    /* Select and verify the runtime profile. */
+    status = platform_profile_select(BATTERY_PROFILE);
 
     if (status != 0)
         battery_application_fail(BATTERY_FAIL_PROFILE,
                                  (uint32_t)status);
+
+#ifdef BATTERY_DEMO_DIAGNOSTIC
+    /* Authorise the hardware fault injectors (Diagnostic profile only). */
+    *(volatile uint32_t *)(uintptr_t)PLATFORM_REG_INJECTION_AUTH = 1u;
+#endif
 
     profile_status = platform_profile_status_read();
 

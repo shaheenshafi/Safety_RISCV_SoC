@@ -36,3 +36,16 @@ Created 16 Nov 2026 from `E:\Dissertation\Safety_RISCV_SoC_Stage5` at commit
 | --- | --- |
 | `fw/images/*.vmem` padded to 4,096 words with zeros by `scripts/fw/pad_vmem.py`. Specified words are unchanged. | Unspecified words are zero in the FPGA block RAM but unknown in XSim. The Ibex prefetcher reads one word past the last instruction, which poisoned both cores with X in the HAL test. |
 | SoC testbenches set the RAM model's read-data registers to zero at time 0. | The block RAM output latch powers up as zero; the model left it unknown, which made the response comparison X after the first store. |
+
+## Board demonstration layer (16 Nov)
+
+| Addition | Purpose |
+| --- | --- |
+| `rtl/board/uart_tx.v`, `board_input_debounce.v`, `demo_fault_injection_ctrl.v`, `demo_status_reporter.v` | Manual fault injection from switches and a button, and status text on the USB-UART. They drive only the SoC's existing injection inputs and observe its status outputs. |
+| `rtl/board/safety_riscv_soc_arty_a7.v` | Wrapper extended with switches, buttons, RGB LEDs and UART |
+| `constraints/arty_a7_100t_pins.xdc` | Pins for the new ports; false paths for asynchronous inputs and indicator outputs |
+| `fw/src/stage5/apps/battery_monitor/main.c`, `fw/build_demo.sh` | `-DBATTERY_DEMO_DIAGNOSTIC` build: Diagnostic profile with injection authorised. The default build is unchanged. |
+| `tb/board/safety_riscv_soc_arty_a7_tb.sv` | Board-level test: five injected faults, UART decoded and checked |
+| `scripts/gen/gen_status_reporter.py` | Generates the reporter's character table |
+
+No file under `rtl/soc/` or `rtl/safety/` was changed.

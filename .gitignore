@@ -11,3 +11,4 @@ xsim.dir/
 !/results/**/*.log
 # Firmware build outputs
 /fw/src/stage5/build/
+/fw/build/
