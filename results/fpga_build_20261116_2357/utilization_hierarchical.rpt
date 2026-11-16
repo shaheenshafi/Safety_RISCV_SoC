@@ -1,0 +1,50 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Mon Nov 16 23:57:32 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 4 -file E:/Dissertation/Working_Model_RISCV/results/fpga_build_20261116_2357/utilization_hierarchical.rpt
+| Design       : safety_riscv_soc_arty_a7
+| Device       : xc7a100tcsg324-1
+| Speed File   : -1
+| Design State : Physopt postRoute
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++----------------------------------------+--------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                Instance                |             Module             | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++----------------------------------------+--------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| safety_riscv_soc_arty_a7               |                          (top) |       8303 |       8265 |      38 |    0 | 4759 |      8 |      0 |          0 |
+|   (safety_riscv_soc_arty_a7)           |                          (top) |          1 |          1 |       0 |    0 |   16 |      0 |      0 |          0 |
+|   u_safety_riscv_soc                   |       safety_riscv_soc_stage4f |       7632 |       7594 |      38 |    0 | 4339 |      8 |      0 |          0 |
+|     u_paired_data_capture_stage        | dcls_paired_data_capture_stage |         53 |         53 |       0 |    0 |  139 |      0 |      0 |          0 |
+|     core_a                             |   safety_riscv_soc_stage1_mmio |       3661 |       3661 |       0 |    0 | 1983 |      4 |      0 |          0 |
+|       (core_a)                         |   safety_riscv_soc_stage1_mmio |        289 |        289 |       0 |    0 |   70 |      0 |      0 |          0 |
+|       u_ibex                           |                    ibex_top_13 |       3306 |       3306 |       0 |    0 | 1911 |      0 |      0 |          0 |
+|         u_ibex_core                    |                   ibex_core_18 |       2606 |       2606 |       0 |    0 |  918 |      0 |      0 |          0 |
+|         gen_regfile_ff.register_file_i |       ibex_register_file_ff_17 |        701 |        701 |       0 |    0 |  992 |      0 |      0 |          0 |
+|       u_ram                            |                      ram_2p_14 |         71 |         71 |       0 |    0 |    2 |      4 |      0 |          0 |
+|         u_ram                          |                 prim_ram_2p_15 |         70 |         70 |       0 |    0 |    0 |      4 |      0 |          0 |
+|     core_b                             | safety_riscv_soc_stage1_mmio_7 |       3638 |       3638 |       0 |    0 | 1980 |      4 |      0 |          0 |
+|       (core_b)                         | safety_riscv_soc_stage1_mmio_7 |        285 |        285 |       0 |    0 |   70 |      0 |      0 |          0 |
+|       u_ibex                           |                       ibex_top |       3305 |       3305 |       0 |    0 | 1908 |      0 |      0 |          0 |
+|         u_ibex_core                    |                      ibex_core |       2571 |       2571 |       0 |    0 |  915 |      0 |      0 |          0 |
+|         gen_regfile_ff.register_file_i |          ibex_register_file_ff |        734 |        734 |       0 |    0 |  992 |      0 |      0 |          0 |
+|       u_ram                            |                         ram_2p |         58 |         58 |       0 |    0 |    2 |      4 |      0 |          0 |
+|         u_ram                          |                    prim_ram_2p |         56 |         56 |       0 |    0 |    0 |      4 |      0 |          0 |
+|     u_diagnostic_logger                |       safety_diagnostic_logger |         70 |         32 |      38 |    0 |   64 |      0 |      0 |          0 |
+|     u_mmio_config                      |  safety_mmio_config_stage4f__1 |         84 |         84 |       0 |    0 |   71 |      0 |      0 |          0 |
+|     u_mmio_config_replica              |     safety_mmio_config_stage4f |         85 |         85 |       0 |    0 |   71 |      0 |      0 |          0 |
+|   u_status_reporter                    |           demo_status_reporter |        433 |        433 |       0 |    0 |  177 |      0 |      0 |          0 |
++----------------------------------------+--------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

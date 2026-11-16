@@ -254,6 +254,10 @@ add_simset soc_fw_hal     safety_riscv_soc_stage5_hal_tb \
 add_simset soc_fw_battery safety_riscv_soc_stage5_battery_tb \
     [list [file join $tb_soc safety_riscv_soc_stage5_battery_tb.sv]] {} ""
 
+# --- Same workload in Basic, Safety and Diagnostic: execution-time cost ----
+add_simset soc_profile_performance safety_riscv_soc_profile_perf_tb \
+    [list [file join $tb_soc safety_riscv_soc_profile_perf_tb.sv]] {} ""
+
 # --- Board-level demonstration: switches, button, LEDs and UART ------------
 add_simset board_demo safety_riscv_soc_arty_a7_tb \
     [list [file join $root tb board safety_riscv_soc_arty_a7_tb.sv]] {} ""

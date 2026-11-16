@@ -1,0 +1,24 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting native Ibex double-fault integration test
+PASS: Core A event, sticky capture and safe-state containment
+PASS: Core B event, sticky capture and safe-state containment
+
+===============================================
+IBEX DOUBLE-FAULT INTEGRATION: PASS
+Core A sticky event      : VERIFIED
+Core B sticky event      : VERIFIED
+Fault code               : 0x04
+Safe-state containment   : VERIFIED
+Capture test boundary    : Wrapper output (forced)
+===============================================
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=7 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=2, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=7 Safety=0 Diagnostic=0, injection enabled=0, profile changes=0, safe-state cycles=2, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=0, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=2, latch events=1, latched cycles=2
+SVA diagnostic logger: 7 properties; reset releases=2, faults recorded=1, clock cycles in reset=9
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=1, safe-state cycles=2, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 157 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 894

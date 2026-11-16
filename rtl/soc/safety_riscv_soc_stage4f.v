@@ -280,6 +280,11 @@ module safety_riscv_soc_stage4f #(
   // Shared MMIO configuration and fault-status peripheral
   // --------------------------------------------------------------------------
 
+  // DONT_TOUCH: the two configuration blocks are intentionally identical and
+  // receive identical inputs. Without this attribute synthesis merges them
+  // into one ("decloning"), which would silently remove the redundancy that
+  // the replica-integrity check relies on.
+  (* DONT_TOUCH = "true" *)
   safety_mmio_config_stage4f u_mmio_config (
       .clk_i                    (clk_i),
       .rst_ni                   (soc_rst_ni),
@@ -316,6 +321,7 @@ module safety_riscv_soc_stage4f #(
       .heartbeat_update_o       (mmio_heartbeat_update_a)
   );
 
+  (* DONT_TOUCH = "true" *)
   safety_mmio_config_stage4f u_mmio_config_replica (
       .clk_i                    (clk_i),
       .rst_ni                   (soc_rst_ni),

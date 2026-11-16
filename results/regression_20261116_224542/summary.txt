@@ -1,0 +1,8 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 22:46:30
+Vivado  : 2026.1
+Commit  : 4016efc5eabe926046c0e7cceb131e4be07a68a9
+Pattern : soc_profile*
+Result  : 1 passed, 0 failed
+
+soc_profile_performance                  PASS  

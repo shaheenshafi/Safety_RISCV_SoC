@@ -142,3 +142,15 @@ Verification-only files under `tb/uvm/`, simulation set `uvm_safety_manager`
 The assertions of `tb/sva/` for the three modules are active in this set as
 well. `run_regression.tcl` now also fails a test on any `UVM_ERROR` or
 `UVM_FATAL` message.
+
+## Replicated configuration block protected from synthesis merging (16 Nov 2026)
+
+Finding: the synthesis log of every FPGA build so far contains
+`[Synth 8-223] decloning instance 'u_mmio_config' to 'u_mmio_config_replica'`.
+Vivado recognised the two replicated configuration blocks as identical and
+implemented only one, so on the FPGA the replica-integrity comparison
+(fault code 06) compared a block with itself. Simulation was not affected.
+
+Fix: `(* DONT_TOUCH = "true" *)` on both instances in
+`rtl/soc/safety_riscv_soc_stage4f.v`. The two processor cores were never
+merged (the hierarchical utilization report shows both).

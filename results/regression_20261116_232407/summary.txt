@@ -1,0 +1,39 @@
+Safety-Oriented RISC-V SoC - XSim behavioural regression
+Date    : 2026-11-16 23:46:02
+Vivado  : 2026.1
+Commit  : 4016efc5eabe926046c0e7cceb131e4be07a68a9
+Pattern : *
+Result  : 32 passed, 0 failed
+
+board_demo                               PASS  
+soc_fw_battery                           PASS  
+soc_fw_hal                               PASS  
+soc_fw_smoke                             PASS  
+soc_native_double_fault                  PASS  
+soc_profile_performance                  PASS  
+soc_safety_config_integrity              PASS  
+soc_safety_data_error_mismatch           PASS  
+soc_safety_data_request_stability        PASS  
+soc_safety_data_response_fault           PASS  
+soc_safety_double_fault_capture          PASS  
+soc_safety_heartbeat                     PASS  
+soc_safety_heartbeat_loss                PASS  
+soc_safety_instr_address_guard           PASS  
+soc_safety_instr_error_mismatch          PASS  
+soc_safety_mmio_replica_integrity        PASS  
+soc_safety_profile_policy                PASS  
+soc_safety_ram_address_guard             PASS  
+soc_safety_store_inhibit                 PASS  
+soc_safety_supervisor_mmio_contain       PASS  
+soc_safety_supervisor_ram_contain        PASS  
+unit_core_response_fault_injector        PASS  
+unit_dcls_comparator                     PASS  
+unit_dcls_fault_injector                 PASS  
+unit_dcls_paired_data_capture_stage      PASS  
+unit_dcls_response_error_monitor         PASS  
+unit_safety_diagnostic_logger            PASS  
+unit_safety_execution_supervisor         PASS  
+uvm_mutation_1                           PASS  
+uvm_mutation_2                           PASS  
+uvm_mutation_3                           PASS  
+uvm_safety_manager                       PASS  

@@ -1,0 +1,6 @@
+Safety-Oriented RISC-V SoC - FPGA build evidence
+Date   : 2026-11-16 23:19:26
+Vivado : 2026.1
+Commit : 4016efc5eabe926046c0e7cceb131e4be07a68a9 (working tree has uncommitted changes)
+Part   : xc7a100tcsg324-1
+Impl strategy : Performance_ExplorePostRoutePhysOpt
