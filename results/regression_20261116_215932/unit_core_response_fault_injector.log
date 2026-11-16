@@ -1,0 +1,12 @@
+Time resolution is 1 ps
+PASS: injection disabled
+PASS: INSTR_RDATA single-bit injection
+PASS: DATA_RDATA single-bit injection
+PASS: DATA_RDATA multi-bit injection
+PASS: reserved target
+PASS: disabled after injection
+
+==============================================
+CORE RESPONSE FAULT INJECTOR PASS
+==============================================
+$finish called at time : 6 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/core_response_fault_injector_tb.sv" Line 147

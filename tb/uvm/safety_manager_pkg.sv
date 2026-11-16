@@ -829,19 +829,45 @@ package safety_manager_pkg;
   class sm_random_seq extends sm_base_seq;
     `uvm_object_utils(sm_random_seq)
 
-    int unsigned n_cycles = 20000;
+    int unsigned n_free_cycles     = 6000;
+    int unsigned n_serviced_cycles = 14000;
 
     function new(string name = "sm_random_seq"); super.new(name); endfunction
 
     task body();
       sm_item item;
+      bit     svc;
+
+      // Phase 1: every input random, including kicks. Exercises the
+      // supervisor at random positions of its window.
       do_reset();
-      repeat (n_cycles) begin
+      repeat (n_free_cycles) begin
         item = sm_item::type_id::create("item");
         start_item(item);
         if (!item.randomize())
           `uvm_fatal("RAND", "randomization failed")
         finish_item(item);
+      end
+
+      // Phase 2: the supervisor is serviced correctly, so the system stays
+      // healthy until a random fault arrives; resets are frequent, so many
+      // random fault / profile / reset combinations are produced.
+      do_reset();
+      repeat (n_serviced_cycles) begin
+        svc = ((cycle % 8) == 7);
+        item = sm_item::type_id::create("item");
+        start_item(item);
+        item.c_reset.constraint_mode(0);
+        if (!item.randomize() with {
+              enable   == 1'b1;
+              kick     == svc;
+              progress == svc;
+              rst_n dist {1 := 40, 0 := 1};
+            })
+          `uvm_fatal("RAND", "randomization failed")
+        finish_item(item);
+        if (item.rst_n) cycle++;
+        else            cycle = 0;
       end
     endtask
   endclass
@@ -907,6 +933,77 @@ package safety_manager_pkg;
         `uvm_info("TEST", "UVM SAFETY MANAGER TEST: PASS", UVM_NONE)
       else
         `uvm_info("TEST", $sformatf("UVM SAFETY MANAGER TEST: FAIL (%0d errors)", errors), UVM_NONE)
+    endfunction
+  endclass
+
+  // ===========================================================================
+  // Checker sensitivity (mutation) test
+  //
+  // The testbench top deliberately breaks one connection of the design
+  // (+MUTATION=n). This test passes only if the scoreboard reports the
+  // resulting wrong behaviour. It answers the question "would the
+  // verification environment notice a real bug?".
+  // ===========================================================================
+  class sm_scb_error_catcher extends uvm_report_catcher;
+    int unsigned n_caught = 0;
+
+    function new(string name = "sm_scb_error_catcher");
+      super.new(name);
+    endfunction
+
+    function action_e catch();
+      if ((get_severity() == UVM_ERROR) && (get_id() == "SCB")) begin
+        n_caught++;
+        // Show the first three as information, hide the rest.
+        if (n_caught > 3)
+          return CAUGHT;
+        set_severity(UVM_INFO);
+      end
+      return THROW;
+    endfunction
+  endclass
+
+  class safety_manager_mutation_test extends uvm_test;
+    `uvm_component_utils(safety_manager_mutation_test)
+
+    sm_env               env;
+    sm_scb_error_catcher catcher;
+    int                  mutation = 0;
+
+    function new(string name, uvm_component parent);
+      super.new(name, parent);
+    endfunction
+
+    function void build_phase(uvm_phase phase);
+      super.build_phase(phase);
+      env = sm_env::type_id::create("env", this);
+      catcher = new("catcher");
+      uvm_report_cb::add(null, catcher);
+      void'($value$plusargs("MUTATION=%d", mutation));
+    endfunction
+
+    task run_phase(uvm_phase phase);
+      sm_single_fault_seq single_seq;
+      sm_supervisor_seq   supervisor_seq;
+
+      phase.raise_objection(this);
+      single_seq     = sm_single_fault_seq::type_id::create("single_seq");
+      supervisor_seq = sm_supervisor_seq::type_id::create("supervisor_seq");
+      single_seq.start(env.agent.sequencer);
+      supervisor_seq.start(env.agent.sequencer);
+      repeat (4) @(posedge env.agent.driver.vif.clk);
+      phase.drop_objection(this);
+    endtask
+
+    function void report_phase(uvm_phase phase);
+      if (mutation == 0)
+        `uvm_error("MUT", "no mutation selected: use +MUTATION=1, 2 or 3")
+      else if (catcher.n_caught == 0)
+        `uvm_error("MUT", $sformatf("MUTATION %0d WAS NOT DETECTED by the scoreboard", mutation))
+      else
+        `uvm_info("MUT", $sformatf(
+            "MUTATION %0d DETECTED: scoreboard reported %0d mismatches. CHECKER SENSITIVITY TEST: PASS",
+            mutation, catcher.n_caught), UVM_NONE)
     endfunction
   endclass
 

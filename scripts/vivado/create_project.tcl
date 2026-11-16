@@ -202,10 +202,25 @@ add_simset uvm_safety_manager safety_manager_uvm_tb \
     [list [file join $rtl_s safety_execution_supervisor.v] \
           [file join $rtl_s safety_fault_manager_stage4f.v] \
           [file join $rtl_s safety_diagnostic_logger.v]] ""
-set_property -name {xsim.compile.xvlog.more_options} -value {-L uvm} \
-    -objects [get_filesets uvm_safety_manager]
-set_property -name {xsim.elaborate.xelab.more_options} -value {-L uvm} \
-    -objects [get_filesets uvm_safety_manager]
+
+# Checker sensitivity (mutation) runs: the same environment with one
+# deliberate design error each. A run passes only if the scoreboard
+# detects the error.
+foreach m {1 2 3} {
+    add_simset "uvm_mutation_${m}" safety_manager_uvm_tb \
+        [list [file join $tb_uvm safety_manager_if.sv] \
+              [file join $tb_uvm safety_manager_pkg.sv] \
+              [file join $tb_uvm safety_manager_uvm_tb.sv]] \
+        [list [file join $rtl_s safety_execution_supervisor.v] \
+              [file join $rtl_s safety_fault_manager_stage4f.v] \
+              [file join $rtl_s safety_diagnostic_logger.v]] \
+        "UVM_TESTNAME=safety_manager_mutation_test -testplusarg MUTATION=${m}"
+}
+
+foreach fs [get_filesets uvm_*] {
+    set_property -name {xsim.compile.xvlog.more_options} -value {-L uvm} -objects $fs
+    set_property -name {xsim.elaborate.xelab.more_options} -value {-L uvm} -objects $fs
+}
 
 # --- SoC tests: safety mechanisms (one testbench, one scenario per set) ----
 set tb4f [list [file join $tb_soc safety_riscv_soc_stage4f_tb.sv]]

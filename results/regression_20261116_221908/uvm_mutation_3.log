@@ -1,0 +1,65 @@
+Time resolution is 1 ps
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(18601) @ 0: reporter [UVM/RELNOTES] 
+----------------------------------------------------------------
+UVM-1.2
+(C) 2007-2014 Mentor Graphics Corporation
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2013-2014 NVIDIA Corporation
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+TESTBENCH: design mutation 3 is active
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(18648) @ 0: reporter [NO_DPI_TSTNAME] UVM_NO_DPI defined--getting UVM_TESTNAME directly, without DPI
+UVM_INFO @ 0: reporter [RNTST] Running test safety_manager_mutation_test...
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(20867) @ 0: reporter [UVM/COMP/NAMECHECK] This implementation of the component name checks requires DPI to be enabled
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(268) @ 5000: uvm_test_top.env.scoreboard [SCB] fault_code: design = 1, reference model = 0 (cycle 1)
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(268) @ 15000: uvm_test_top.env.scoreboard [SCB] fault_code: design = 1, reference model = 0 (cycle 2)
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(268) @ 25000: uvm_test_top.env.scoreboard [SCB] fault_code: design = 1, reference model = 0 (cycle 3)
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(19968) @ 23005000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(590) @ 23005000: uvm_test_top.env.coverage [COV] FUNCTIONAL COVERAGE: fault=41.7% supervisor=100.0% kick=100.0% log=100.0% events=50.0% average=78.3%
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(420) @ 23005000: uvm_test_top.env.scoreboard [SCB] SCOREBOARD: cycles=2301 compares=48321 mismatches=4483 faults latched=34 resets=72
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(1006) @ 23005000: uvm_test_top [MUT] MUTATION 3 DETECTED: scoreboard reported 4483 mismatches. CHECKER SENSITIVITY TEST: PASS
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(13144) @ 23005000: reporter [UVM/REPORT/CATCHER] 
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    3
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   : 4480
+Number of caught UVM_WARNING reports :    0
+
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(13673) @ 23005000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   12
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[COV]     1
+[MUT]     1
+[NO_DPI_TSTNAME]     1
+[RNTST]     1
+[SCB]     4
+[TEST_DONE]     1
+[UVM/COMP/NAMECHECK]     1
+[UVM/RELNOTES]     1
+[UVM/REPORT/CATCHER]     1
+
+SVA execution supervisor: 8 properties; kicks=156, early kicks=12, supervisor fault events=15
+SVA diagnostic logger: 7 properties; reset releases=73, faults recorded=34, clock cycles in reset=147
+$finish called at time : 23005 ns : File "E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv" Line 18699

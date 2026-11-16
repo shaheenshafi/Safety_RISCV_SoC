@@ -81,6 +81,28 @@ module safety_manager_uvm_tb;
       .rd_time_o       (sm_if.rd_time)
   );
 
+  // ---------------------------------------------------------------------------
+  // Deliberate design errors for the checker sensitivity test (+MUTATION=n).
+  // Each one breaks a connection between two modules of the safety manager,
+  // which is the kind of integration error a module-level check cannot see.
+  //   1  supervisor fault never reaches the fault manager
+  //   2  latched fault never reaches the diagnostic logger / safe-state output
+  //   3  fault code output stuck at 01
+  // Not used in the normal test.
+  // ---------------------------------------------------------------------------
+  initial begin
+    int mutation;
+    if ($value$plusargs("MUTATION=%d", mutation)) begin
+      case (mutation)
+        1: force sm_if.supervisor_fault = 1'b0;
+        2: force sm_if.fault_latched    = 1'b0;
+        3: force sm_if.fault_code       = 8'h01;
+        default: ;
+      endcase
+      $display("TESTBENCH: design mutation %0d is active", mutation);
+    end
+  end
+
   initial begin
     uvm_config_db #(virtual safety_manager_if)::set(null, "*", "vif", sm_if);
     run_test("safety_manager_full_test");
