@@ -1,9 +1,10 @@
 # Known limitations and open warnings
 
-Assessment of the design-rule warnings that remain in the FPGA build
-(`results/fpga_build_20261117_1802`). None is an error; all
-three were present in every earlier build. No design change was made for
-them. Each entry states the risk honestly and what a fix would be.
+Open design-rule and methodology warnings of the baselined FPGA build
+(`results/fpga_build_20261117_1802`), followed by the limitations of the
+work as a whole. The build has no errors. The three warning types below were
+present in every earlier build and no design change was made for them; each
+entry gives the risk and what a fix would be.
 
 ## REQP-1839: block RAM address driven by registers with asynchronous reset (20 reported, report limit)
 
@@ -64,7 +65,16 @@ No functional effect.
 - Common-cause faults (clock, power, a fault that hits both cores in the
   same way) are not detected by lockstep comparison.
 - Faults are injected at bus and comparison level and as an execution
-  stall; there is no radiation or gate-level fault injection.
+  stall. There is no injection into core registers or RAM contents, no
+  gate-level or radiation testing, and no statistical fault campaign, so no
+  diagnostic-coverage figure is claimed.
+- The battery workload runs on a fixed data set compiled into the firmware;
+  there is no sensor or battery interface.
+- The design follows ISO 26262 concepts (lockstep, watchdog, safe state,
+  diagnostic profile) but is a prototype; no compliance or ASIL claim is
+  made.
+- All three profiles are in one bitstream, so area and maximum frequency are
+  the same for each; only the run time differs between profiles.
 - The power figure is Vivado's vectorless estimate, not a measurement.
 - The single-core area baseline is the `core_a` instance of the safety SoC,
   not a separately implemented single-core design.
