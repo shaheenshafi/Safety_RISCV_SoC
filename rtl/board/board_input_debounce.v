@@ -5,8 +5,6 @@
 // 2. Debounce: the output level changes only after the synchronized input has
 //    been different from it for 2^COUNTER_BITS consecutive clock cycles.
 // 3. rise_o is a one-cycle pulse when the debounced level goes from 0 to 1.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 `timescale 1ns/1ps
 

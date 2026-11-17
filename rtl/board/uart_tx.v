@@ -4,8 +4,6 @@
 // A byte is accepted in a cycle where valid_i and ready_o are both high.
 // Each bit is held on tx_o for CLKS_PER_BIT clock cycles.
 // Example: 40 MHz / 115200 baud = 347 clock cycles per bit.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 `timescale 1ns/1ps
 

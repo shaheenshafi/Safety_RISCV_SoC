@@ -23,8 +23,6 @@
 //   MMCM reset is asserted while external reset is active.
 //   Generated-domain reset asserts asynchronously on external reset
 //   or loss of MMCM lock, and deasserts synchronously.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 
 module arty_a7_clock_gen (

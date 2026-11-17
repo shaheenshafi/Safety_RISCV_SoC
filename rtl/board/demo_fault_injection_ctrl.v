@@ -25,8 +25,6 @@
 // latency_o counts clock cycles from the moment the fault is applied until
 // the fault manager latches a fault: a hardware measurement of the
 // injection-to-detection latency.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 `timescale 1ns/1ps
 

@@ -118,8 +118,6 @@ TEMPLATE = r"""// --------------------------------------------------------------
 // summary line, then one line per stored record, most recent first.
 // A status line is printed after boot, on request, and periodically every
 // 2^STATUS_PERIOD_BITS clock cycles.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 `timescale 1ns/1ps
 

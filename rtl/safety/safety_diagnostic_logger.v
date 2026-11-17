@@ -24,8 +24,6 @@
 // Limitation: the retained registers are qualified by reset-domain flip-flops.
 // A fault that is latched in the same clock cycle in which the reset button
 // is pressed may not be recorded.
-//
-// RTL language: Verilog
 // -----------------------------------------------------------------------------
 `timescale 1ns/1ps
 
