@@ -1,0 +1,5 @@
+Time resolution is 1 ps
+DCLS PAIRED DATA CAPTURE STAGE PASS
+Capture-before-compare, paired grants, registered payload commit,
+mismatch rejection, request-valid fault, flush and profile transition verified
+$finish called at time : 366 ns : File "E:/Dissertation/Working_Model_RISCV/tb/unit/dcls_paired_data_capture_stage_tb.sv" Line 293

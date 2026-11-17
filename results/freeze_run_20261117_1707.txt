@@ -1,0 +1,6 @@
+started 2026-11-17 17:07:29
+regression: 32 passed, 0 failed (E:/Dissertation/Working_Model_RISCV/results/regression_20261117_170756)
+guard band 1.500 ns: progress 100%, WNS 0.012738 ns, WHS 0.077021 ns
+timing met with guard band 1.500 ns: reported WNS 0.012738 ns, real setup margin 1.513 ns
+implementation evidence: E:/Dissertation/Working_Model_RISCV/results/fpga_build_20261117_1802
+finished 2026-11-17 18:03:01

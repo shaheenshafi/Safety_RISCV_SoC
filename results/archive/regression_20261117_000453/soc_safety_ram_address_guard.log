@@ -1,0 +1,18 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4G RAM address-guard test
+[225000] Heartbeat #1, sequence=00000000
+[285000] Core A wrote Stage 4F success marker
+[285000] Core B wrote Stage 4F success marker
+STAGE 4G RAM ADDRESS-GUARD PASS
+Boundary decode, blocked write, bus error and safe state confirmed
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=10 Safety=17 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=0, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=10 Safety=17 Diagnostic=0, injection enabled=0, profile changes=1, safe-state cycles=0, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=1, early kicks=0, supervisor fault events=0
+SVA fault manager: 10 properties; fault-input cycles=1, latch events=0, latched cycles=0
+SVA diagnostic logger: 7 properties; reset releases=1, faults recorded=0, clock cycles in reset=6
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=0, fault events=0, safe-state cycles=0, injection-enabled cycles=0, stall cycles=0
+$finish called at time : 326 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1480

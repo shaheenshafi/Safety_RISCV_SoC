@@ -1,0 +1,1894 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Tue Nov 17 18:02:52 2026
+| Host         : LordSHAH running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -max_paths 5 -file E:/Dissertation/Working_Model_RISCV/results/fpga_build_20261117_1802/timing_summary_5_paths.rpt
+| Design       : safety_riscv_soc_arty_a7
+| Device       : 7a100t-csg324
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Physopt postRoute
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+Rule       Severity  Description                                 Violations  
+---------  --------  ------------------------------------------  ----------  
+LUTAR-1    Warning   LUT drives async reset alert                2           
+SYNTH-6    Warning   Timing of a RAM block might be sub-optimal  8           
+TIMING-44  Warning   Unreasonable user intra-clock uncertainty   1           
+
+Note: This report is based on the most recent report_methodology run and may not be up-to-date. Run report_methodology on the current design for the latest report.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (9)
+6. checking no_output_delay (15)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (9)
+------------------------------
+ There are 0 input ports with no input delay specified.
+
+ There are 9 input ports with no input delay but user has a false path constraint. (MEDIUM)
+
+
+6. checking no_output_delay (15)
+--------------------------------
+ There are 0 ports with no output delay specified.
+
+ There are 15 ports with no output delay but user has a false path constraint (MEDIUM)
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      0.013        0.000                      0                13860        0.077        0.000                      0                13860        3.000        0.000                       0                  4923  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock                 Waveform(ns)       Period(ns)      Frequency(MHz)
+-----                 ------------       ----------      --------------
+board_clk_100mhz      {0.000 5.000}      10.000          100.000         
+  clk_feedback_unbuf  {0.000 5.000}      10.000          100.000         
+  clk_sys_unbuf       {0.000 12.500}     25.000          40.000          
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock                     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----                     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+board_clk_100mhz                                                                                                                                                        3.000        0.000                       0                     1  
+  clk_feedback_unbuf                                                                                                                                                    7.845        0.000                       0                     3  
+  clk_sys_unbuf             0.013        0.000                      0                 9834        0.077        0.000                      0                 9834       11.250        0.000                       0                  4919  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group         From Clock         To Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------         ----------         --------               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+**async_default**  clk_sys_unbuf      clk_sys_unbuf           12.277        0.000                      0                 4026        0.399        0.000                      0                 4026  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  board_clk_100mhz
+  To Clock:  board_clk_100mhz
+
+Setup :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+PW    :            0  Failing Endpoints,  Worst Slack        3.000ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         board_clk_100mhz
+Waveform(ns):       { 0.000 5.000 }
+Period(ns):         10.000
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin            Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location         Pin
+Min Period        n/a     MMCME2_ADV/CLKIN1  n/a            1.249         10.000      8.751      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+Max Period        n/a     MMCME2_ADV/CLKIN1  n/a            100.000       10.000      90.000     MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+Low Pulse Width   Slow    MMCME2_ADV/CLKIN1  n/a            2.000         5.000       3.000      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+Low Pulse Width   Fast    MMCME2_ADV/CLKIN1  n/a            2.000         5.000       3.000      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+High Pulse Width  Slow    MMCME2_ADV/CLKIN1  n/a            2.000         5.000       3.000      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+High Pulse Width  Fast    MMCME2_ADV/CLKIN1  n/a            2.000         5.000       3.000      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKIN1
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_feedback_unbuf
+  To Clock:  clk_feedback_unbuf
+
+Setup :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+PW    :            0  Failing Endpoints,  Worst Slack        7.845ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_feedback_unbuf
+Waveform(ns):       { 0.000 5.000 }
+Period(ns):         10.000
+Sources:            { u_board_clock/u_system_mmcm/CLKFBOUT }
+
+Check Type  Corner  Lib Pin              Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location         Pin
+Min Period  n/a     BUFG/I               n/a            2.155         10.000      7.845      BUFGCTRL_X0Y29   u_board_clock/u_mmcm_feedback_bufg/I
+Min Period  n/a     MMCME2_ADV/CLKFBOUT  n/a            1.249         10.000      8.751      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKFBOUT
+Min Period  n/a     MMCME2_ADV/CLKFBIN   n/a            1.249         10.000      8.751      MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKFBIN
+Max Period  n/a     MMCME2_ADV/CLKFBIN   n/a            100.000       10.000      90.000     MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKFBIN
+Max Period  n/a     MMCME2_ADV/CLKFBOUT  n/a            213.360       10.000      203.360    MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKFBOUT
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_sys_unbuf
+  To Clock:  clk_sys_unbuf
+
+Setup :            0  Failing Endpoints,  Worst Slack        0.013ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.077ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack       11.250ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.013ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_last_q_reg[1]/CE
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        22.911ns  (logic 6.367ns (27.790%)  route 16.544ns (72.210%))
+  Logic Levels:           31  (CARRY4=5 LUT2=2 LUT3=1 LUT4=5 LUT5=3 LUT6=14 MUXF7=1)
+  Clock Path Skew:        -0.113ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.105ns = ( 23.895 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.511ns
+    Clock Pessimism Removal (CPR):    0.480ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.140    -2.400    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096    -2.304 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        1.793    -0.511    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/clk
+    SLICE_X53Y14         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y14         FDRE (Prop_fdre_C_Q)         0.456    -0.055 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/Q
+                         net (fo=10, routed)          0.486     0.432    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0]
+    SLICE_X54Y13         LUT2 (Prop_lut2_I0_O)        0.124     0.556 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___86_i_2/O
+                         net (fo=19, routed)          0.740     1.296    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]_0
+    SLICE_X54Y15         LUT6 (Prop_lut6_I4_O)        0.124     1.420 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24/O
+                         net (fo=9, routed)           0.654     2.074    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24_n_0
+    SLICE_X54Y17         LUT6 (Prop_lut6_I0_O)        0.124     2.198 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41/O
+                         net (fo=1, routed)           1.146     3.344    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41_n_0
+    SLICE_X53Y8          LUT6 (Prop_lut6_I1_O)        0.124     3.468 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_28/O
+                         net (fo=11, routed)          0.696     4.164    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_operator_ex[0]
+    SLICE_X53Y8          LUT6 (Prop_lut6_I3_O)        0.124     4.288 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_14/O
+                         net (fo=33, routed)          0.859     5.147    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/ex_block_i/alu_i/adder_in_b00
+    SLICE_X55Y8          LUT5 (Prop_lut5_I1_O)        0.124     5.271 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9/O
+                         net (fo=1, routed)           0.000     5.271    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9_n_0
+    SLICE_X55Y8          CARRY4 (Prop_carry4_S[0]_O[1])
+                                                      0.424     5.695 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1/O[1]
+                         net (fo=52, routed)          0.938     6.633    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/O[0]
+    SLICE_X51Y8          LUT6 (Prop_lut6_I1_O)        0.303     6.936 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_24/O
+                         net (fo=9, routed)           1.008     7.944    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/wdata_i[13]
+    SLICE_X48Y9          LUT6 (Prop_lut6_I3_O)        0.124     8.068 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94/O
+                         net (fo=1, routed)           0.000     8.068    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94_n_0
+    SLICE_X48Y9          CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.600 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81/CO[3]
+                         net (fo=1, routed)           0.000     8.600    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228     8.828 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_63/CO[2]
+                         net (fo=2, routed)           0.647     9.474    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_3_0[0]
+    SLICE_X50Y17         LUT4 (Prop_lut4_I2_O)        0.313     9.787 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47/O
+                         net (fo=1, routed)           0.429    10.216    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47_n_0
+    SLICE_X50Y19         LUT6 (Prop_lut6_I0_O)        0.124    10.340 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40/O
+                         net (fo=2, routed)           0.182    10.522    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40_n_0
+    SLICE_X50Y19         LUT4 (Prop_lut4_I0_O)        0.124    10.646 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_1/O
+                         net (fo=8, routed)           0.319    10.965    u_safety_riscv_soc/u_mmio_config/req_i
+    SLICE_X51Y19         LUT4 (Prop_lut4_I3_O)        0.124    11.089 r  u_safety_riscv_soc/u_mmio_config/gnt_o_INST_0/O
+                         net (fo=2, routed)           0.657    11.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/gnt_o
+    SLICE_X49Y25         LUT6 (Prop_lut6_I0_O)        0.124    11.870 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6/O
+                         net (fo=1, routed)           0.298    12.168    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6_n_0
+    SLICE_X51Y25         LUT4 (Prop_lut4_I3_O)        0.124    12.292 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_2/O
+                         net (fo=6, routed)           0.362    12.654    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/rvalid_o_reg_0
+    SLICE_X52Y25         LUT6 (Prop_lut6_I0_O)        0.124    12.778 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/i___16_i_5/O
+                         net (fo=8, routed)           0.309    13.087    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q_reg[8]_0
+    SLICE_X55Y25         LUT3 (Prop_lut3_I2_O)        0.124    13.211 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q[31]_i_3/O
+                         net (fo=81, routed)          0.873    14.085    u_safety_riscv_soc/core_b/u_ram/u_ram/mmio_rvalid
+    SLICE_X49Y24         LUT6 (Prop_lut6_I1_O)        0.124    14.209 r  u_safety_riscv_soc/core_b/u_ram/u_ram/rdata_q[17]_i_1__3/O
+                         net (fo=6, routed)           1.256    15.464    u_safety_riscv_soc/core_b/u_ram/u_ram/core_b_data_rdata[14]
+    SLICE_X45Y21         LUT6 (Prop_lut6_I2_O)        0.124    15.588 r  u_safety_riscv_soc/core_b/u_ram/u_ram/data_rdata_mismatch0_carry__0_i_3/O
+                         net (fo=1, routed)           0.000    15.588    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1_0[1]
+    SLICE_X45Y21         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.138 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    16.138    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0_n_0
+    SLICE_X45Y22         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    16.366 f  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1/CO[2]
+                         net (fo=1, routed)           0.609    16.976    u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_44[0]
+    SLICE_X44Y20         LUT5 (Prop_lut5_I2_O)        0.313    17.289 r  u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_59/O
+                         net (fo=1, routed)           0.441    17.730    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_2_3
+    SLICE_X44Y17         LUT6 (Prop_lut6_I5_O)        0.124    17.854 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_44/O
+                         net (fo=4, routed)           0.197    18.051    u_safety_riscv_soc/core_b/u_ram/u_ram/state_q_reg[0]_1
+    SLICE_X44Y17         LUT4 (Prop_lut4_I3_O)        0.124    18.175 f  u_safety_riscv_soc/core_b/u_ram/u_ram/state_q[1]_i_2/O
+                         net (fo=6, routed)           0.352    18.527    u_safety_riscv_soc/u_paired_data_capture_stage/state_q_reg[0]_0
+    SLICE_X45Y17         LUT5 (Prop_lut5_I0_O)        0.124    18.651 f  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=100, routed)         0.764    19.414    u_safety_riscv_soc/core_b/paired_data_path_active
+    SLICE_X43Y18         LUT2 (Prop_lut2_I1_O)        0.124    19.538 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6/O
+                         net (fo=1, routed)           0.606    20.144    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6_n_0
+    SLICE_X42Y17         LUT6 (Prop_lut6_I5_O)        0.124    20.268 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, routed)           0.446    20.714    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+    SLICE_X40Y17         LUT6 (Prop_lut6_I0_O)        0.124    20.838 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=7, routed)           0.375    21.213    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_gnt
+    SLICE_X38Y17         MUXF7 (Prop_muxf7_S_O)       0.292    21.505 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_last_q_reg[31]_i_1/O
+                         net (fo=32, routed)          0.896    22.401    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_update
+    SLICE_X41Y14         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_last_q_reg[1]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.147    22.126    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.091    22.217 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        1.678    23.895    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/clk
+    SLICE_X41Y14         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_last_q_reg[1]/C
+                         clock pessimism              0.480    24.376    <hidden>
+                         clock uncertainty           -1.585    22.791    <hidden>
+    SLICE_X41Y14         FDCE (Setup_fdce_C_CE)      -0.378    22.413    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/addr_last_q_reg[1]
+  -------------------------------------------------------------------
+                         required time                         22.413    <hidden>
+                         arrival time                         -22.401    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.013    <hidden>
+
+Slack (MET) :             0.077ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/FSM_sequential_ls_fsm_cs_reg[2]/D
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        23.155ns  (logic 6.199ns (26.772%)  route 16.956ns (73.228%))
+  Logic Levels:           31  (CARRY4=5 LUT2=2 LUT3=1 LUT4=5 LUT5=3 LUT6=15)
+  Clock Path Skew:        -0.115ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.107ns = ( 23.893 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.511ns
+    Clock Pessimism Removal (CPR):    0.480ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.140    -2.400    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096    -2.304 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        1.793    -0.511    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/clk
+    SLICE_X53Y14         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y14         FDRE (Prop_fdre_C_Q)         0.456    -0.055 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/Q
+                         net (fo=10, routed)          0.486     0.432    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0]
+    SLICE_X54Y13         LUT2 (Prop_lut2_I0_O)        0.124     0.556 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___86_i_2/O
+                         net (fo=19, routed)          0.740     1.296    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]_0
+    SLICE_X54Y15         LUT6 (Prop_lut6_I4_O)        0.124     1.420 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24/O
+                         net (fo=9, routed)           0.654     2.074    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24_n_0
+    SLICE_X54Y17         LUT6 (Prop_lut6_I0_O)        0.124     2.198 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41/O
+                         net (fo=1, routed)           1.146     3.344    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41_n_0
+    SLICE_X53Y8          LUT6 (Prop_lut6_I1_O)        0.124     3.468 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_28/O
+                         net (fo=11, routed)          0.696     4.164    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_operator_ex[0]
+    SLICE_X53Y8          LUT6 (Prop_lut6_I3_O)        0.124     4.288 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_14/O
+                         net (fo=33, routed)          0.859     5.147    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/ex_block_i/alu_i/adder_in_b00
+    SLICE_X55Y8          LUT5 (Prop_lut5_I1_O)        0.124     5.271 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9/O
+                         net (fo=1, routed)           0.000     5.271    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9_n_0
+    SLICE_X55Y8          CARRY4 (Prop_carry4_S[0]_O[1])
+                                                      0.424     5.695 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1/O[1]
+                         net (fo=52, routed)          0.938     6.633    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/O[0]
+    SLICE_X51Y8          LUT6 (Prop_lut6_I1_O)        0.303     6.936 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_24/O
+                         net (fo=9, routed)           1.008     7.944    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/wdata_i[13]
+    SLICE_X48Y9          LUT6 (Prop_lut6_I3_O)        0.124     8.068 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94/O
+                         net (fo=1, routed)           0.000     8.068    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94_n_0
+    SLICE_X48Y9          CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.600 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81/CO[3]
+                         net (fo=1, routed)           0.000     8.600    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228     8.828 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_63/CO[2]
+                         net (fo=2, routed)           0.647     9.474    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_3_0[0]
+    SLICE_X50Y17         LUT4 (Prop_lut4_I2_O)        0.313     9.787 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47/O
+                         net (fo=1, routed)           0.429    10.216    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47_n_0
+    SLICE_X50Y19         LUT6 (Prop_lut6_I0_O)        0.124    10.340 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40/O
+                         net (fo=2, routed)           0.182    10.522    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40_n_0
+    SLICE_X50Y19         LUT4 (Prop_lut4_I0_O)        0.124    10.646 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_1/O
+                         net (fo=8, routed)           0.319    10.965    u_safety_riscv_soc/u_mmio_config/req_i
+    SLICE_X51Y19         LUT4 (Prop_lut4_I3_O)        0.124    11.089 r  u_safety_riscv_soc/u_mmio_config/gnt_o_INST_0/O
+                         net (fo=2, routed)           0.657    11.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/gnt_o
+    SLICE_X49Y25         LUT6 (Prop_lut6_I0_O)        0.124    11.870 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6/O
+                         net (fo=1, routed)           0.298    12.168    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6_n_0
+    SLICE_X51Y25         LUT4 (Prop_lut4_I3_O)        0.124    12.292 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_2/O
+                         net (fo=6, routed)           0.362    12.654    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/rvalid_o_reg_0
+    SLICE_X52Y25         LUT6 (Prop_lut6_I0_O)        0.124    12.778 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/i___16_i_5/O
+                         net (fo=8, routed)           0.309    13.087    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q_reg[8]_0
+    SLICE_X55Y25         LUT3 (Prop_lut3_I2_O)        0.124    13.211 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q[31]_i_3/O
+                         net (fo=81, routed)          0.873    14.085    u_safety_riscv_soc/core_b/u_ram/u_ram/mmio_rvalid
+    SLICE_X49Y24         LUT6 (Prop_lut6_I1_O)        0.124    14.209 r  u_safety_riscv_soc/core_b/u_ram/u_ram/rdata_q[17]_i_1__3/O
+                         net (fo=6, routed)           1.256    15.464    u_safety_riscv_soc/core_b/u_ram/u_ram/core_b_data_rdata[14]
+    SLICE_X45Y21         LUT6 (Prop_lut6_I2_O)        0.124    15.588 r  u_safety_riscv_soc/core_b/u_ram/u_ram/data_rdata_mismatch0_carry__0_i_3/O
+                         net (fo=1, routed)           0.000    15.588    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1_0[1]
+    SLICE_X45Y21         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.138 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    16.138    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0_n_0
+    SLICE_X45Y22         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    16.366 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1/CO[2]
+                         net (fo=1, routed)           0.609    16.976    u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_44[0]
+    SLICE_X44Y20         LUT5 (Prop_lut5_I2_O)        0.313    17.289 f  u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_59/O
+                         net (fo=1, routed)           0.441    17.730    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_2_3
+    SLICE_X44Y17         LUT6 (Prop_lut6_I5_O)        0.124    17.854 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_44/O
+                         net (fo=4, routed)           0.197    18.051    u_safety_riscv_soc/core_b/u_ram/u_ram/state_q_reg[0]_1
+    SLICE_X44Y17         LUT4 (Prop_lut4_I3_O)        0.124    18.175 r  u_safety_riscv_soc/core_b/u_ram/u_ram/state_q[1]_i_2/O
+                         net (fo=6, routed)           0.352    18.527    u_safety_riscv_soc/u_paired_data_capture_stage/state_q_reg[0]_0
+    SLICE_X45Y17         LUT5 (Prop_lut5_I0_O)        0.124    18.651 r  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=100, routed)         0.764    19.414    u_safety_riscv_soc/core_b/paired_data_path_active
+    SLICE_X43Y18         LUT2 (Prop_lut2_I1_O)        0.124    19.538 f  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6/O
+                         net (fo=1, routed)           0.606    20.144    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6_n_0
+    SLICE_X42Y17         LUT6 (Prop_lut6_I5_O)        0.124    20.268 f  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, routed)           0.446    20.714    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+    SLICE_X40Y17         LUT6 (Prop_lut6_I0_O)        0.124    20.838 f  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=7, routed)           0.839    21.678    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_gnt
+    SLICE_X43Y7          LUT6 (Prop_lut6_I5_O)        0.124    21.802 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/FSM_sequential_ls_fsm_cs[2]_i_1__0/O
+                         net (fo=1, routed)           0.842    22.644    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/ls_fsm_ns__0[2]
+    SLICE_X47Y10         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/FSM_sequential_ls_fsm_cs_reg[2]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.147    22.126    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.091    22.217 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        1.676    23.893    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/clk
+    SLICE_X47Y10         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/FSM_sequential_ls_fsm_cs_reg[2]/C
+                         clock pessimism              0.480    24.374    <hidden>
+                         clock uncertainty           -1.585    22.789    <hidden>
+    SLICE_X47Y10         FDCE (Setup_fdce_C_D)       -0.069    22.720    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/FSM_sequential_ls_fsm_cs_reg[2]
+  -------------------------------------------------------------------
+                         required time                         22.720    <hidden>
+                         arrival time                         -22.644    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.077    <hidden>
+
+Slack (MET) :             0.163ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[0]/CE
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        22.958ns  (logic 6.199ns (27.001%)  route 16.759ns (72.999%))
+  Logic Levels:           31  (CARRY4=5 LUT2=2 LUT3=1 LUT4=5 LUT5=4 LUT6=14)
+  Clock Path Skew:        -0.125ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.117ns = ( 23.883 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.511ns
+    Clock Pessimism Removal (CPR):    0.480ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.140    -2.400    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096    -2.304 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        1.793    -0.511    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/clk
+    SLICE_X53Y14         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y14         FDRE (Prop_fdre_C_Q)         0.456    -0.055 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/Q
+                         net (fo=10, routed)          0.486     0.432    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0]
+    SLICE_X54Y13         LUT2 (Prop_lut2_I0_O)        0.124     0.556 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___86_i_2/O
+                         net (fo=19, routed)          0.740     1.296    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]_0
+    SLICE_X54Y15         LUT6 (Prop_lut6_I4_O)        0.124     1.420 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24/O
+                         net (fo=9, routed)           0.654     2.074    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24_n_0
+    SLICE_X54Y17         LUT6 (Prop_lut6_I0_O)        0.124     2.198 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41/O
+                         net (fo=1, routed)           1.146     3.344    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41_n_0
+    SLICE_X53Y8          LUT6 (Prop_lut6_I1_O)        0.124     3.468 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_28/O
+                         net (fo=11, routed)          0.696     4.164    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_operator_ex[0]
+    SLICE_X53Y8          LUT6 (Prop_lut6_I3_O)        0.124     4.288 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_14/O
+                         net (fo=33, routed)          0.859     5.147    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/ex_block_i/alu_i/adder_in_b00
+    SLICE_X55Y8          LUT5 (Prop_lut5_I1_O)        0.124     5.271 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9/O
+                         net (fo=1, routed)           0.000     5.271    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9_n_0
+    SLICE_X55Y8          CARRY4 (Prop_carry4_S[0]_O[1])
+                                                      0.424     5.695 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1/O[1]
+                         net (fo=52, routed)          0.938     6.633    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/O[0]
+    SLICE_X51Y8          LUT6 (Prop_lut6_I1_O)        0.303     6.936 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_24/O
+                         net (fo=9, routed)           1.008     7.944    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/wdata_i[13]
+    SLICE_X48Y9          LUT6 (Prop_lut6_I3_O)        0.124     8.068 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94/O
+                         net (fo=1, routed)           0.000     8.068    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94_n_0
+    SLICE_X48Y9          CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.600 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81/CO[3]
+                         net (fo=1, routed)           0.000     8.600    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228     8.828 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_63/CO[2]
+                         net (fo=2, routed)           0.647     9.474    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_3_0[0]
+    SLICE_X50Y17         LUT4 (Prop_lut4_I2_O)        0.313     9.787 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47/O
+                         net (fo=1, routed)           0.429    10.216    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47_n_0
+    SLICE_X50Y19         LUT6 (Prop_lut6_I0_O)        0.124    10.340 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40/O
+                         net (fo=2, routed)           0.182    10.522    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40_n_0
+    SLICE_X50Y19         LUT4 (Prop_lut4_I0_O)        0.124    10.646 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_1/O
+                         net (fo=8, routed)           0.319    10.965    u_safety_riscv_soc/u_mmio_config/req_i
+    SLICE_X51Y19         LUT4 (Prop_lut4_I3_O)        0.124    11.089 r  u_safety_riscv_soc/u_mmio_config/gnt_o_INST_0/O
+                         net (fo=2, routed)           0.657    11.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/gnt_o
+    SLICE_X49Y25         LUT6 (Prop_lut6_I0_O)        0.124    11.870 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6/O
+                         net (fo=1, routed)           0.298    12.168    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6_n_0
+    SLICE_X51Y25         LUT4 (Prop_lut4_I3_O)        0.124    12.292 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_2/O
+                         net (fo=6, routed)           0.362    12.654    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/rvalid_o_reg_0
+    SLICE_X52Y25         LUT6 (Prop_lut6_I0_O)        0.124    12.778 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/i___16_i_5/O
+                         net (fo=8, routed)           0.309    13.087    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q_reg[8]_0
+    SLICE_X55Y25         LUT3 (Prop_lut3_I2_O)        0.124    13.211 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q[31]_i_3/O
+                         net (fo=81, routed)          0.873    14.085    u_safety_riscv_soc/core_b/u_ram/u_ram/mmio_rvalid
+    SLICE_X49Y24         LUT6 (Prop_lut6_I1_O)        0.124    14.209 r  u_safety_riscv_soc/core_b/u_ram/u_ram/rdata_q[17]_i_1__3/O
+                         net (fo=6, routed)           1.256    15.464    u_safety_riscv_soc/core_b/u_ram/u_ram/core_b_data_rdata[14]
+    SLICE_X45Y21         LUT6 (Prop_lut6_I2_O)        0.124    15.588 r  u_safety_riscv_soc/core_b/u_ram/u_ram/data_rdata_mismatch0_carry__0_i_3/O
+                         net (fo=1, routed)           0.000    15.588    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1_0[1]
+    SLICE_X45Y21         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.138 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    16.138    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0_n_0
+    SLICE_X45Y22         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    16.366 f  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1/CO[2]
+                         net (fo=1, routed)           0.609    16.976    u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_44[0]
+    SLICE_X44Y20         LUT5 (Prop_lut5_I2_O)        0.313    17.289 r  u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_59/O
+                         net (fo=1, routed)           0.441    17.730    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_2_3
+    SLICE_X44Y17         LUT6 (Prop_lut6_I5_O)        0.124    17.854 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_44/O
+                         net (fo=4, routed)           0.197    18.051    u_safety_riscv_soc/core_b/u_ram/u_ram/state_q_reg[0]_1
+    SLICE_X44Y17         LUT4 (Prop_lut4_I3_O)        0.124    18.175 f  u_safety_riscv_soc/core_b/u_ram/u_ram/state_q[1]_i_2/O
+                         net (fo=6, routed)           0.352    18.527    u_safety_riscv_soc/u_paired_data_capture_stage/state_q_reg[0]_0
+    SLICE_X45Y17         LUT5 (Prop_lut5_I0_O)        0.124    18.651 f  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=100, routed)         0.764    19.414    u_safety_riscv_soc/core_b/paired_data_path_active
+    SLICE_X43Y18         LUT2 (Prop_lut2_I1_O)        0.124    19.538 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6/O
+                         net (fo=1, routed)           0.606    20.144    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6_n_0
+    SLICE_X42Y17         LUT6 (Prop_lut6_I5_O)        0.124    20.268 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, routed)           0.446    20.714    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+    SLICE_X40Y17         LUT6 (Prop_lut6_I0_O)        0.124    20.838 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=7, routed)           0.498    21.336    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_gnt
+    SLICE_X38Y18         LUT5 (Prop_lut5_I4_O)        0.124    21.460 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_i_1/O
+                         net (fo=6, routed)           0.988    22.448    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/ctrl_update
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[0]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.147    22.126    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.091    22.217 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        1.666    23.883    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/clk
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[0]/C
+                         clock pessimism              0.480    24.364    <hidden>
+                         clock uncertainty           -1.585    22.779    <hidden>
+    SLICE_X42Y22         FDCE (Setup_fdce_C_CE)      -0.169    22.610    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[0]
+  -------------------------------------------------------------------
+                         required time                         22.610    <hidden>
+                         arrival time                         -22.448    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.163    <hidden>
+
+Slack (MET) :             0.163ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[1]/CE
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        22.958ns  (logic 6.199ns (27.001%)  route 16.759ns (72.999%))
+  Logic Levels:           31  (CARRY4=5 LUT2=2 LUT3=1 LUT4=5 LUT5=4 LUT6=14)
+  Clock Path Skew:        -0.125ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.117ns = ( 23.883 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.511ns
+    Clock Pessimism Removal (CPR):    0.480ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.140    -2.400    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096    -2.304 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        1.793    -0.511    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/clk
+    SLICE_X53Y14         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y14         FDRE (Prop_fdre_C_Q)         0.456    -0.055 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/Q
+                         net (fo=10, routed)          0.486     0.432    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0]
+    SLICE_X54Y13         LUT2 (Prop_lut2_I0_O)        0.124     0.556 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___86_i_2/O
+                         net (fo=19, routed)          0.740     1.296    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]_0
+    SLICE_X54Y15         LUT6 (Prop_lut6_I4_O)        0.124     1.420 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24/O
+                         net (fo=9, routed)           0.654     2.074    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24_n_0
+    SLICE_X54Y17         LUT6 (Prop_lut6_I0_O)        0.124     2.198 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41/O
+                         net (fo=1, routed)           1.146     3.344    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41_n_0
+    SLICE_X53Y8          LUT6 (Prop_lut6_I1_O)        0.124     3.468 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_28/O
+                         net (fo=11, routed)          0.696     4.164    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_operator_ex[0]
+    SLICE_X53Y8          LUT6 (Prop_lut6_I3_O)        0.124     4.288 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_14/O
+                         net (fo=33, routed)          0.859     5.147    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/ex_block_i/alu_i/adder_in_b00
+    SLICE_X55Y8          LUT5 (Prop_lut5_I1_O)        0.124     5.271 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9/O
+                         net (fo=1, routed)           0.000     5.271    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9_n_0
+    SLICE_X55Y8          CARRY4 (Prop_carry4_S[0]_O[1])
+                                                      0.424     5.695 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1/O[1]
+                         net (fo=52, routed)          0.938     6.633    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/O[0]
+    SLICE_X51Y8          LUT6 (Prop_lut6_I1_O)        0.303     6.936 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_24/O
+                         net (fo=9, routed)           1.008     7.944    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/wdata_i[13]
+    SLICE_X48Y9          LUT6 (Prop_lut6_I3_O)        0.124     8.068 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94/O
+                         net (fo=1, routed)           0.000     8.068    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94_n_0
+    SLICE_X48Y9          CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.600 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81/CO[3]
+                         net (fo=1, routed)           0.000     8.600    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228     8.828 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_63/CO[2]
+                         net (fo=2, routed)           0.647     9.474    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_3_0[0]
+    SLICE_X50Y17         LUT4 (Prop_lut4_I2_O)        0.313     9.787 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47/O
+                         net (fo=1, routed)           0.429    10.216    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47_n_0
+    SLICE_X50Y19         LUT6 (Prop_lut6_I0_O)        0.124    10.340 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40/O
+                         net (fo=2, routed)           0.182    10.522    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40_n_0
+    SLICE_X50Y19         LUT4 (Prop_lut4_I0_O)        0.124    10.646 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_1/O
+                         net (fo=8, routed)           0.319    10.965    u_safety_riscv_soc/u_mmio_config/req_i
+    SLICE_X51Y19         LUT4 (Prop_lut4_I3_O)        0.124    11.089 r  u_safety_riscv_soc/u_mmio_config/gnt_o_INST_0/O
+                         net (fo=2, routed)           0.657    11.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/gnt_o
+    SLICE_X49Y25         LUT6 (Prop_lut6_I0_O)        0.124    11.870 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6/O
+                         net (fo=1, routed)           0.298    12.168    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6_n_0
+    SLICE_X51Y25         LUT4 (Prop_lut4_I3_O)        0.124    12.292 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_2/O
+                         net (fo=6, routed)           0.362    12.654    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/rvalid_o_reg_0
+    SLICE_X52Y25         LUT6 (Prop_lut6_I0_O)        0.124    12.778 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/i___16_i_5/O
+                         net (fo=8, routed)           0.309    13.087    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q_reg[8]_0
+    SLICE_X55Y25         LUT3 (Prop_lut3_I2_O)        0.124    13.211 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q[31]_i_3/O
+                         net (fo=81, routed)          0.873    14.085    u_safety_riscv_soc/core_b/u_ram/u_ram/mmio_rvalid
+    SLICE_X49Y24         LUT6 (Prop_lut6_I1_O)        0.124    14.209 r  u_safety_riscv_soc/core_b/u_ram/u_ram/rdata_q[17]_i_1__3/O
+                         net (fo=6, routed)           1.256    15.464    u_safety_riscv_soc/core_b/u_ram/u_ram/core_b_data_rdata[14]
+    SLICE_X45Y21         LUT6 (Prop_lut6_I2_O)        0.124    15.588 r  u_safety_riscv_soc/core_b/u_ram/u_ram/data_rdata_mismatch0_carry__0_i_3/O
+                         net (fo=1, routed)           0.000    15.588    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1_0[1]
+    SLICE_X45Y21         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.138 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    16.138    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0_n_0
+    SLICE_X45Y22         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    16.366 f  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1/CO[2]
+                         net (fo=1, routed)           0.609    16.976    u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_44[0]
+    SLICE_X44Y20         LUT5 (Prop_lut5_I2_O)        0.313    17.289 r  u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_59/O
+                         net (fo=1, routed)           0.441    17.730    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_2_3
+    SLICE_X44Y17         LUT6 (Prop_lut6_I5_O)        0.124    17.854 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_44/O
+                         net (fo=4, routed)           0.197    18.051    u_safety_riscv_soc/core_b/u_ram/u_ram/state_q_reg[0]_1
+    SLICE_X44Y17         LUT4 (Prop_lut4_I3_O)        0.124    18.175 f  u_safety_riscv_soc/core_b/u_ram/u_ram/state_q[1]_i_2/O
+                         net (fo=6, routed)           0.352    18.527    u_safety_riscv_soc/u_paired_data_capture_stage/state_q_reg[0]_0
+    SLICE_X45Y17         LUT5 (Prop_lut5_I0_O)        0.124    18.651 f  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=100, routed)         0.764    19.414    u_safety_riscv_soc/core_b/paired_data_path_active
+    SLICE_X43Y18         LUT2 (Prop_lut2_I1_O)        0.124    19.538 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6/O
+                         net (fo=1, routed)           0.606    20.144    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6_n_0
+    SLICE_X42Y17         LUT6 (Prop_lut6_I5_O)        0.124    20.268 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, routed)           0.446    20.714    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+    SLICE_X40Y17         LUT6 (Prop_lut6_I0_O)        0.124    20.838 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=7, routed)           0.498    21.336    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_gnt
+    SLICE_X38Y18         LUT5 (Prop_lut5_I4_O)        0.124    21.460 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_i_1/O
+                         net (fo=6, routed)           0.988    22.448    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/ctrl_update
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[1]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.147    22.126    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.091    22.217 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        1.666    23.883    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/clk
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[1]/C
+                         clock pessimism              0.480    24.364    <hidden>
+                         clock uncertainty           -1.585    22.779    <hidden>
+    SLICE_X42Y22         FDCE (Setup_fdce_C_CE)      -0.169    22.610    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_type_q_reg[1]
+  -------------------------------------------------------------------
+                         required time                         22.610    <hidden>
+                         arrival time                         -22.448    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.163    <hidden>
+
+Slack (MET) :             0.163ns  (required time - arrival time)
+  Source:                 u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_reg/CE
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        22.958ns  (logic 6.199ns (27.001%)  route 16.759ns (72.999%))
+  Logic Levels:           31  (CARRY4=5 LUT2=2 LUT3=1 LUT4=5 LUT5=4 LUT6=14)
+  Clock Path Skew:        -0.125ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.117ns = ( 23.883 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.511ns
+    Clock Pessimism Removal (CPR):    0.480ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.140    -2.400    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.096    -2.304 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        1.793    -0.511    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/clk
+    SLICE_X53Y14         FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y14         FDRE (Prop_fdre_C_Q)         0.456    -0.055 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]/Q
+                         net (fo=10, routed)          0.486     0.432    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[31]_0[0]
+    SLICE_X54Y13         LUT2 (Prop_lut2_I0_O)        0.124     0.556 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___86_i_2/O
+                         net (fo=19, routed)          0.740     1.296    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/g_instr_rdata_nr.instr_rdata_id_o_reg[0]_0
+    SLICE_X54Y15         LUT6 (Prop_lut6_I4_O)        0.124     1.420 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24/O
+                         net (fo=9, routed)           0.654     2.074    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/i___7_i_24_n_0
+    SLICE_X54Y17         LUT6 (Prop_lut6_I0_O)        0.124     2.198 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41/O
+                         net (fo=1, routed)           1.146     3.344    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_41_n_0
+    SLICE_X53Y8          LUT6 (Prop_lut6_I1_O)        0.124     3.468 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_28/O
+                         net (fo=11, routed)          0.696     4.164    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_operator_ex[0]
+    SLICE_X53Y8          LUT6 (Prop_lut6_I3_O)        0.124     4.288 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q[1]_i_14/O
+                         net (fo=33, routed)          0.859     5.147    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/ex_block_i/alu_i/adder_in_b00
+    SLICE_X55Y8          LUT5 (Prop_lut5_I1_O)        0.124     5.271 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9/O
+                         net (fo=1, routed)           0.000     5.271    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/alu_i/rdata_offset_q[1]_i_9_n_0
+    SLICE_X55Y8          CARRY4 (Prop_carry4_S[0]_O[1])
+                                                      0.424     5.695 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/rdata_offset_q_reg[1]_i_1/O[1]
+                         net (fo=52, routed)          0.938     6.633    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/O[0]
+    SLICE_X51Y8          LUT6 (Prop_lut6_I1_O)        0.303     6.936 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_24/O
+                         net (fo=9, routed)           1.008     7.944    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/wdata_i[13]
+    SLICE_X48Y9          LUT6 (Prop_lut6_I3_O)        0.124     8.068 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94/O
+                         net (fo=1, routed)           0.000     8.068    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_94_n_0
+    SLICE_X48Y9          CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532     8.600 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81/CO[3]
+                         net (fo=1, routed)           0.000     8.600    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_81_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228     8.828 r  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/u_mmio_config_i_63/CO[2]
+                         net (fo=2, routed)           0.647     9.474    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_3_0[0]
+    SLICE_X50Y17         LUT4 (Prop_lut4_I2_O)        0.313     9.787 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47/O
+                         net (fo=1, routed)           0.429    10.216    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_47_n_0
+    SLICE_X50Y19         LUT6 (Prop_lut6_I0_O)        0.124    10.340 f  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40/O
+                         net (fo=2, routed)           0.182    10.522    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_40_n_0
+    SLICE_X50Y19         LUT4 (Prop_lut4_I0_O)        0.124    10.646 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_1/O
+                         net (fo=8, routed)           0.319    10.965    u_safety_riscv_soc/u_mmio_config/req_i
+    SLICE_X51Y19         LUT4 (Prop_lut4_I3_O)        0.124    11.089 r  u_safety_riscv_soc/u_mmio_config/gnt_o_INST_0/O
+                         net (fo=2, routed)           0.657    11.746    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/gnt_o
+    SLICE_X49Y25         LUT6 (Prop_lut6_I0_O)        0.124    11.870 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6/O
+                         net (fo=1, routed)           0.298    12.168    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_6_n_0
+    SLICE_X51Y25         LUT4 (Prop_lut4_I3_O)        0.124    12.292 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/snap_injen_q_i_2/O
+                         net (fo=6, routed)           0.362    12.654    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/rvalid_o_reg_0
+    SLICE_X52Y25         LUT6 (Prop_lut6_I0_O)        0.124    12.778 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/i___16_i_5/O
+                         net (fo=8, routed)           0.309    13.087    u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q_reg[8]_0
+    SLICE_X55Y25         LUT3 (Prop_lut3_I2_O)        0.124    13.211 r  u_safety_riscv_soc/core_a/u_ibex/gen_regfile_ff.register_file_i/rdata_q[31]_i_3/O
+                         net (fo=81, routed)          0.873    14.085    u_safety_riscv_soc/core_b/u_ram/u_ram/mmio_rvalid
+    SLICE_X49Y24         LUT6 (Prop_lut6_I1_O)        0.124    14.209 r  u_safety_riscv_soc/core_b/u_ram/u_ram/rdata_q[17]_i_1__3/O
+                         net (fo=6, routed)           1.256    15.464    u_safety_riscv_soc/core_b/u_ram/u_ram/core_b_data_rdata[14]
+    SLICE_X45Y21         LUT6 (Prop_lut6_I2_O)        0.124    15.588 r  u_safety_riscv_soc/core_b/u_ram/u_ram/data_rdata_mismatch0_carry__0_i_3/O
+                         net (fo=1, routed)           0.000    15.588    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1_0[1]
+    SLICE_X45Y21         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.138 r  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0/CO[3]
+                         net (fo=1, routed)           0.000    16.138    u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__0_n_0
+    SLICE_X45Y22         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.228    16.366 f  u_safety_riscv_soc/u_dcls/data_rdata_mismatch0_carry__1/CO[2]
+                         net (fo=1, routed)           0.609    16.976    u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_44[0]
+    SLICE_X44Y20         LUT5 (Prop_lut5_I2_O)        0.313    17.289 r  u_safety_riscv_soc/core_b/u_ram/u_ram/u_mmio_config_i_59/O
+                         net (fo=1, routed)           0.441    17.730    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/data_fault_seen_o_i_2_3
+    SLICE_X44Y17         LUT6 (Prop_lut6_I5_O)        0.124    17.854 f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/if_stage_i/u_mmio_config_i_44/O
+                         net (fo=4, routed)           0.197    18.051    u_safety_riscv_soc/core_b/u_ram/u_ram/state_q_reg[0]_1
+    SLICE_X44Y17         LUT4 (Prop_lut4_I3_O)        0.124    18.175 f  u_safety_riscv_soc/core_b/u_ram/u_ram/state_q[1]_i_2/O
+                         net (fo=6, routed)           0.352    18.527    u_safety_riscv_soc/u_paired_data_capture_stage/state_q_reg[0]_0
+    SLICE_X45Y17         LUT5 (Prop_lut5_I0_O)        0.124    18.651 f  u_safety_riscv_soc/u_paired_data_capture_stage/mem_reg_0_i_22/O
+                         net (fo=100, routed)         0.764    19.414    u_safety_riscv_soc/core_b/paired_data_path_active
+    SLICE_X43Y18         LUT2 (Prop_lut2_I1_O)        0.124    19.538 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6/O
+                         net (fo=1, routed)           0.606    20.144    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_6_n_0
+    SLICE_X42Y17         LUT6 (Prop_lut6_I5_O)        0.124    20.268 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5/O
+                         net (fo=1, routed)           0.446    20.714    u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_5_n_0
+    SLICE_X40Y17         LUT6 (Prop_lut6_I0_O)        0.124    20.838 r  u_safety_riscv_soc/core_b/FSM_sequential_ls_fsm_cs[2]_i_4/O
+                         net (fo=7, routed)           0.498    21.336    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_gnt
+    SLICE_X38Y18         LUT5 (Prop_lut5_I4_O)        0.124    21.460 r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_i_1/O
+                         net (fo=6, routed)           0.988    22.448    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/ctrl_update
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_reg/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.147    22.126    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.091    22.217 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        1.666    23.883    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/clk
+    SLICE_X42Y22         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_reg/C
+                         clock pessimism              0.480    24.364    <hidden>
+                         clock uncertainty           -1.585    22.779    <hidden>
+    SLICE_X42Y22         FDCE (Setup_fdce_C_CE)      -0.169    22.610    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/load_store_unit_i/data_we_q_reg
+  -------------------------------------------------------------------
+                         required time                         22.610    <hidden>
+                         arrival time                         -22.448    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.163    <hidden>
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.077ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][16]_i_2/C
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[1].g_rdata_nr.rdata_q_reg[1][16]/D
+                            (rising edge-triggered cell FDRE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.503ns  (logic 0.186ns (36.947%)  route 0.317ns (63.053%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.335ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.699ns
+    Source Clock Delay      (SCD):    -0.526ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.638    -0.526    u_safety_riscv_soc/core_a/clk_sys
+    SLICE_X32Y4          FDRE                                         r  u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][16]_i_2/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X32Y4          FDRE (Prop_fdre_C_Q)         0.141    -0.385 r  u_safety_riscv_soc/core_a/g_fifo_regs[2].g_rdata_nr.rdata_q_reg[2][16]_i_2/Q
+                         net (fo=5, routed)           0.317    -0.067    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[0].g_rdata_nr.rdata_q_reg[0][16]_0
+    SLICE_X32Y3          LUT6 (Prop_lut6_I2_O)        0.045    -0.022 r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[1].g_rdata_nr.rdata_q[1][16]_i_1/O
+                         net (fo=1, routed)           0.000    -0.022    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/rdata_d[1]_7[16]
+    SLICE_X32Y3          FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[1].g_rdata_nr.rdata_q_reg[1][16]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.033    -1.640    u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y30       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.611 r  u_safety_riscv_soc/core_a/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1951, routed)        0.912    -0.699    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/clk
+    SLICE_X32Y3          FDRE                                         r  u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[1].g_rdata_nr.rdata_q_reg[1][16]/C
+                         clock pessimism              0.509    -0.190    <hidden>
+    SLICE_X32Y3          FDRE (Hold_fdre_C_D)         0.091    -0.099    u_safety_riscv_soc/core_a/u_ibex/u_ibex_core/if_stage_i/gen_prefetch_buffer.prefetch_buffer_i/fifo_i/g_fifo_regs[1].g_rdata_nr.rdata_q_reg[1][16]
+  -------------------------------------------------------------------
+                         required time                          0.099    <hidden>
+                         arrival time                          -0.022    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.077    <hidden>
+
+Slack (MET) :             0.088ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[12]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/RAMA/I
+                            (rising edge-triggered cell RAMD32 clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.252ns  (logic 0.141ns (55.869%)  route 0.111ns (44.131%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.017ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.760ns
+    Source Clock Delay      (SCD):    -0.526ns
+    Clock Pessimism Removal (CPR):    -0.252ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.638    -0.526    u_safety_riscv_soc/u_diagnostic_logger/clk_sys
+    SLICE_X33Y46         FDCE                                         r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[12]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y46         FDCE (Prop_fdce_C_Q)         0.141    -0.385 r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[12]/Q
+                         net (fo=3, routed)           0.111    -0.273    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/DIA0
+    SLICE_X30Y47         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/RAMA/I
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.913    -0.760    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/WCLK
+    SLICE_X30Y47         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/RAMA/CLK
+                         clock pessimism              0.252    -0.509    <hidden>
+    SLICE_X30Y47         RAMD32 (Hold_ramd32_CLK_I)
+                                                      0.147    -0.362    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_12_17/RAMA
+  -------------------------------------------------------------------
+                         required time                          0.362    <hidden>
+                         arrival time                          -0.273    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.088    <hidden>
+
+Slack (MET) :             0.096ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[26]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/RAMB/I
+                            (rising edge-triggered cell RAMD32 clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.277ns  (logic 0.141ns (50.906%)  route 0.136ns (49.094%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.035ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.761ns
+    Source Clock Delay      (SCD):    -0.525ns
+    Clock Pessimism Removal (CPR):    -0.272ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.639    -0.525    u_safety_riscv_soc/u_diagnostic_logger/clk_sys
+    SLICE_X33Y49         FDCE                                         r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[26]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y49         FDCE (Prop_fdce_C_Q)         0.141    -0.384 r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[26]/Q
+                         net (fo=3, routed)           0.136    -0.248    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/DIB0
+    SLICE_X34Y49         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/RAMB/I
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.912    -0.761    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/WCLK
+    SLICE_X34Y49         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/RAMB/CLK
+                         clock pessimism              0.272    -0.490    <hidden>
+    SLICE_X34Y49         RAMD32 (Hold_ramd32_CLK_I)
+                                                      0.146    -0.344    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_24_29/RAMB
+  -------------------------------------------------------------------
+                         required time                          0.344    <hidden>
+                         arrival time                          -0.248    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.096    <hidden>
+
+Slack (MET) :             0.099ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[10]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMC/I
+                            (rising edge-triggered cell RAMD32 clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.278ns  (logic 0.141ns (50.633%)  route 0.137ns (49.367%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.035ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.762ns
+    Source Clock Delay      (SCD):    -0.526ns
+    Clock Pessimism Removal (CPR):    -0.272ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.638    -0.526    u_safety_riscv_soc/u_diagnostic_logger/clk_sys
+    SLICE_X33Y45         FDCE                                         r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[10]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y45         FDCE (Prop_fdce_C_Q)         0.141    -0.385 r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[10]/Q
+                         net (fo=3, routed)           0.137    -0.247    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/DIC0
+    SLICE_X34Y46         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMC/I
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.911    -0.762    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/WCLK
+    SLICE_X34Y46         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMC/CLK
+                         clock pessimism              0.272    -0.491    <hidden>
+    SLICE_X34Y46         RAMD32 (Hold_ramd32_CLK_I)
+                                                      0.144    -0.347    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMC
+  -------------------------------------------------------------------
+                         required time                          0.347    <hidden>
+                         arrival time                          -0.247    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.099    <hidden>
+
+Slack (MET) :             0.108ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[9]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMB_D1/I
+                            (rising edge-triggered cell RAMD32 clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             clk_sys_unbuf
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.267ns  (logic 0.141ns (52.755%)  route 0.126ns (47.245%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.035ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.762ns
+    Source Clock Delay      (SCD):    -0.526ns
+    Clock Pessimism Removal (CPR):    -0.272ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.638    -0.526    u_safety_riscv_soc/u_diagnostic_logger/clk_sys
+    SLICE_X33Y45         FDCE                                         r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[9]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y45         FDCE (Prop_fdce_C_Q)         0.141    -0.385 r  u_safety_riscv_soc/u_diagnostic_logger/time_q_reg[9]/Q
+                         net (fo=3, routed)           0.126    -0.258    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/DIB1
+    SLICE_X34Y46         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMB_D1/I
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.911    -0.762    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/WCLK
+    SLICE_X34Y46         RAMD32                                       r  u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMB_D1/CLK
+                         clock pessimism              0.272    -0.491    <hidden>
+    SLICE_X34Y46         RAMD32 (Hold_ramd32_CLK_I)
+                                                      0.124    -0.367    u_safety_riscv_soc/u_diagnostic_logger/log_time_q_reg_0_3_6_11/RAMB_D1
+  -------------------------------------------------------------------
+                         required time                          0.367    <hidden>
+                         arrival time                          -0.258    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.108    <hidden>
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_sys_unbuf
+Waveform(ns):       { 0.000 12.500 }
+Period(ns):         25.000
+Sources:            { u_board_clock/u_system_mmcm/CLKOUT0 }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location         Pin
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         25.000      22.056     RAMB36_X0Y1      u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_0/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.944         25.000      22.056     RAMB36_X0Y1      u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_0/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         25.000      22.056     RAMB36_X0Y4      u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_1/CLKARDCLK
+Min Period        n/a     RAMB36E1/CLKBWRCLK  n/a            2.944         25.000      22.056     RAMB36_X0Y4      u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_1/CLKBWRCLK
+Min Period        n/a     RAMB36E1/CLKARDCLK  n/a            2.944         25.000      22.056     RAMB36_X0Y3      u_safety_riscv_soc/core_a/u_ram/u_ram/mem_reg_2/CLKARDCLK
+Max Period        n/a     MMCME2_ADV/CLKOUT0  n/a            213.360       25.000      188.360    MMCME2_ADV_X1Y2  u_board_clock/u_system_mmcm/CLKOUT0
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA_D1/CLK
+Low Pulse Width   Fast    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA_D1/CLK
+Low Pulse Width   Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMB/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA_D1/CLK
+High Pulse Width  Fast    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMA_D1/CLK
+High Pulse Width  Slow    RAMD32/CLK          n/a            1.250         12.500      11.250     SLICE_X30Y54     u_safety_riscv_soc/u_diagnostic_logger/log_boot_q_reg_0_3_0_5/RAMB/CLK
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  clk_sys_unbuf
+  To Clock:  clk_sys_unbuf
+
+Setup :            0  Failing Endpoints,  Worst Slack       12.277ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.399ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             12.277ns  (required time - arrival time)
+  Source:                 u_board_clock/reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_status_reporter/snap_hb_q_reg[0]/CLR
+                            (recovery check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        10.707ns  (logic 0.773ns (7.219%)  route 9.934ns (92.781%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.337ns = ( 23.663 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.823ns
+    Clock Pessimism Removal (CPR):    0.487ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.717    -0.823    u_board_clock/clk_sys
+    SLICE_X76Y95         FDCE                                         r  u_board_clock/reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y95         FDCE (Prop_fdce_C_Q)         0.478    -0.345 r  u_board_clock/reset_sync_reg[1]/Q
+                         net (fo=1, routed)           2.116     1.772    u_board_clock/reset_sync[1]
+    SLICE_X55Y78         LUT1 (Prop_lut1_I0_O)        0.295     2.067 f  u_board_clock/soc_reset_release_sync[1]_i_1/O
+                         net (fo=420, routed)         7.818     9.884    u_status_reporter/period_q_reg[0]_0
+    SLICE_X41Y48         FDCE                                         f  u_status_reporter/snap_hb_q_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.684    23.663    u_status_reporter/clk_sys
+    SLICE_X41Y48         FDCE                                         r  u_status_reporter/snap_hb_q_reg[0]/C
+                         clock pessimism              0.487    24.151    <hidden>
+                         clock uncertainty           -1.585    22.566    <hidden>
+    SLICE_X41Y48         FDCE (Recov_fdce_C_CLR)     -0.405    22.161    u_status_reporter/snap_hb_q_reg[0]
+  -------------------------------------------------------------------
+                         required time                         22.161    <hidden>
+                         arrival time                          -9.884    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 12.277    <hidden>
+
+Slack (MET) :             12.277ns  (required time - arrival time)
+  Source:                 u_board_clock/reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_status_reporter/snap_hb_q_reg[1]/CLR
+                            (recovery check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        10.707ns  (logic 0.773ns (7.219%)  route 9.934ns (92.781%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.337ns = ( 23.663 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.823ns
+    Clock Pessimism Removal (CPR):    0.487ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.717    -0.823    u_board_clock/clk_sys
+    SLICE_X76Y95         FDCE                                         r  u_board_clock/reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y95         FDCE (Prop_fdce_C_Q)         0.478    -0.345 r  u_board_clock/reset_sync_reg[1]/Q
+                         net (fo=1, routed)           2.116     1.772    u_board_clock/reset_sync[1]
+    SLICE_X55Y78         LUT1 (Prop_lut1_I0_O)        0.295     2.067 f  u_board_clock/soc_reset_release_sync[1]_i_1/O
+                         net (fo=420, routed)         7.818     9.884    u_status_reporter/period_q_reg[0]_0
+    SLICE_X41Y48         FDCE                                         f  u_status_reporter/snap_hb_q_reg[1]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.684    23.663    u_status_reporter/clk_sys
+    SLICE_X41Y48         FDCE                                         r  u_status_reporter/snap_hb_q_reg[1]/C
+                         clock pessimism              0.487    24.151    <hidden>
+                         clock uncertainty           -1.585    22.566    <hidden>
+    SLICE_X41Y48         FDCE (Recov_fdce_C_CLR)     -0.405    22.161    u_status_reporter/snap_hb_q_reg[1]
+  -------------------------------------------------------------------
+                         required time                         22.161    <hidden>
+                         arrival time                          -9.884    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 12.277    <hidden>
+
+Slack (MET) :             12.277ns  (required time - arrival time)
+  Source:                 u_board_clock/reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_status_reporter/snap_hb_q_reg[2]/CLR
+                            (recovery check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        10.707ns  (logic 0.773ns (7.219%)  route 9.934ns (92.781%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.337ns = ( 23.663 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.823ns
+    Clock Pessimism Removal (CPR):    0.487ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.717    -0.823    u_board_clock/clk_sys
+    SLICE_X76Y95         FDCE                                         r  u_board_clock/reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y95         FDCE (Prop_fdce_C_Q)         0.478    -0.345 r  u_board_clock/reset_sync_reg[1]/Q
+                         net (fo=1, routed)           2.116     1.772    u_board_clock/reset_sync[1]
+    SLICE_X55Y78         LUT1 (Prop_lut1_I0_O)        0.295     2.067 f  u_board_clock/soc_reset_release_sync[1]_i_1/O
+                         net (fo=420, routed)         7.818     9.884    u_status_reporter/period_q_reg[0]_0
+    SLICE_X41Y48         FDCE                                         f  u_status_reporter/snap_hb_q_reg[2]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.684    23.663    u_status_reporter/clk_sys
+    SLICE_X41Y48         FDCE                                         r  u_status_reporter/snap_hb_q_reg[2]/C
+                         clock pessimism              0.487    24.151    <hidden>
+                         clock uncertainty           -1.585    22.566    <hidden>
+    SLICE_X41Y48         FDCE (Recov_fdce_C_CLR)     -0.405    22.161    u_status_reporter/snap_hb_q_reg[2]
+  -------------------------------------------------------------------
+                         required time                         22.161    <hidden>
+                         arrival time                          -9.884    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 12.277    <hidden>
+
+Slack (MET) :             12.277ns  (required time - arrival time)
+  Source:                 u_board_clock/reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_status_reporter/snap_hb_q_reg[3]/CLR
+                            (recovery check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        10.707ns  (logic 0.773ns (7.219%)  route 9.934ns (92.781%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.337ns = ( 23.663 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.823ns
+    Clock Pessimism Removal (CPR):    0.487ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.717    -0.823    u_board_clock/clk_sys
+    SLICE_X76Y95         FDCE                                         r  u_board_clock/reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y95         FDCE (Prop_fdce_C_Q)         0.478    -0.345 r  u_board_clock/reset_sync_reg[1]/Q
+                         net (fo=1, routed)           2.116     1.772    u_board_clock/reset_sync[1]
+    SLICE_X55Y78         LUT1 (Prop_lut1_I0_O)        0.295     2.067 f  u_board_clock/soc_reset_release_sync[1]_i_1/O
+                         net (fo=420, routed)         7.818     9.884    u_status_reporter/period_q_reg[0]_0
+    SLICE_X41Y48         FDCE                                         f  u_status_reporter/snap_hb_q_reg[3]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.684    23.663    u_status_reporter/clk_sys
+    SLICE_X41Y48         FDCE                                         r  u_status_reporter/snap_hb_q_reg[3]/C
+                         clock pessimism              0.487    24.151    <hidden>
+                         clock uncertainty           -1.585    22.566    <hidden>
+    SLICE_X41Y48         FDCE (Recov_fdce_C_CLR)     -0.405    22.161    u_status_reporter/snap_hb_q_reg[3]
+  -------------------------------------------------------------------
+                         required time                         22.161    <hidden>
+                         arrival time                          -9.884    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 12.277    <hidden>
+
+Slack (MET) :             12.290ns  (required time - arrival time)
+  Source:                 u_board_clock/reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_fault_injection_ctrl/inject_active_o_reg/CLR
+                            (recovery check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            25.000ns  (clk_sys_unbuf rise@25.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        10.684ns  (logic 0.773ns (7.235%)  route 9.911ns (92.765%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        -0.036ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.347ns = ( 23.653 - 25.000 ) 
+    Source Clock Delay      (SCD):    -0.823ns
+    Clock Pessimism Removal (CPR):    0.487ns
+  Clock Uncertainty:      1.585ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE + UU
+    Total System Jitter     (TSJ):    0.071ns
+    Discrete Jitter          (DJ):    0.154ns
+    Phase Error              (PE):    0.000ns
+    User Uncertainty         (UU):    1.500ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.233     2.715    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.070    -4.355 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.719    -2.636    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.096    -2.540 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.717    -0.823    u_board_clock/clk_sys
+    SLICE_X76Y95         FDCE                                         r  u_board_clock/reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X76Y95         FDCE (Prop_fdce_C_Q)         0.478    -0.345 r  u_board_clock/reset_sync_reg[1]/Q
+                         net (fo=1, routed)           2.116     1.772    u_board_clock/reset_sync[1]
+    SLICE_X55Y78         LUT1 (Prop_lut1_I0_O)        0.295     2.067 f  u_board_clock/soc_reset_release_sync[1]_i_1/O
+                         net (fo=420, routed)         7.795     9.862    u_fault_injection_ctrl/latency_o_reg[0]_0
+    SLICE_X48Y37         FDCE                                         f  u_fault_injection_ctrl/inject_active_o_reg/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                     25.000    25.000 r  <hidden>
+    E3                                                0.000    25.000 r  clk
+                         net (fo=0)                   0.000    25.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         1.411    26.411 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           1.162    27.573    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -7.324    20.249 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           1.639    21.888    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.091    21.979 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        1.674    23.653    u_fault_injection_ctrl/clk_sys
+    SLICE_X48Y37         FDCE                                         r  u_fault_injection_ctrl/inject_active_o_reg/C
+                         clock pessimism              0.487    24.141    <hidden>
+                         clock uncertainty           -1.585    22.556    <hidden>
+    SLICE_X48Y37         FDCE (Recov_fdce_C_CLR)     -0.405    22.151    u_fault_injection_ctrl/inject_active_o_reg
+  -------------------------------------------------------------------
+                         required time                         22.151    <hidden>
+                         arrival time                          -9.862    <hidden>
+  -------------------------------------------------------------------
+                         slack                                 12.290    <hidden>
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.399ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[24]/CLR
+                            (removal check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.657ns  (logic 0.226ns (34.421%)  route 0.431ns (65.579%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.349ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.692ns
+    Source Clock Delay      (SCD):    -0.533ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.631    -0.533    u_safety_riscv_soc/core_b/clk_sys
+    SLICE_X41Y37         FDCE                                         r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X41Y37         FDCE (Prop_fdce_C_Q)         0.128    -0.405 r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/Q
+                         net (fo=1, routed)           0.224    -0.181    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/out[0]
+    SLICE_X41Y37         LUT1 (Prop_lut1_I0_O)        0.098    -0.083 f  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2__0/O
+                         net (fo=1618, routed)        0.207     0.124    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[31]_2
+    SLICE_X36Y36         FDCE                                         f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[24]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.046    -1.627    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.598 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        0.906    -0.692    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/clk
+    SLICE_X36Y36         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[24]/C
+                         clock pessimism              0.509    -0.183    <hidden>
+    SLICE_X36Y36         FDCE (Remov_fdce_C_CLR)     -0.092    -0.275    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[24]
+  -------------------------------------------------------------------
+                         required time                          0.275    <hidden>
+                         arrival time                           0.124    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.399    <hidden>
+
+Slack (MET) :             0.399ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[25]/CLR
+                            (removal check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.657ns  (logic 0.226ns (34.421%)  route 0.431ns (65.579%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.349ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.692ns
+    Source Clock Delay      (SCD):    -0.533ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.631    -0.533    u_safety_riscv_soc/core_b/clk_sys
+    SLICE_X41Y37         FDCE                                         r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X41Y37         FDCE (Prop_fdce_C_Q)         0.128    -0.405 r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/Q
+                         net (fo=1, routed)           0.224    -0.181    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/out[0]
+    SLICE_X41Y37         LUT1 (Prop_lut1_I0_O)        0.098    -0.083 f  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2__0/O
+                         net (fo=1618, routed)        0.207     0.124    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[31]_2
+    SLICE_X36Y36         FDCE                                         f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[25]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.046    -1.627    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.598 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        0.906    -0.692    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/clk
+    SLICE_X36Y36         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[25]/C
+                         clock pessimism              0.509    -0.183    <hidden>
+    SLICE_X36Y36         FDCE (Remov_fdce_C_CLR)     -0.092    -0.275    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_depc_csr/rdata_q_reg[25]
+  -------------------------------------------------------------------
+                         required time                          0.275    <hidden>
+                         arrival time                           0.124    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.399    <hidden>
+
+Slack (MET) :             0.407ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[25]/CLR
+                            (removal check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.667ns  (logic 0.226ns (33.883%)  route 0.441ns (66.117%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.352ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.689ns
+    Source Clock Delay      (SCD):    -0.533ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.631    -0.533    u_safety_riscv_soc/core_b/clk_sys
+    SLICE_X41Y37         FDCE                                         r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X41Y37         FDCE (Prop_fdce_C_Q)         0.128    -0.405 r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/Q
+                         net (fo=1, routed)           0.224    -0.181    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/out[0]
+    SLICE_X41Y37         LUT1 (Prop_lut1_I0_O)        0.098    -0.083 f  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2__0/O
+                         net (fo=1618, routed)        0.217     0.134    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[31]_3
+    SLICE_X37Y38         FDCE                                         f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[25]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.046    -1.627    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.598 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        0.909    -0.689    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/clk
+    SLICE_X37Y38         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[25]/C
+                         clock pessimism              0.509    -0.180    <hidden>
+    SLICE_X37Y38         FDCE (Remov_fdce_C_CLR)     -0.092    -0.272    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[25]
+  -------------------------------------------------------------------
+                         required time                          0.272    <hidden>
+                         arrival time                           0.134    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.407    <hidden>
+
+Slack (MET) :             0.407ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[26]/CLR
+                            (removal check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.667ns  (logic 0.226ns (33.883%)  route 0.441ns (66.117%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.352ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.689ns
+    Source Clock Delay      (SCD):    -0.533ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.631    -0.533    u_safety_riscv_soc/core_b/clk_sys
+    SLICE_X41Y37         FDCE                                         r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X41Y37         FDCE (Prop_fdce_C_Q)         0.128    -0.405 r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/Q
+                         net (fo=1, routed)           0.224    -0.181    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/out[0]
+    SLICE_X41Y37         LUT1 (Prop_lut1_I0_O)        0.098    -0.083 f  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2__0/O
+                         net (fo=1618, routed)        0.217     0.134    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[31]_3
+    SLICE_X37Y38         FDCE                                         f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[26]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.046    -1.627    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.598 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        0.909    -0.689    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/clk
+    SLICE_X37Y38         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[26]/C
+                         clock pessimism              0.509    -0.180    <hidden>
+    SLICE_X37Y38         FDCE (Remov_fdce_C_CLR)     -0.092    -0.272    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[26]
+  -------------------------------------------------------------------
+                         required time                          0.272    <hidden>
+                         arrival time                           0.134    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.407    <hidden>
+
+Slack (MET) :             0.407ns  (arrival time - required time)
+  Source:                 u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Destination:            u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[30]/CLR
+                            (removal check against rising-edge clock clk_sys_unbuf  {rise@0.000ns fall@12.500ns period=25.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_sys_unbuf rise@0.000ns - clk_sys_unbuf rise@0.000ns)
+  Data Path Delay:        0.667ns  (logic 0.226ns (33.883%)  route 0.441ns (66.117%))
+  Logic Levels:           1  (LUT1=1)
+  Clock Path Skew:        0.352ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.689ns
+    Source Clock Delay      (SCD):    -0.533ns
+    Clock Pessimism Removal (CPR):    -0.509ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.440     0.690    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.379    -1.689 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.499    -1.190    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.026    -1.164 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.631    -0.533    u_safety_riscv_soc/core_b/clk_sys
+    SLICE_X41Y37         FDCE                                         r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X41Y37         FDCE (Prop_fdce_C_Q)         0.128    -0.405 r  u_safety_riscv_soc/core_b/core_reset_sync_reg[1]/Q
+                         net (fo=1, routed)           0.224    -0.181    u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/out[0]
+    SLICE_X41Y37         LUT1 (Prop_lut1_I0_O)        0.098    -0.083 f  u_safety_riscv_soc/core_b/u_ibex/gen_regfile_ff.register_file_i/g_plain_rf.g_rf_flops[1].rf_reg_q[31]_i_2__0/O
+                         net (fo=1618, routed)        0.217     0.134    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[31]_3
+    SLICE_X37Y38         FDCE                                         f  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[30]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_sys_unbuf rise edge)
+                                                      0.000     0.000 r  <hidden>
+    E3                                                0.000     0.000 r  clk
+                         net (fo=0)                   0.000     0.000    u_board_clock/clk
+    E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  u_board_clock/u_clock_input_ibuf/O
+                         net (fo=1, routed)           0.480     0.918    u_board_clock/clk_100mhz_buf
+    MMCME2_ADV_X1Y2      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.163    -2.245 r  u_board_clock/u_system_mmcm/CLKOUT0
+                         net (fo=1, routed)           0.544    -1.702    u_board_clock/clk_sys_unbuf
+    BUFGCTRL_X0Y31       BUFG (Prop_bufg_I_O)         0.029    -1.673 r  u_board_clock/u_system_clock_bufg/O
+                         net (fo=1036, routed)        0.046    -1.627    u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/clk_sys
+    BUFGCTRL_X0Y16       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029    -1.598 r  u_safety_riscv_soc/core_b/u_ibex/core_clock_gate_i/gen_gate.gen_bufgce.u_bufgce/O
+                         net (fo=1930, routed)        0.909    -0.689    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/clk
+    SLICE_X37Y38         FDCE                                         r  u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[30]/C
+                         clock pessimism              0.509    -0.180    <hidden>
+    SLICE_X37Y38         FDCE (Remov_fdce_C_CLR)     -0.092    -0.272    u_safety_riscv_soc/core_b/u_ibex/u_ibex_core/cs_registers_i/u_dscratch1_csr/rdata_q_reg[30]
+  -------------------------------------------------------------------
+                         required time                          0.272    <hidden>
+                         arrival time                           0.134    <hidden>
+  -------------------------------------------------------------------
+                         slack                                  0.407    <hidden>
+
+
+
+
+

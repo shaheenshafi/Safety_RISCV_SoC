@@ -1,7 +1,7 @@
 # Known limitations and open warnings
 
 Assessment of the design-rule warnings that remain in the FPGA build
-(`results/fpga_build_20261117_0055`, commit 95beab1). None is an error; all
+(`results/fpga_build_20261117_1802`). None is an error; all
 three were present in every earlier build. No design change was made for
 them. Each entry states the risk honestly and what a fix would be.
 

@@ -1,0 +1,31 @@
+Time resolution is 1 ps
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_a.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+Initializing memory safety_riscv_soc_stage4f_tb.dut.core_b.u_ram.u_ram.Block57_195.gen_meminit from file 'E:/Dissertation/Working_Model_RISCV/fw/images/stage4f_heartbeat.vmem'.
+PASS: Stage 4F reset profile and fault-manager defaults
+PASS: common SoC reset release and matched two-stage core reset release
+Starting Stage 4F profile-policy integration test
+PASS: Basic profile and supervisor enable
+PASS: Safety profile
+PASS: Reserved profile rejection
+PASS: Diagnostic profile and injection authorisation
+PASS: Supervisor remains enabled in Basic profile
+[145000] Heartbeat #1, sequence=00000000
+[235000] Heartbeat #2, sequence=00000001
+PASS: Basic heartbeat servicing
+
+==============================================
+STAGE 4F PROFILE POLICY INTEGRATION PASS
+Profile policies              : CONFIRMED
+Reserved profile rejection    : CONFIRMED
+Injection authorisation       : CONFIRMED
+Basic heartbeat servicing     : CONFIRMED
+Basic timeout and safe state   : CONFIRMED
+Supervisor fault code          : 0x03
+==============================================
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config.u_sva_mmio_config): 8 properties; cycles Basic=283 Safety=2 Diagnostic=3, injection enabled=1, profile changes=3, safe-state cycles=14, integrity-fault cycles=0
+SVA configuration (safety_riscv_soc_stage4f_tb.dut.u_mmio_config_replica.u_sva_mmio_config): 8 properties; cycles Basic=283 Safety=2 Diagnostic=3, injection enabled=1, profile changes=3, safe-state cycles=14, integrity-fault cycles=0
+SVA execution supervisor: 8 properties; kicks=2, early kicks=0, supervisor fault events=1
+SVA fault manager: 10 properties; fault-input cycles=14, latch events=1, latched cycles=13
+SVA diagnostic logger: 7 properties; reset releases=1, faults recorded=1, clock cycles in reset=6
+SVA SoC safety: 9 properties; mismatch cycles=0, supervisor-fault cycles=14, fault events=1, safe-state cycles=13, injection-enabled cycles=1, stall cycles=0
+$finish called at time : 2936 ns : File "E:/Dissertation/Working_Model_RISCV/tb/soc/safety_riscv_soc_stage4f_tb.sv" Line 1335
