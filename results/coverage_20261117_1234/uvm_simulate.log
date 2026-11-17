@@ -1,0 +1,57 @@
+Time resolution is 1 ps
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(18601) @ 0: reporter [UVM/RELNOTES] 
+----------------------------------------------------------------
+UVM-1.2
+(C) 2007-2014 Mentor Graphics Corporation
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2013-2014 NVIDIA Corporation
+----------------------------------------------------------------
+
+  ***********       IMPORTANT RELEASE NOTES         ************
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+
+UVM_INFO @ 0: reporter [RNTST] Running test safety_manager_full_test...
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(20867) @ 0: reporter [UVM/COMP/NAMECHECK] This implementation of the component name checks requires DPI to be enabled
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(926) @ 0: uvm_test_top [TEST] directed: single fault sources
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(928) @ 4410000: uvm_test_top [TEST] directed: simultaneous faults and code priority
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(930) @ 6010000: uvm_test_top [TEST] directed: execution supervisor
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(932) @ 24570000: uvm_test_top [TEST] directed: reset corner cases and diagnostic log
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(934) @ 27020000: uvm_test_top [TEST] constrained random
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(19968) @ 227095000: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(590) @ 227095000: uvm_test_top.env.coverage [COV] FUNCTIONAL COVERAGE: fault=100.0% supervisor=100.0% kick=100.0% log=100.0% events=100.0% average=100.0%
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(598) @ 227095000: uvm_test_top.env.coverage [COV] COVERAGE DETAIL fault: code=100.0% profile=100.0% sources=100.0% code-x-profile=100.0%
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(602) @ 227095000: uvm_test_top.env.coverage [COV] COVERAGE DETAIL supervisor: mechanism=100.0%  kick: window-position=100.0%  events: sequence=100.0%
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(607) @ 227095000: uvm_test_top.env.coverage [COV] COVERAGE DETAIL log: records=100.0% overflow=100.0% read-index=100.0% read-valid=100.0% index-x-valid=100.0%
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(420) @ 227095000: uvm_test_top.env.scoreboard [SCB] SCOREBOARD: cycles=22710 compares=476910 mismatches=0 faults latched=238 resets=458
+UVM_INFO E:/Dissertation/Working_Model_RISCV/tb/uvm/safety_manager_pkg.sv(950) @ 227095000: uvm_test_top [TEST] UVM SAFETY MANAGER TEST: PASS
+UVM_INFO E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv(13673) @ 227095000: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :   15
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[COV]     4
+[RNTST]     1
+[SCB]     1
+[TEST]     6
+[TEST_DONE]     1
+[UVM/COMP/NAMECHECK]     1
+[UVM/RELNOTES]     1
+
+SVA execution supervisor: 8 properties; kicks=908, early kicks=34, supervisor fault events=32
+SVA fault manager: 10 properties; fault-input cycles=6480, latch events=234, latched cycles=13292
+SVA diagnostic logger: 7 properties; reset releases=449, faults recorded=234, clock cycles in reset=558
+$finish called at time : 227095 ns : File "E:/Softwares/XilinxVivado/2026.1/Vivado/data/system_verilog/uvm_1.2/xlnx_uvm_package.sv" Line 18699
+INFO: xsimkernel Simulation Memory Usage: 157824 KB (Peak: 157824 KB), Simulation CPU Usage: 17749 ms

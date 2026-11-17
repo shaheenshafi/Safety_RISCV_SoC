@@ -588,6 +588,23 @@ package safety_manager_pkg;
           cg_fault.get_coverage(), cg_supervisor.get_coverage(),
           cg_kick.get_coverage(), cg_log.get_coverage(),
           cg_events.get_coverage(), total), UVM_NONE)
+
+      // Detail per coverage point (text report; the HTML report generator
+      // of Vivado needs a simulator licence tier that is not available).
+      `uvm_info("COV", $sformatf(
+          "COVERAGE DETAIL fault: code=%0.1f%% profile=%0.1f%% sources=%0.1f%% code-x-profile=%0.1f%%",
+          cg_fault.cp_code.get_coverage(), cg_fault.cp_profile.get_coverage(),
+          cg_fault.cp_sources.get_coverage(),
+          cg_fault.x_code_profile.get_coverage()), UVM_NONE)
+      `uvm_info("COV", $sformatf(
+          "COVERAGE DETAIL supervisor: mechanism=%0.1f%%  kick: window-position=%0.1f%%  events: sequence=%0.1f%%",
+          cg_supervisor.cp_kind.get_coverage(), cg_kick.cp_age.get_coverage(),
+          cg_events.cp_event.get_coverage()), UVM_NONE)
+      `uvm_info("COV", $sformatf(
+          "COVERAGE DETAIL log: records=%0.1f%% overflow=%0.1f%% read-index=%0.1f%% read-valid=%0.1f%% index-x-valid=%0.1f%%",
+          cg_log.cp_records.get_coverage(), cg_log.cp_overflow.get_coverage(),
+          cg_log.cp_rd_index.get_coverage(), cg_log.cp_rd_valid.get_coverage(),
+          cg_log.x_read.get_coverage()), UVM_NONE)
     endfunction
   endclass
 

@@ -1,0 +1,20 @@
+Functional coverage and checking summary - UVM safety-manager test
+Date: 2026-11-17 12:34:29
+
+directed: single fault sources
+directed: simultaneous faults and code priority
+directed: execution supervisor
+directed: reset corner cases and diagnostic log
+constrained random
+FUNCTIONAL COVERAGE: fault=100.0% supervisor=100.0% kick=100.0% log=100.0% events=100.0% average=100.0%
+COVERAGE DETAIL fault: code=100.0% profile=100.0% sources=100.0% code-x-profile=100.0%
+COVERAGE DETAIL supervisor: mechanism=100.0%  kick: window-position=100.0%  events: sequence=100.0%
+COVERAGE DETAIL log: records=100.0% overflow=100.0% read-index=100.0% read-valid=100.0% index-x-valid=100.0%
+SCOREBOARD: cycles=22710 compares=476910 mismatches=0 faults latched=238 resets=458
+UVM SAFETY MANAGER TEST: PASS
+    4
+    1
+    6
+SVA execution supervisor: 8 properties; kicks=908, early kicks=34, supervisor fault events=32
+SVA fault manager: 10 properties; fault-input cycles=6480, latch events=234, latched cycles=13292
+SVA diagnostic logger: 7 properties; reset releases=449, faults recorded=234, clock cycles in reset=558
